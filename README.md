@@ -2,7 +2,9 @@
 
 Exactly what you think this is. Go wild.
 
-![](https://s3.amazonaws.com/uploads.hipchat.com/10819/42395/g12g577qhbobrhx/chrome_tabs.gif)
+### [Demo](http://adamschwartz.co/chrome-tabs/)
+
+![](http://adamschwartz.co/chrome-tabs/chrome-tabs.gif)
 
 ### Inspiration
 
