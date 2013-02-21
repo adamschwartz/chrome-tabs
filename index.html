@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Chrome Tabs</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/chrome-tabs.css">
+    </head>
+    <body>
+        <div class="chrome-tabs-shell">
+            <div class="chrome-tabs">
+                <div class="chrome-tab">
+                    <div class="chrome-tab-favicon" style="background-image: url('http://g.etfv.co/https://www.google.com')"></div>
+                    <div class="chrome-tab-title">Google</div>
+                    <div class="chrome-tab-close"></div>
+                    <div class="chrome-tab-curves">
+                        <div class="chrome-tab-curve-left-shadow2"></div>
+                        <div class="chrome-tab-curve-left-shadow1"></div>
+                        <div class="chrome-tab-curve-left"></div>
+                        <div class="chrome-tab-curve-right-shadow2"></div>
+                        <div class="chrome-tab-curve-right-shadow1"></div>
+                        <div class="chrome-tab-curve-right"></div>
+                    </div>
+                </div>
+                <div class="chrome-tab chrome-tab-current">
+                    <div class="chrome-tab-favicon" style="background-image: url('http://g.etfv.co/https://www.facebook.com')"></div>
+                    <div class="chrome-tab-title">Facebook</div>
+                    <div class="chrome-tab-close"></div>
+                    <div class="chrome-tab-curves">
+                        <div class="chrome-tab-curve-left-shadow2"></div>
+                        <div class="chrome-tab-curve-left-shadow1"></div>
+                        <div class="chrome-tab-curve-left"></div>
+                        <div class="chrome-tab-curve-right-shadow2"></div>
+                        <div class="chrome-tab-curve-right-shadow1"></div>
+                        <div class="chrome-tab-curve-right"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="chrome-shell-bottom-bar"></div>
+        </div>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
+        <script src="js/chrome-tabs.js"></script>
+        <script>
+            //$('html').removeClass('svg');
+
+            var $chromeTabsExampleShell = $('.chrome-tabs-shell')
+            chromeTabs.init($chromeTabsExampleShell);
+            chromeTabs.addNewTab($chromeTabsExampleShell, {
+                favicon: 'http://g.etfv.co/https://www.hubspot.com',
+                title: 'HubSpot',
+                data: {
+                    timeAdded: +new Date()
+                }
+            });
+            $chromeTabsExampleShell.bind('chromeTabRender', function(){
+                var $currentTab = $chromeTabsExampleShell.find('.chrome-tab-current');
+                if ($currentTab.length && window['console'] && console.log) {
+                    console.log('Current tab index', $currentTab.index(), 'title', $.trim($currentTab.text()), 'data', $currentTab.data('tabData').data);
+                }
+            });
+        </script>
+    </body>
+</html>
