@@ -1,6 +1,8 @@
 ### Chrome Tabs in Chrome
 
-Exactly what you think. Go wild.
+Exactly what you think this is. Go wild.
+
+![](https://s3.amazonaws.com/uploads.hipchat.com/10819/42395/g12g577qhbobrhx/chrome_tabs.gif)
 
 ### Inspiration
 
