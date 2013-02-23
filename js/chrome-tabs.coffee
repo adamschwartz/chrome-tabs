@@ -28,13 +28,17 @@ defaultNewTabData =
 
 chromeTabs =
 
-    init: ($shell) ->
-        $shell.find('.chrome-tab').each ->
-            $(@).data().tabData = { data: {} }
+    init: (options) ->
+        $.extend options.$shell.data(), options
+        options.$shell
+            .find('.chrome-tab').each ->
+                $(@).data().tabData = { data: {} }
 
-        chromeTabs.render $shell
-        $(window).resize ->
-            chromeTabs.render $shell
+        render = ->
+            chromeTabs.render options.$shell
+
+        $(window).resize render
+        render()
 
     render: ($shell) ->
         chromeTabs.fixTabSizes $shell
@@ -43,10 +47,12 @@ chromeTabs =
         $shell.trigger('chromeTabRender')
 
     fixTabSizes: ($shell) ->
-        width = $shell.width() - 50
         $tabs = $shell.find('.chrome-tab')
         margin = (parseInt($tabs.first().css('marginLeft'), 10) + parseInt($tabs.first().css('marginRight'), 10)) or 0
-        $tabs.css width: (width / $tabs.length) - margin
+        width = $shell.width() - 50
+        width = (width / $tabs.length) - margin
+        width = Math.max($shell.data().minWidth, Math.min($shell.data().maxWidth, width))
+        $tabs.css width: width
 
     fixZIndexes: ($shell) ->
         $tabs = $shell.find('.chrome-tab')

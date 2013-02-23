@@ -48,7 +48,11 @@
         <script src="js/chrome-tabs.js"></script>
         <script>
             var $chromeTabsExampleShell = $('.chrome-tabs-shell')
-            chromeTabs.init($chromeTabsExampleShell);
+            chromeTabs.init({
+                $shell: $chromeTabsExampleShell,
+                minWidth: 45,
+                maxWidth: 180
+            });
             chromeTabs.addNewTab($chromeTabsExampleShell, {
                 favicon: 'http://g.etfv.co/https://www.hubspot.com',
                 title: 'HubSpot',

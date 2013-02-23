@@ -13,16 +13,19 @@
     data: {}
   };
   chromeTabs = {
-    init: function($shell) {
-      $shell.find('.chrome-tab').each(function() {
+    init: function(options) {
+      var render;
+      $.extend(options.$shell.data(), options);
+      options.$shell.find('.chrome-tab').each(function() {
         return $(this).data().tabData = {
           data: {}
         };
       });
-      chromeTabs.render($shell);
-      return $(window).resize(function() {
-        return chromeTabs.render($shell);
-      });
+      render = function() {
+        return chromeTabs.render(options.$shell);
+      };
+      $(window).resize(render);
+      return render();
     },
     render: function($shell) {
       chromeTabs.fixTabSizes($shell);
@@ -32,11 +35,13 @@
     },
     fixTabSizes: function($shell) {
       var $tabs, margin, width;
-      width = $shell.width() - 50;
       $tabs = $shell.find('.chrome-tab');
       margin = (parseInt($tabs.first().css('marginLeft'), 10) + parseInt($tabs.first().css('marginRight'), 10)) || 0;
+      width = $shell.width() - 50;
+      width = (width / $tabs.length) - margin;
+      width = Math.max($shell.data().minWidth, Math.min($shell.data().maxWidth, width));
       return $tabs.css({
-        width: (width / $tabs.length) - margin
+        width: width
       });
     },
     fixZIndexes: function($shell) {
