@@ -44,7 +44,22 @@ chromeTabs =
         chromeTabs.fixTabSizes $shell
         chromeTabs.fixZIndexes $shell
         chromeTabs.setupEvents $shell
+        chromeTabs.setupSortable $shell
         $shell.trigger('chromeTabRender')
+
+    setupSortable: ($shell) ->
+        $tabs = $shell.find('.chrome-tabs')
+
+        $tabs.sortable
+            axis: 'x'
+            tolerance: 'pointer'
+            start: (e, ui) ->
+                chromeTabs.fixZIndexes $shell
+                if not $(ui.item).hasClass('chrome-tab-current')
+                    $tabs.sortable('option', 'zIndex',  $(ui.item).data().zIndex)
+                else
+                    $tabs.sortable('option', 'zIndex',  $tabs.length + 40)
+            stop: (e, ui) -> chromeTabs.setCurrentTab $shell, $(ui.item)
 
     fixTabSizes: ($shell) ->
         $tabs = $shell.find('.chrome-tab')
@@ -58,9 +73,10 @@ chromeTabs =
         $tabs = $shell.find('.chrome-tab')
         $tabs.each (i) ->
             $tab = $ @
-            zIndex = $tabs.length - i + 1
+            zIndex = $tabs.length - i
             zIndex = $tabs.length + 40 if $tab.hasClass('chrome-tab-current')
             $tab.css zIndex: zIndex
+            $tab.data zIndex: zIndex
 
     setupEvents: ($shell) ->
         $shell.unbind('dblclick').bind 'dblclick', ->

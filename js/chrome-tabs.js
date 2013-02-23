@@ -31,7 +31,27 @@
       chromeTabs.fixTabSizes($shell);
       chromeTabs.fixZIndexes($shell);
       chromeTabs.setupEvents($shell);
+      chromeTabs.setupSortable($shell);
       return $shell.trigger('chromeTabRender');
+    },
+    setupSortable: function($shell) {
+      var $tabs;
+      $tabs = $shell.find('.chrome-tabs');
+      return $tabs.sortable({
+        axis: 'x',
+        tolerance: 'pointer',
+        start: function(e, ui) {
+          chromeTabs.fixZIndexes($shell);
+          if (!$(ui.item).hasClass('chrome-tab-current')) {
+            return $tabs.sortable('option', 'zIndex', $(ui.item).data().zIndex);
+          } else {
+            return $tabs.sortable('option', 'zIndex', $tabs.length + 40);
+          }
+        },
+        stop: function(e, ui) {
+          return chromeTabs.setCurrentTab($shell, $(ui.item));
+        }
+      });
     },
     fixTabSizes: function($shell) {
       var $tabs, margin, width;
@@ -50,11 +70,14 @@
       return $tabs.each(function(i) {
         var $tab, zIndex;
         $tab = $(this);
-        zIndex = $tabs.length - i + 1;
+        zIndex = $tabs.length - i;
         if ($tab.hasClass('chrome-tab-current')) {
           zIndex = $tabs.length + 40;
         }
-        return $tab.css({
+        $tab.css({
+          zIndex: zIndex
+        });
+        return $tab.data({
           zIndex: zIndex
         });
       });
