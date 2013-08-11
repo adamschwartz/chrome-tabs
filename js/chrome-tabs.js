@@ -111,8 +111,12 @@
       return chromeTabs.render($shell);
     },
     closeTab: function($shell, $tab) {
-      if ($tab.hasClass('chrome-tab-current') && $tab.prev().length) {
-        chromeTabs.setCurrentTab($shell, $tab.prev());
+      if ($tab.hasClass('chrome-tab-current')) {
+        if ($tab.prev().length) {
+          chromeTabs.setCurrentTab($shell, $tab.prev());
+        } else if ($tab.next().length) {
+          chromeTabs.setCurrentTab($shell, $tab.next());
+        }
       }
       $tab.remove();
       return chromeTabs.render($shell);
