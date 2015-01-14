@@ -104,8 +104,11 @@ chromeTabs =
         chromeTabs.render $shell
 
     closeTab: ($shell, $tab) ->
-        if $tab.hasClass('chrome-tab-current') and $tab.prev().length
-            chromeTabs.setCurrentTab $shell, $tab.prev()
+        if $tab.hasClass('chrome-tab-current')
+            if $tab.prev().length
+                chromeTabs.setCurrentTab $shell, $tab.prev()
+            else if $tab.next().length
+                chromeTabs.setCurrentTab $shell, $tab.next() 
         $tab.remove()
         chromeTabs.render $shell
 
