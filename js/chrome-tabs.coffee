@@ -11,12 +11,12 @@ tabTemplate = '''
         <div class="chrome-tab-title"></div>
         <div class="chrome-tab-close"></div>
         <div class="chrome-tab-curves">
-            <div class="chrome-tab-curve-left-shadow2"></div>
-            <div class="chrome-tab-curve-left-shadow1"></div>
-            <div class="chrome-tab-curve-left"></div>
-            <div class="chrome-tab-curve-right-shadow2"></div>
-            <div class="chrome-tab-curve-right-shadow1"></div>
-            <div class="chrome-tab-curve-right"></div>
+            <div class="chrome-tab-curves-left-shadow"></div>
+            <div class="chrome-tab-curves-left-highlight"></div>
+            <div class="chrome-tab-curves-left"></div>
+            <div class="chrome-tab-curves-right-shadow"></div>
+            <div class="chrome-tab-curves-right-highlight"></div>
+            <div class="chrome-tab-curves-right"></div>
         </div>
     </div>
 '''
@@ -26,10 +26,13 @@ defaultNewTabData =
     favicon: ''
     data: {}
 
+animationStyle = document.createElement 'style'
+
 chromeTabs =
 
     init: (options) ->
         $.extend options.$shell.data(), options
+        options.$shell.prepend animationStyle
         options.$shell
             .find('.chrome-tab').each ->
                 $(@).data().tabData = { data: {} }
@@ -53,13 +56,55 @@ chromeTabs =
         $tabs.sortable
             axis: 'x'
             tolerance: 'pointer'
+            cancel: '.chrome-tab-close'
+
             start: (e, ui) ->
+                ui.item.addClass 'ui-sortable-draggable-item'
+                $shell.addClass 'chrome-tabs-sorting'
+                chromeTabs.setupTabClones $shell, ui.item
                 chromeTabs.fixZIndexes $shell
                 if not $(ui.item).hasClass('chrome-tab-current')
                     $tabs.sortable('option', 'zIndex',  $(ui.item).data().zIndex)
                 else
                     $tabs.sortable('option', 'zIndex',  $tabs.length + 40)
-            stop: (e, ui) -> chromeTabs.setCurrentTab $shell, $(ui.item)
+
+            stop: (e, ui) ->
+                $('.ui-sortable-draggable-item').removeClass 'ui-sortable-draggable-item'
+                $shell.removeClass 'chrome-tabs-sorting'
+                chromeTabs.cleanUpTabClones $shell
+                chromeTabs.setCurrentTab $shell, $(ui.item)
+
+            change: (e, ui) ->
+                placeholderIndex = ui.placeholder.index()
+                placeholderIndex -= 1 if ui.helper.index() <= placeholderIndex
+                chromeTabs.animateSort $shell, placeholderIndex
+
+    animateSort: ($shell, newPlaceholderIndex) ->
+        $clone = $shell.find('.chrome-tabs.chrome-tabs-clone')
+        $placeholder = $clone.find('.ui-sortable-placeholder')
+        placeholderIndex = $placeholder.index()
+        delta = newPlaceholderIndex - placeholderIndex
+        if delta is -1
+            if newPlaceholderIndex - 1 < 0
+                $clone.prepend $placeholder
+            else
+                $($clone.find('.chrome-tab').get(newPlaceholderIndex - 1)).after $placeholder
+        else if delta is 1
+            $($clone.find('.chrome-tab').get(newPlaceholderIndex)).after $placeholder
+
+    setupTabClones: ($shell) ->
+        $lastClone = $shell.find('.chrome-tabs.chrome-tabs-clone')
+        $tabsContainer = $shell.find('.chrome-tabs').first()
+        $clone = $tabsContainer.clone().addClass('chrome-tabs-clone')
+        $clone.find('.ui-sortable-helper, .ui-sortable-draggable-item').remove()
+        $clone.find('.chrome-tab').css('position', '')
+        if $lastClone.length
+            $lastClone.replaceWith $clone
+        else
+            $tabsContainer.after $clone
+
+    cleanUpTabClones: ($shell) ->
+        $shell.find('.chrome-tabs.chrome-tabs-clone').remove()
 
     fixTabSizes: ($shell) ->
         $tabs = $shell.find('.chrome-tab')
@@ -68,6 +113,23 @@ chromeTabs =
         width = (width / $tabs.length) - margin
         width = Math.max($shell.data().minWidth, Math.min($shell.data().maxWidth, width))
         $tabs.css width: width
+
+        setTimeout ->
+            chromeTabs.setupAnimationStyles $shell
+
+    setupAnimationStyles: ($shell) ->
+        styleHTML = ''
+        offsetLeft = $shell.find('.chrome-tabs').offset().left
+        $tabs = $shell.find('.chrome-tabs:not(.chrome-tabs-clone) .chrome-tab')
+        $tabs.each (i) ->
+            $tab = $ @
+            left = $tab.offset().left - offsetLeft - parseInt($tabs.first().css('marginLeft'), 10)
+            styleHTML += """
+                .chrome-tabs-clone .chrome-tab:nth-child(#{ i + 1 }) {
+                    left: #{ left }px
+                }
+            """
+        animationStyle.innerHTML = styleHTML
 
     fixZIndexes: ($shell) ->
         $tabs = $shell.find('.chrome-tab')
@@ -108,7 +170,7 @@ chromeTabs =
             if $tab.prev().length
                 chromeTabs.setCurrentTab $shell, $tab.prev()
             else if $tab.next().length
-                chromeTabs.setCurrentTab $shell, $tab.next() 
+                chromeTabs.setCurrentTab $shell, $tab.next()
         $tab.remove()
         chromeTabs.render $shell
 

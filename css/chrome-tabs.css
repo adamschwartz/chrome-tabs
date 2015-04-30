@@ -1,189 +1,251 @@
 .chrome-tabs-shell {
   position: relative;
-  background-color: #e0e0e0;
-  background-image: -webkit-linear-gradient(#e2e2e2, #d0d0d0);
-  background-image: -moz-linear-gradient(#e2e2e2, #d0d0d0);
+  background-color: #cccccc;
+  background-image: -webkit-linear-gradient(#e1e1e1, #b3b3b3);
+  background-image: -moz-linear-gradient(#e1e1e1, #b3b3b3);
   padding: 10px 10px 6px 10px;
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
   -ms-border-radius: 4px 4px 0 0;
   -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
-  height: 24px;
-  overflow: hidden; }
-  .chrome-tabs-shell .chrome-shell-bottom-bar {
-    position: absolute;
-    bottom: 0px;
-    height: 5px;
-    left: 0px;
-    width: 100%;
-    border-top: 1px solid rgba(0, 0, 0, 0.21);
-    -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.6);
-    -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.6);
-    box-shadow: inset 0 1px rgba(255, 255, 255, 0.6);
-    background-color: #e3e3e3;
-    background-image: -webkit-linear-gradient(#e3e3e3, #e0e0e0);
-    background-image: -moz-linear-gradient(#e3e3e3, #e0e0e0);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.16);
-    z-index: 20; }
+  height: 23px;
+  overflow: hidden;
+}
+.chrome-tabs-shell .chrome-shell-bottom-bar {
+  position: absolute;
+  bottom: 0px;
+  height: 4px;
+  left: 0px;
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.35);
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.6);
+  -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.6);
+  background-color: #eeeeee;
+  background-image: -webkit-linear-gradient(#ebebeb, #ebebeb);
+  background-image: -moz-linear-gradient(#ebebeb, #ebebeb);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  z-index: 20;
+}
+.chrome-tabs-shell.chrome-tabs-sorting .chrome-tabs:not(.chrome-tabs-clone) .chrome-tab:not(.ui-sortable-draggable-item) {
+  opacity: 0;
+}
 
 .chrome-tabs {
   *zoom: 1;
-  width: 99999px; }
-  .chrome-tabs:after {
-    content: "";
-    display: table;
-    clear: both; }
-  .chrome-tabs * {
-    -webkit-user-select: none;
-    cursor: default;
-    font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
-    font-size: 11px;
-    line-height: 13px; }
-  .chrome-tabs .chrome-tab {
-    float: left;
-    position: relative;
-    height: 25px;
-    width: 180px;
-    border: 0px;
-    margin: 0px;
-    z-index: 1;
-    background-color: #e0e0e0;
-    -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.6), 0 -1px rgba(0, 0, 0, 0.2), -1px 0 rgba(0, 0, 0, 0.2), 1px 0 rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.6), 0 -1px rgba(0, 0, 0, 0.2), -1px 0 rgba(0, 0, 0, 0.2), 1px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: inset 0 1px rgba(255, 255, 255, 0.6), 0 -1px rgba(0, 0, 0, 0.2), -1px 0 rgba(0, 0, 0, 0.2), 1px 0 rgba(0, 0, 0, 0.2);
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ececec), color-stop(100%, #d3d3d3));
-    background-image: -webkit-linear-gradient(top, #ececec, #d3d3d3);
-    background-image: -moz-linear-gradient(top, #ececec, #d3d3d3);
-    background-image: -o-linear-gradient(top, #ececec, #d3d3d3);
-    background-image: linear-gradient(top, #ececec, #d3d3d3); }
-    .cssmasks .chrome-tabs .chrome-tab {
-      -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.8), 0 -1px rgba(0, 0, 0, 0.2);
-      -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.8), 0 -1px rgba(0, 0, 0, 0.2);
-      box-shadow: inset 0 1px rgba(255, 255, 255, 0.8), 0 -1px rgba(0, 0, 0, 0.2);
-      margin: 0 5px 0 20px; }
-    .chrome-tabs .chrome-tab .chrome-tab-curves {
-      display: none; }
-      .cssmasks .chrome-tabs .chrome-tab .chrome-tab-curves {
-        display: block; }
-      .chrome-tabs .chrome-tab .chrome-tab-curves * {
-        position: absolute;
-        width: 20px;
-        height: 24px;
-        -webkit-mask-size: 100%; }
-      .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-left, .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-left-shadow1, .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-left-shadow2 {
-        -webkit-mask-image: url("../svg/tab-left.svg"); }
-      .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-right, .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-right-shadow1, .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-right-shadow2 {
-        -webkit-mask-image: url("../svg/tab-right.svg"); }
-      .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-left, .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-right {
-        top: 1px;
-        z-index: 1;
-        background-color: #e0e0e0;
-        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ececec), color-stop(100%, #d3d3d3));
-        background-image: -webkit-linear-gradient(top, #ececec, #d3d3d3);
-        background-image: -moz-linear-gradient(top, #ececec, #d3d3d3);
-        background-image: -o-linear-gradient(top, #ececec, #d3d3d3);
-        background-image: linear-gradient(top, #ececec, #d3d3d3); }
-      .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-left {
-        left: -20px; }
-      .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-right {
-        right: -20px; }
-      .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-left-shadow1, .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-right-shadow1 {
-        top: 0px;
-        width: 21px;
-        height: 25px;
-        background-color: white; }
-      .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-left-shadow1 {
-        left: -21px; }
-      .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-right-shadow1 {
-        right: -21px; }
-      .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-left-shadow2, .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-right-shadow2 {
-        top: -1px;
-        width: 22px;
-        height: 26px;
-        background: rgba(0, 0, 0, 0.24); }
-      .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-left-shadow2 {
-        left: -22px; }
-      .chrome-tabs .chrome-tab .chrome-tab-curves .chrome-tab-curve-right-shadow2 {
-        right: -22px; }
-    .chrome-tabs .chrome-tab.chrome-tab-current {
-      z-index: 999;
-      background-color: #f9f9f9;
-      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f9f9f9), color-stop(100%, #e3e3e3));
-      background-image: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
-      background-image: -moz-linear-gradient(top, #f9f9f9, #e3e3e3);
-      background-image: -o-linear-gradient(top, #f9f9f9, #e3e3e3);
-      background-image: linear-gradient(top, #f9f9f9, #e3e3e3); }
-      .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves .chrome-tab-curve-left, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves .chrome-tab-curve-right {
-        background-color: #f9f9f9;
-        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f9f9f9), color-stop(100%, #e3e3e3));
-        background-image: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
-        background-image: -moz-linear-gradient(top, #f9f9f9, #e3e3e3);
-        background-image: -o-linear-gradient(top, #f9f9f9, #e3e3e3);
-        background-image: linear-gradient(top, #f9f9f9, #e3e3e3); }
-      .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves .chrome-tab-curve-left-shadow1, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves .chrome-tab-curve-right-shadow1, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves .chrome-tab-curve-left-shadow2, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves .chrome-tab-curve-right-shadow2 {
-        height: 25px; }
-    .chrome-tabs .chrome-tab .chrome-tab-favicon {
-      height: 16px;
-      width: 16px;
-      background-size: 16px;
-      position: absolute;
-      left: 9px;
-      top: 5px;
-      z-index: 3; }
-      .cssmasks .chrome-tabs .chrome-tab .chrome-tab-favicon {
-        left: -2px;
-        top: 4px; }
-    .chrome-tabs .chrome-tab .chrome-tab-title {
-      color: #444444;
-      padding: 5px 30px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap; }
-      .cssmasks .chrome-tabs .chrome-tab .chrome-tab-title {
-        padding: 5px 5px 5px 19px; }
-    .chrome-tabs .chrome-tab .chrome-tab-close {
-      position: absolute;
-      top: 6px;
-      right: 7px;
-      width: 14px;
-      height: 14px;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      -ms-border-radius: 50%;
-      -o-border-radius: 50%;
-      border-radius: 50%;
-      z-index: 2; }
-      .cssmasks .chrome-tabs .chrome-tab .chrome-tab-close {
-        right: -6px;
-        top: 5px; }
-      .chrome-tabs .chrome-tab .chrome-tab-close:before {
-        content: "\00D7";
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        height: 14px;
-        width: 14px;
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -o-border-radius: 50%;
-        border-radius: 50%;
-        text-align: center;
-        font-size: 11px;
-        line-height: 12px;
-        color: #888888;
-        text-shadow: 0 1px rgba(255, 255, 255, 0.3); }
-      .chrome-tabs .chrome-tab .chrome-tab-close:hover:before, .chrome-tabs .chrome-tab .chrome-tab-close:active:before {
-        -webkit-font-smoothing: antialiased;
-        color: white;
-        text-shadow: 0 1px #b9554c; }
-      .chrome-tabs .chrome-tab .chrome-tab-close:hover, .chrome-tabs .chrome-tab .chrome-tab-close:active {
-        -webkit-box-shadow: inset 0 0 0 1px #b9554c;
-        -moz-box-shadow: inset 0 0 0 1px #b9554c;
-        box-shadow: inset 0 0 0 1px #b9554c;
-        background: #dd837b; }
-      .chrome-tabs .chrome-tab .chrome-tab-close:active:before {
-        -webkit-box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0, 0, 0, 0.1);
-        -moz-box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0, 0, 0, 0.1);
-        box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0, 0, 0, 0.1); }
+  position: relative;
+  width: 99999px;
+}
+.chrome-tabs:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.chrome-tabs.chrome-tabs-clone {
+  position: absolute;
+  top: 10px;
+  pointer-events: none;
+}
+.chrome-tabs.chrome-tabs-clone .chrome-tab {
+  -webkit-transition: left 120ms ease-in-out;
+  -moz-transition: left 120ms ease-in-out;
+  -o-transition: left 120ms ease-in-out;
+  transition: left 120ms ease-in-out;
+  position: absolute;
+}
+.chrome-tabs * {
+  -webkit-user-select: none;
+  cursor: default;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  line-height: 13px;
+}
+.chrome-tabs .chrome-tab {
+  float: left;
+  position: relative;
+  height: 25px;
+  width: 160px;
+  border: 0px;
+  margin: 0px;
+  z-index: 1;
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.4), 0 -1px rgba(0, 0, 0, 0.2), -1px 0 rgba(0, 0, 0, 0.2), 1px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.4), 0 -1px rgba(0, 0, 0, 0.2), -1px 0 rgba(0, 0, 0, 0.2), 1px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.4), 0 -1px rgba(0, 0, 0, 0.2), -1px 0 rgba(0, 0, 0, 0.2), 1px 0 rgba(0, 0, 0, 0.2);
+}
+.chrome-tabs .chrome-tab, .chrome-tabs .chrome-tab .chrome-tab-curves-left, .chrome-tabs .chrome-tab .chrome-tab-curves-right {
+  background-color: #e6e6e6;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e0e0e0), color-stop(100%, #d0d0d0));
+  background-image: -webkit-linear-gradient(top, #e0e0e0, #d0d0d0);
+  background-image: -moz-linear-gradient(top, #e0e0e0, #d0d0d0);
+  background-image: -o-linear-gradient(top, #e0e0e0, #d0d0d0);
+  background-image: linear-gradient(top, #e0e0e0, #d0d0d0);
+}
+.cssmasks .chrome-tabs .chrome-tab {
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 -1px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 -1px rgba(0, 0, 0, 0.24);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 -1px rgba(0, 0, 0, 0.24);
+  margin: 0 3px 0 20px;
+}
+.chrome-tabs .chrome-tab .chrome-tab-curves {
+  display: none;
+}
+.cssmasks .chrome-tabs .chrome-tab .chrome-tab-curves {
+  display: block;
+}
+.chrome-tabs .chrome-tab .chrome-tab-curves * {
+  position: absolute;
+  width: 20px;
+  height: 24px;
+  -webkit-mask-size: 100%;
+}
+.chrome-tabs .chrome-tab .chrome-tab-curves-left, .chrome-tabs .chrome-tab .chrome-tab-curves-left-highlight, .chrome-tabs .chrome-tab .chrome-tab-curves-left-shadow {
+  -webkit-mask-image: url("../svg/tab-left.svg");
+}
+.chrome-tabs .chrome-tab .chrome-tab-curves-right, .chrome-tabs .chrome-tab .chrome-tab-curves-right-highlight, .chrome-tabs .chrome-tab .chrome-tab-curves-right-shadow {
+  -webkit-mask-image: url("../svg/tab-right.svg");
+}
+.chrome-tabs .chrome-tab .chrome-tab-curves-left, .chrome-tabs .chrome-tab .chrome-tab-curves-right {
+  top: 1px;
+  z-index: 1;
+}
+.chrome-tabs .chrome-tab .chrome-tab-curves-left {
+  left: -20px;
+}
+.chrome-tabs .chrome-tab .chrome-tab-curves-right {
+  right: -20px;
+}
+.chrome-tabs .chrome-tab .chrome-tab-curves-left-highlight, .chrome-tabs .chrome-tab .chrome-tab-curves-right-highlight {
+  top: 0px;
+  width: 21px;
+  height: 25px;
+  background-color: #ececec;
+}
+.chrome-tabs .chrome-tab .chrome-tab-curves-left-highlight {
+  left: -21px;
+}
+.chrome-tabs .chrome-tab .chrome-tab-curves-right-highlight {
+  right: -21px;
+}
+.chrome-tabs .chrome-tab .chrome-tab-curves-left-shadow, .chrome-tabs .chrome-tab .chrome-tab-curves-right-shadow {
+  top: -1px;
+  width: 22px;
+  height: 26px;
+  background: rgba(0, 0, 0, 0.29);
+}
+.chrome-tabs .chrome-tab .chrome-tab-curves-left-shadow {
+  left: -22px;
+}
+.chrome-tabs .chrome-tab .chrome-tab-curves-right-shadow {
+  right: -22px;
+}
+.chrome-tabs .chrome-tab.chrome-tab-current {
+  z-index: 999;
+}
+.cssmasks .chrome-tabs .chrome-tab.chrome-tab-current {
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.6), 0 -1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.6), 0 -1px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.6), 0 -1px rgba(0, 0, 0, 0.25);
+}
+.chrome-tabs .chrome-tab.chrome-tab-current, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right {
+  background-color: #eeeeee;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #eeeeee), color-stop(100%, #ebebeb));
+  background-image: -webkit-linear-gradient(top, #eeeeee, #ebebeb);
+  background-image: -moz-linear-gradient(top, #eeeeee, #ebebeb);
+  background-image: -o-linear-gradient(top, #eeeeee, #ebebeb);
+  background-image: linear-gradient(top, #eeeeee, #ebebeb);
+}
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-shadow, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-shadow {
+  background: rgba(0, 0, 0, 0.34);
+}
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-highlight, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-highlight, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-shadow, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-shadow {
+  height: 25px;
+}
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-highlight, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-highlight {
+  background-color: #f9f9f9;
+}
+.cssmasks .chrome-tabs .chrome-tab:not(.chrome-tab-current):after {
+  pointer-events: none;
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 2px;
+  left: -16px;
+  right: -16px;
+  background: rgba(0, 0, 0, 0.04);
+  height: 1px;
+  z-index: 1;
+}
+.chrome-tabs .chrome-tab .chrome-tab-favicon {
+  height: 16px;
+  width: 16px;
+  background-size: 16px;
+  position: absolute;
+  left: 9px;
+  top: 5px;
+  z-index: 3;
+}
+.cssmasks .chrome-tabs .chrome-tab .chrome-tab-favicon {
+  left: 0;
+  top: 4px;
+}
+.chrome-tabs .chrome-tab .chrome-tab-title {
+  color: #222222;
+  padding: 5px 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cssmasks .chrome-tabs .chrome-tab .chrome-tab-title {
+  padding: 5px 5px 5px 18px;
+}
+.chrome-tabs .chrome-tab .chrome-tab-close {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  width: 14px;
+  height: 14px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  z-index: 2;
+}
+.cssmasks .chrome-tabs .chrome-tab .chrome-tab-close {
+  right: -5px;
+  top: 6px;
+}
+.chrome-tabs .chrome-tab .chrome-tab-close:before {
+  content: "\00D7";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 14px;
+  width: 14px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 11px;
+  line-height: 12px;
+  color: #777777;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.3);
+}
+.chrome-tabs .chrome-tab .chrome-tab-close:hover:before, .chrome-tabs .chrome-tab .chrome-tab-close:active:before {
+  color: white;
+  text-shadow: 0 1px #b9554c;
+}
+.chrome-tabs .chrome-tab .chrome-tab-close:hover, .chrome-tabs .chrome-tab .chrome-tab-close:active {
+  -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 1px 2px #b9554c;
+  -moz-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 1px 2px #b9554c;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 1px 2px #b9554c;
+  background: #dd837b;
+}
+.chrome-tabs .chrome-tab .chrome-tab-close:active:before {
+  -webkit-box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
