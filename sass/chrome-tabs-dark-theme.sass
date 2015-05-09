@@ -1,0 +1,72 @@
+@import compass/css3
+@import compass/utilities/general/clearfix
+
+.chrome-tabs-shell.chrome-tabs-dark-theme
+    background-color: #414141
+    +background-image(linear-gradient(#525252, #323232))
+
+    .chrome-shell-bottom-bar
+        border-top: 1px solid rgba(0, 0, 0, .63)
+        +box-shadow(inset 0 1px rgba(255, 255, 255, .07))
+        background-color: #717171
+        +background-image(linear-gradient(#717171, #646464))
+        border-bottom: 1px solid rgba(0, 0, 0, .63)
+
+    .chrome-tabs
+
+        .chrome-tab
+            +box-shadow(inset 0 1px rgba(255, 255, 255, .14), 0 -1px rgba(0, 0, 0, .2), -1px 0 rgba(0, 0, 0, .2), 1px 0 rgba(0, 0, 0, .2))
+
+            &, .chrome-tab-curves-left, .chrome-tab-curves-right
+                background-color: #616161
+                +background-image(linear-gradient(top, #616161, #4D4D4D))
+
+            .cssmasks &
+                +box-shadow(inset 0 1px rgba(255, 255, 255, .09), 0 -1px rgba(0, 0, 0, .24))
+
+            .chrome-tab-curves-left-highlight, .chrome-tab-curves-right-highlight
+                background-color: #6f6f6f
+
+            .chrome-tab-title
+                color: #cbcbcb
+
+            .chrome-tab-close
+
+                &:before
+                    color: #999
+                    text-shadow: none
+
+                &:hover:before, &:active:before
+                    color: #fff
+                    text-shadow: 0 1px rgb(185, 85, 76)
+
+                &:hover, &:active
+                    +box-shadow(inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 1px 2px #B9554C)
+                    background: rgb(221, 131, 123)
+                    color #fff
+
+                &:active:before
+                    +box-shadow(inset 0 0 0 1px rgb(185, 85, 76), inset 0 1px 3px rgba(185, 85, 76, 1), inset 0 0 20px rgba(0, 0, 0, .1))
+
+            &.chrome-tab-current
+
+                .cssmasks &
+                    +box-shadow(inset 0 1px rgba(255, 255, 255, .14), 0 -1px rgba(0, 0, 0, .25))
+
+                &, .chrome-tab-curves-left, .chrome-tab-curves-right
+                    background-color: #7c7c7c
+                    +background-image(linear-gradient(top, #808080, #696969))
+
+                .chrome-tab-curves-left-highlight, .chrome-tab-curves-right-highlight
+                    background-color: #989898
+
+                .chrome-tab-title
+                    color: #fff
+
+                .chrome-tab-close
+
+                    &:before
+                        color: #bdbdbd
+
+                    &:hover:before, &:active:before
+                        color: #fff

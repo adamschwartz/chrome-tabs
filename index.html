@@ -10,6 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="css/chrome-tabs.css">
+        <link rel="stylesheet" href="css/chrome-tabs-dark-theme.css">
     </head>
     <body>
         <div class="chrome-tabs-shell">
@@ -44,6 +45,10 @@
             <div class="chrome-shell-bottom-bar"></div>
         </div>
 
+        <br>
+
+        <p><button>Toggle dark theme</button></p>
+
         <script src="js/deps/jquery.min.js"></script>
         <script src="js/deps/jquery-ui.min.js"></script>
         <script src="js/chrome-tabs.js"></script>
@@ -65,6 +70,14 @@
                 var $currentTab = $chromeTabsExampleShell.find('.chrome-tab-current');
                 if ($currentTab.length && window['console'] && console.log) {
                     console.log('Current tab index', $currentTab.index(), 'title', $.trim($currentTab.text()), 'data', $currentTab.data('tabData').data);
+                }
+            });
+
+            $('button').click(function(){
+                if ($chromeTabsExampleShell.hasClass('chrome-tabs-dark-theme')) {
+                    $chromeTabsExampleShell.removeClass('chrome-tabs-dark-theme');
+                } else {
+                    $chromeTabsExampleShell.addClass('chrome-tabs-dark-theme');
                 }
             });
         </script>

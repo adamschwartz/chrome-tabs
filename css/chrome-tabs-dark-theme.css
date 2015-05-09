@@ -1,0 +1,89 @@
+.chrome-tabs-shell.chrome-tabs-dark-theme {
+  background-color: #414141;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #525252), color-stop(100%, #323232));
+  background-image: -webkit-linear-gradient(#525252, #323232);
+  background-image: -moz-linear-gradient(#525252, #323232);
+  background-image: -o-linear-gradient(#525252, #323232);
+  background-image: linear-gradient(#525252, #323232);
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-shell-bottom-bar {
+  border-top: 1px solid rgba(0, 0, 0, 0.63);
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.07);
+  -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.07);
+  background-color: #717171;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #717171), color-stop(100%, #646464));
+  background-image: -webkit-linear-gradient(#717171, #646464);
+  background-image: -moz-linear-gradient(#717171, #646464);
+  background-image: -o-linear-gradient(#717171, #646464);
+  background-image: linear-gradient(#717171, #646464);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.63);
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab {
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.14), 0 -1px rgba(0, 0, 0, 0.2), -1px 0 rgba(0, 0, 0, 0.2), 1px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.14), 0 -1px rgba(0, 0, 0, 0.2), -1px 0 rgba(0, 0, 0, 0.2), 1px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.14), 0 -1px rgba(0, 0, 0, 0.2), -1px 0 rgba(0, 0, 0, 0.2), 1px 0 rgba(0, 0, 0, 0.2);
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab, .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-curves-left, .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-curves-right {
+  background-color: #616161;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #616161), color-stop(100%, #4d4d4d));
+  background-image: -webkit-linear-gradient(top, #616161, #4d4d4d);
+  background-image: -moz-linear-gradient(top, #616161, #4d4d4d);
+  background-image: -o-linear-gradient(top, #616161, #4d4d4d);
+  background-image: linear-gradient(top, #616161, #4d4d4d);
+}
+.cssmasks .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab {
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.09), 0 -1px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.09), 0 -1px rgba(0, 0, 0, 0.24);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.09), 0 -1px rgba(0, 0, 0, 0.24);
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-curves-left-highlight, .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-curves-right-highlight {
+  background-color: #6f6f6f;
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-title {
+  color: #cbcbcb;
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-close:before {
+  color: #999999;
+  text-shadow: none;
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-close:hover:before, .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-close:active:before {
+  color: white;
+  text-shadow: 0 1px #b9554c;
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-close:hover, .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-close:active {
+  -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 1px 2px #b9554c;
+  -moz-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 1px 2px #b9554c;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 1px 2px #b9554c;
+  background: #dd837b;
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-close:active:before {
+  -webkit-box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.cssmasks .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current {
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.14), 0 -1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.14), 0 -1px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.14), 0 -1px rgba(0, 0, 0, 0.25);
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current, .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left, .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right {
+  background-color: #7c7c7c;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #808080), color-stop(100%, #696969));
+  background-image: -webkit-linear-gradient(top, #808080, #696969);
+  background-image: -moz-linear-gradient(top, #808080, #696969);
+  background-image: -o-linear-gradient(top, #808080, #696969);
+  background-image: linear-gradient(top, #808080, #696969);
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-highlight, .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-highlight {
+  background-color: #989898;
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-title {
+  color: white;
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-close:before {
+  color: #bdbdbd;
+}
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-close:hover:before, .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-close:active:before {
+  color: white;
+}
