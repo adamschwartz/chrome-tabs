@@ -157,10 +157,11 @@
       $shell.unbind('dblclick').bind('dblclick', function() {
         return chromeTabs.addNewTab($shell);
       });
-      $shell.unbind('mouseup').bind('mouseup', function (e) {
-        if (e.which == 2 && e.target.className != 'chrome-tab-title')
+      $shell.unbind('mouseup').bind('mouseup', function(e) {
+        if (e.which === 2 && e.target.className !== 'chrome-tab-title') {
           return chromeTabs.addNewTab($shell);
-      })
+        }
+      });
       return $shell.find('.chrome-tab').each(function() {
         var $tab;
         $tab = $(this);
@@ -168,8 +169,9 @@
           return chromeTabs.setCurrentTab($shell, $tab);
         });
         $tab.unbind('mouseup').mouseup(function(e) {
-          if(e.which == 2)
-           return chromeTabs.closeTab($shell, $tab);
+          if (e.which === 2) {
+            return chromeTabs.closeTab($shell, $tab);
+          }
         });
         return $tab.find('.chrome-tab-close').unbind('click').click(function() {
           return chromeTabs.closeTab($shell, $tab);

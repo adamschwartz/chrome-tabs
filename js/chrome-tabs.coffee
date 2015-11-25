@@ -144,11 +144,21 @@ chromeTabs =
         $shell.unbind('dblclick').bind 'dblclick', ->
             chromeTabs.addNewTab $shell
 
+        $shell.unbind('mouseup').bind 'mouseup', (e) ->
+          if e.which == 2 and e.target.className != 'chrome-tab-title'
+            return chromeTabs.addNewTab($shell)
+          return
+        
         $shell.find('.chrome-tab').each ->
             $tab = $ @
 
             $tab.unbind('click').click ->
                 chromeTabs.setCurrentTab $shell, $tab
+
+            $tab.unbind('mouseup').mouseup (e) ->
+              if e.which == 2
+                return chromeTabs.closeTab($shell, $tab)
+              return
 
             $tab.find('.chrome-tab-close').unbind('click').click ->
                 chromeTabs.closeTab $shell, $tab
