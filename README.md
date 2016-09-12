@@ -4,7 +4,7 @@ Exactly what you think this is. Go wild.
 
 ### [Demo](http://adamschwartz.co/chrome-tabs/)
 
-![](http://adamschwartz.co/chrome-tabs/chrome-tabs.gif)
+<img widt=868 src=http://adamschwartz.co/chrome-tabs/chrome-tabs.gif>
 
 <br><br><br><br><br><br><br><br>
 
