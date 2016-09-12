@@ -1,16 +1,8 @@
 .chrome-tabs-shell {
   position: relative;
-  background-color: #cccccc;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e1e1e1), color-stop(100%, #b3b3b3));
-  background-image: -webkit-linear-gradient(top, #e1e1e1, #b3b3b3);
-  background-image: -moz-linear-gradient(top, #e1e1e1, #b3b3b3);
-  background-image: -o-linear-gradient(top, #e1e1e1, #b3b3b3);
-  background-image: linear-gradient(top, #e1e1e1, #b3b3b3);
+  background-color: #ccc;
+  background-image: linear-gradient(#e1e1e1, #b3b3b3);
   padding: 10px 10px 6px 10px;
-  -webkit-border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  -ms-border-radius: 4px 4px 0 0;
-  -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
   height: 23px;
   overflow: hidden;
@@ -21,25 +13,17 @@
   height: 4px;
   left: 0px;
   width: 100%;
-  border-top: 1px solid rgba(0, 0, 0, 0.35);
-  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.6);
-  -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.6);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.6);
-  background-color: #eeeeee;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ebebeb), color-stop(100%, #ebebeb));
-  background-image: -webkit-linear-gradient(top, #ebebeb, #ebebeb);
-  background-image: -moz-linear-gradient(top, #ebebeb, #ebebeb);
-  background-image: -o-linear-gradient(top, #ebebeb, #ebebeb);
-  background-image: linear-gradient(top, #ebebeb, #ebebeb);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  border-top: 1px solid rgba(0,0,0,0.35);
+  box-shadow: inset 0 1px rgba(255,255,255,0.6);
+  background-color: #eee;
+  background-image: linear-gradient(#ebebeb, #ebebeb);
+  border-bottom: 1px solid rgba(0,0,0,0.35);
   z-index: 20;
 }
 .chrome-tabs-shell.chrome-tabs-sorting .chrome-tabs:not(.chrome-tabs-clone) .chrome-tab:not(.ui-sortable-draggable-item) {
   opacity: 0;
 }
-
 .chrome-tabs {
-  *zoom: 1;
   position: relative;
   width: 99999px;
 }
@@ -54,9 +38,6 @@
   pointer-events: none;
 }
 .chrome-tabs.chrome-tabs-clone .chrome-tab {
-  -webkit-transition: left 120ms ease-in-out;
-  -moz-transition: left 120ms ease-in-out;
-  -o-transition: left 120ms ease-in-out;
   transition: left 120ms ease-in-out;
   position: absolute;
 }
@@ -75,22 +56,16 @@
   border: 0px;
   margin: 0px;
   z-index: 1;
-  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.4), 0 -1px rgba(0, 0, 0, 0.2), -1px 0 rgba(0, 0, 0, 0.2), 1px 0 rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.4), 0 -1px rgba(0, 0, 0, 0.2), -1px 0 rgba(0, 0, 0, 0.2), 1px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.4), 0 -1px rgba(0, 0, 0, 0.2), -1px 0 rgba(0, 0, 0, 0.2), 1px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px rgba(255,255,255,0.4), 0 -1px rgba(0,0,0,0.2), -1px 0 rgba(0,0,0,0.2), 1px 0 rgba(0,0,0,0.2);
 }
-.chrome-tabs .chrome-tab, .chrome-tabs .chrome-tab .chrome-tab-curves-left, .chrome-tabs .chrome-tab .chrome-tab-curves-right {
+.chrome-tabs .chrome-tab,
+.chrome-tabs .chrome-tab .chrome-tab-curves-left,
+.chrome-tabs .chrome-tab .chrome-tab-curves-right {
   background-color: #e6e6e6;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e0e0e0), color-stop(100%, #d0d0d0));
-  background-image: -webkit-linear-gradient(top, #e0e0e0, #d0d0d0);
-  background-image: -moz-linear-gradient(top, #e0e0e0, #d0d0d0);
-  background-image: -o-linear-gradient(top, #e0e0e0, #d0d0d0);
-  background-image: linear-gradient(top, #e0e0e0, #d0d0d0);
+  background-image: linear-gradient(#e0e0e0, #d0d0d0);
 }
 .cssmasks .chrome-tabs .chrome-tab {
-  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 -1px rgba(0, 0, 0, 0.24);
-  -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 -1px rgba(0, 0, 0, 0.24);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 -1px rgba(0, 0, 0, 0.24);
+  box-shadow: inset 0 1px rgba(255,255,255,0.3), 0 -1px rgba(0,0,0,0.24);
   margin: 0 3px 0 20px;
 }
 .chrome-tabs .chrome-tab .chrome-tab-curves {
@@ -105,13 +80,18 @@
   height: 24px;
   -webkit-mask-size: 100%;
 }
-.chrome-tabs .chrome-tab .chrome-tab-curves-left, .chrome-tabs .chrome-tab .chrome-tab-curves-left-highlight, .chrome-tabs .chrome-tab .chrome-tab-curves-left-shadow {
+.chrome-tabs .chrome-tab .chrome-tab-curves-left,
+.chrome-tabs .chrome-tab .chrome-tab-curves-left-highlight,
+.chrome-tabs .chrome-tab .chrome-tab-curves-left-shadow {
   -webkit-mask-image: url("../svg/tab-left.svg");
 }
-.chrome-tabs .chrome-tab .chrome-tab-curves-right, .chrome-tabs .chrome-tab .chrome-tab-curves-right-highlight, .chrome-tabs .chrome-tab .chrome-tab-curves-right-shadow {
+.chrome-tabs .chrome-tab .chrome-tab-curves-right,
+.chrome-tabs .chrome-tab .chrome-tab-curves-right-highlight,
+.chrome-tabs .chrome-tab .chrome-tab-curves-right-shadow {
   -webkit-mask-image: url("../svg/tab-right.svg");
 }
-.chrome-tabs .chrome-tab .chrome-tab-curves-left, .chrome-tabs .chrome-tab .chrome-tab-curves-right {
+.chrome-tabs .chrome-tab .chrome-tab-curves-left,
+.chrome-tabs .chrome-tab .chrome-tab-curves-right {
   top: 1px;
   z-index: 1;
 }
@@ -121,7 +101,8 @@
 .chrome-tabs .chrome-tab .chrome-tab-curves-right {
   right: -20px;
 }
-.chrome-tabs .chrome-tab .chrome-tab-curves-left-highlight, .chrome-tabs .chrome-tab .chrome-tab-curves-right-highlight {
+.chrome-tabs .chrome-tab .chrome-tab-curves-left-highlight,
+.chrome-tabs .chrome-tab .chrome-tab-curves-right-highlight {
   top: 0px;
   width: 21px;
   height: 25px;
@@ -133,11 +114,12 @@
 .chrome-tabs .chrome-tab .chrome-tab-curves-right-highlight {
   right: -21px;
 }
-.chrome-tabs .chrome-tab .chrome-tab-curves-left-shadow, .chrome-tabs .chrome-tab .chrome-tab-curves-right-shadow {
+.chrome-tabs .chrome-tab .chrome-tab-curves-left-shadow,
+.chrome-tabs .chrome-tab .chrome-tab-curves-right-shadow {
   top: -1px;
   width: 22px;
   height: 26px;
-  background: rgba(0, 0, 0, 0.29);
+  background: rgba(0,0,0,0.29);
 }
 .chrome-tabs .chrome-tab .chrome-tab-curves-left-shadow {
   left: -22px;
@@ -149,25 +131,26 @@
   z-index: 999;
 }
 .cssmasks .chrome-tabs .chrome-tab.chrome-tab-current {
-  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.6), 0 -1px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.6), 0 -1px rgba(0, 0, 0, 0.25);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.6), 0 -1px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 1px rgba(255,255,255,0.6), 0 -1px rgba(0,0,0,0.25);
 }
-.chrome-tabs .chrome-tab.chrome-tab-current, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right {
-  background-color: #eeeeee;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #eeeeee), color-stop(100%, #ebebeb));
-  background-image: -webkit-linear-gradient(top, #eeeeee, #ebebeb);
-  background-image: -moz-linear-gradient(top, #eeeeee, #ebebeb);
-  background-image: -o-linear-gradient(top, #eeeeee, #ebebeb);
-  background-image: linear-gradient(top, #eeeeee, #ebebeb);
+.chrome-tabs .chrome-tab.chrome-tab-current,
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left,
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right {
+  background-color: #eee;
+  background-image: linear-gradient(#eee, #ebebeb);
 }
-.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-shadow, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-shadow {
-  background: rgba(0, 0, 0, 0.34);
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-shadow,
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-shadow {
+  background: rgba(0,0,0,0.34);
 }
-.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-highlight, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-highlight, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-shadow, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-shadow {
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-highlight,
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-highlight,
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-shadow,
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-shadow {
   height: 25px;
 }
-.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-highlight, .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-highlight {
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-highlight,
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-highlight {
   background-color: #f9f9f9;
 }
 .cssmasks .chrome-tabs .chrome-tab:not(.chrome-tab-current):after {
@@ -178,7 +161,7 @@
   bottom: 2px;
   left: -16px;
   right: -16px;
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(0,0,0,0.04);
   height: 1px;
   z-index: 1;
 }
@@ -196,7 +179,7 @@
   top: 4px;
 }
 .chrome-tabs .chrome-tab .chrome-tab-title {
-  color: #222222;
+  color: #222;
   padding: 5px 30px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -211,10 +194,6 @@
   right: 7px;
   width: 14px;
   height: 14px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
   border-radius: 50%;
   z-index: 2;
 }
@@ -229,29 +208,23 @@
   right: 0px;
   height: 14px;
   width: 14px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
   border-radius: 50%;
   text-align: center;
   font-size: 11px;
   line-height: 12px;
-  color: #777777;
-  text-shadow: 0 1px rgba(255, 255, 255, 0.3);
+  color: #777;
+  text-shadow: 0 1px rgba(255,255,255,0.3);
 }
-.chrome-tabs .chrome-tab .chrome-tab-close:hover:before, .chrome-tabs .chrome-tab .chrome-tab-close:active:before {
-  color: white;
+.chrome-tabs .chrome-tab .chrome-tab-close:hover:before,
+.chrome-tabs .chrome-tab .chrome-tab-close:active:before {
+  color: #fff;
   text-shadow: 0 1px #b9554c;
 }
-.chrome-tabs .chrome-tab .chrome-tab-close:hover, .chrome-tabs .chrome-tab .chrome-tab-close:active {
-  -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 1px 2px #b9554c;
-  -moz-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 1px 2px #b9554c;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 1px 2px #b9554c;
+.chrome-tabs .chrome-tab .chrome-tab-close:hover,
+.chrome-tabs .chrome-tab .chrome-tab-close:active {
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1), inset 0 1px 2px #b9554c;
   background: #dd837b;
 }
 .chrome-tabs .chrome-tab .chrome-tab-close:active:before {
-  -webkit-box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0,0,0,0.1);
 }
