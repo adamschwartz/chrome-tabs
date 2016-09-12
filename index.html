@@ -3,88 +3,88 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Chrome Tabs</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="demo/css/demo.css">
-        <link rel="stylesheet" href="css/chrome-tabs.css">
-        <link rel="stylesheet" href="css/chrome-tabs-dark-theme.css">
-    </head>
-    <body>
-        <div class="chrome-tabs-shell">
-            <div class="chrome-tabs">
-                <div class="chrome-tab">
-                    <div class="chrome-tab-favicon" style="background-image: url('demo/images/google-favicon.png')"></div>
-                    <div class="chrome-tab-title">Google</div>
-                    <div class="chrome-tab-close"></div>
-                    <div class="chrome-tab-curves">
-                        <div class="chrome-tab-curves-left-shadow"></div>
-                        <div class="chrome-tab-curves-left-highlight"></div>
-                        <div class="chrome-tab-curves-left"></div>
-                        <div class="chrome-tab-curves-right-shadow"></div>
-                        <div class="chrome-tab-curves-right-highlight"></div>
-                        <div class="chrome-tab-curves-right"></div>
-                    </div>
-                </div>
-                <div class="chrome-tab chrome-tab-current">
-                    <div class="chrome-tab-favicon" style="background-image: url('demo/images/facebook-favicon.ico')"></div>
-                    <div class="chrome-tab-title">Facebook</div>
-                    <div class="chrome-tab-close"></div>
-                    <div class="chrome-tab-curves">
-                        <div class="chrome-tab-curves-left-shadow"></div>
-                        <div class="chrome-tab-curves-left-highlight"></div>
-                        <div class="chrome-tab-curves-left"></div>
-                        <div class="chrome-tab-curves-right-shadow"></div>
-                        <div class="chrome-tab-curves-right-highlight"></div>
-                        <div class="chrome-tab-curves-right"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="chrome-shell-bottom-bar"></div>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Chrome Tabs</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="demo/css/demo.css">
+    <link rel="stylesheet" href="css/chrome-tabs.css">
+    <link rel="stylesheet" href="css/chrome-tabs-dark-theme.css">
+  </head>
+  <body>
+    <div class="chrome-tabs-shell">
+      <div class="chrome-tabs">
+        <div class="chrome-tab">
+          <div class="chrome-tab-favicon" style="background-image: url('demo/images/google-favicon.png')"></div>
+          <div class="chrome-tab-title">Google</div>
+          <div class="chrome-tab-close"></div>
+          <div class="chrome-tab-curves">
+            <div class="chrome-tab-curves-left-shadow"></div>
+            <div class="chrome-tab-curves-left-highlight"></div>
+            <div class="chrome-tab-curves-left"></div>
+            <div class="chrome-tab-curves-right-shadow"></div>
+            <div class="chrome-tab-curves-right-highlight"></div>
+            <div class="chrome-tab-curves-right"></div>
+          </div>
         </div>
-
-        <br>
-
-        <p><button>Toggle dark theme</button></p>
-
-        <div class="carbonads-wrapper">
-            <script async="true" id="_carbonads_js" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=adamschwartzco"></script>
+        <div class="chrome-tab chrome-tab-current">
+          <div class="chrome-tab-favicon" style="background-image: url('demo/images/facebook-favicon.ico')"></div>
+          <div class="chrome-tab-title">Facebook</div>
+          <div class="chrome-tab-close"></div>
+          <div class="chrome-tab-curves">
+            <div class="chrome-tab-curves-left-shadow"></div>
+            <div class="chrome-tab-curves-left-highlight"></div>
+            <div class="chrome-tab-curves-left"></div>
+            <div class="chrome-tab-curves-right-shadow"></div>
+            <div class="chrome-tab-curves-right-highlight"></div>
+            <div class="chrome-tab-curves-right"></div>
+          </div>
         </div>
+      </div>
+      <div class="chrome-shell-bottom-bar"></div>
+    </div>
 
-        <script src="js/deps/jquery.min.js"></script>
-        <script src="js/deps/jquery-ui.min.js"></script>
-        <script src="js/chrome-tabs.js"></script>
-        <script>
-            var $chromeTabsExampleShell = $('.chrome-tabs-shell')
-            chromeTabs.init({
-                $shell: $chromeTabsExampleShell,
-                minWidth: 45,
-                maxWidth: 160
-            });
-            chromeTabs.addNewTab($chromeTabsExampleShell, {
-                favicon: 'demo/images/eager-favicon.ico',
-                title: 'Eager',
-                data: {
-                    timeAdded: +new Date()
-                }
-            });
-            $chromeTabsExampleShell.bind('chromeTabRender', function(){
-                var $currentTab = $chromeTabsExampleShell.find('.chrome-tab-current');
-                if ($currentTab.length && window['console'] && console.log) {
-                    console.log('Current tab index', $currentTab.index(), 'title', $.trim($currentTab.text()), 'data', $currentTab.data('tabData').data);
-                }
-            });
+    <br>
 
-            $('button').click(function(){
-                if ($chromeTabsExampleShell.hasClass('chrome-tabs-dark-theme')) {
-                    $chromeTabsExampleShell.removeClass('chrome-tabs-dark-theme');
-                } else {
-                    $chromeTabsExampleShell.addClass('chrome-tabs-dark-theme');
-                }
-            });
-        </script>
-    </body>
+    <p><button>Toggle dark theme</button></p>
+
+    <div class="carbonads-wrapper">
+      <script async="true" id="_carbonads_js" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=adamschwartzco"></script>
+    </div>
+
+    <script src="js/deps/jquery.min.js"></script>
+    <script src="js/deps/jquery-ui.min.js"></script>
+    <script src="js/chrome-tabs.js"></script>
+    <script>
+      var $chromeTabsExampleShell = $('.chrome-tabs-shell')
+      chromeTabs.init({
+        $shell: $chromeTabsExampleShell,
+        minWidth: 45,
+        maxWidth: 160
+      });
+      chromeTabs.addNewTab($chromeTabsExampleShell, {
+        favicon: 'demo/images/eager-favicon.ico',
+        title: 'Eager',
+        data: {
+          timeAdded: +new Date()
+        }
+      });
+      $chromeTabsExampleShell.bind('chromeTabRender', function(){
+        var $currentTab = $chromeTabsExampleShell.find('.chrome-tab-current');
+        if ($currentTab.length && window['console'] && console.log) {
+          console.log('Current tab index', $currentTab.index(), 'title', $.trim($currentTab.text()), 'data', $currentTab.data('tabData').data);
+        }
+      });
+
+      $('button').click(function(){
+        if ($chromeTabsExampleShell.hasClass('chrome-tabs-dark-theme')) {
+          $chromeTabsExampleShell.removeClass('chrome-tabs-dark-theme');
+        } else {
+          $chromeTabsExampleShell.addClass('chrome-tabs-dark-theme');
+        }
+      });
+    </script>
+  </body>
 </html>

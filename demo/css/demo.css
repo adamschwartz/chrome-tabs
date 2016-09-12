@@ -1,63 +1,63 @@
 .carbonads-wrapper {
-    box-sizing: border-box;
-    display: inline-block;
-    background: #eee;
-    font-family: "Avenir Next", "Helevetica Neue", Helevetica, Arial, sans-serif;
-    margin-top: 50px;
+  box-sizing: border-box;
+  display: inline-block;
+  background: #eee;
+  font-family: "Avenir Next", "Helevetica Neue", Helevetica, Arial, sans-serif;
+  margin-top: 50px;
 }
 
 .carbonads-wrapper * {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 #carbonads {
-    width: 162px;
-    display: block;
-    overflow: hidden;
-    line-height: 1.33;
-    width: 162px;
-    padding: 11px 16px 0;
-    max-width: 100%;
-    font-size: 12px;
-    background: #eee;
-    margin: 0 auto;
+  width: 162px;
+  display: block;
+  overflow: hidden;
+  line-height: 1.33;
+  width: 162px;
+  padding: 11px 16px 0;
+  max-width: 100%;
+  font-size: 12px;
+  background: #eee;
+  margin: 0 auto;
 }
 
 #carbonads span {
-    position: relative;
-    display: block;
-    overflow: hidden;
+  position: relative;
+  display: block;
+  overflow: hidden;
 }
 
 .carbon-img, .carbon-img img {
-    display: block;
-    width: 130px;
-    height: 100px;
+  display: block;
+  width: 130px;
+  height: 100px;
 }
 
 .carbon-img {
-    margin-bottom: 7px;
-    background: #ccc;
+  margin-bottom: 7px;
+  background: #ccc;
 }
 
 .carbon-img img {
-    background: #fff;
+  background: #fff;
 }
 
 .carbon-text {
-    color: inherit;
-    display: block;
-    float: left;
-    text-align: left;
-    text-decoration: none;
+  color: inherit;
+  display: block;
+  float: left;
+  text-align: left;
+  text-decoration: none;
 }
 
 .carbon-poweredby {
-    color: #b9b9b9;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    font-size: 10px;
-    margin-top: 2px;
-    margin-bottom: 11px;
+  color: #b9b9b9;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  font-size: 10px;
+  margin-top: 2px;
+  margin-bottom: 11px;
 }

@@ -9,7 +9,7 @@
     $('html').addClass('no-cssmasks');
   }
 
-  tabTemplate = '<div class="chrome-tab">\n    <div class="chrome-tab-favicon"></div>\n    <div class="chrome-tab-title"></div>\n    <div class="chrome-tab-close"></div>\n    <div class="chrome-tab-curves">\n        <div class="chrome-tab-curves-left-shadow"></div>\n        <div class="chrome-tab-curves-left-highlight"></div>\n        <div class="chrome-tab-curves-left"></div>\n        <div class="chrome-tab-curves-right-shadow"></div>\n        <div class="chrome-tab-curves-right-highlight"></div>\n        <div class="chrome-tab-curves-right"></div>\n    </div>\n</div>';
+  tabTemplate = '<div class="chrome-tab">\n  <div class="chrome-tab-favicon"></div>\n  <div class="chrome-tab-title"></div>\n  <div class="chrome-tab-close"></div>\n  <div class="chrome-tab-curves">\n    <div class="chrome-tab-curves-left-shadow"></div>\n    <div class="chrome-tab-curves-left-highlight"></div>\n    <div class="chrome-tab-curves-left"></div>\n    <div class="chrome-tab-curves-right-shadow"></div>\n    <div class="chrome-tab-curves-right-highlight"></div>\n    <div class="chrome-tab-curves-right"></div>\n  </div>\n</div>';
 
   defaultNewTabData = {
     title: 'New Tab',
@@ -131,7 +131,7 @@
         var $tab, left;
         $tab = $(this);
         left = $tab.offset().left - offsetLeft - parseInt($tabs.first().css('marginLeft'), 10);
-        return styleHTML += ".chrome-tabs-clone .chrome-tab:nth-child(" + (i + 1) + ") {\n    left: " + left + "px\n}";
+        return styleHTML += ".chrome-tabs-clone .chrome-tab:nth-child(" + (i + 1) + ") {\n  left: " + left + "px\n}";
       });
       return animationStyle.innerHTML = styleHTML;
     },
