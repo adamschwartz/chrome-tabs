@@ -1,4 +1,5 @@
 chromeTabSpaceAbove = 1em
+activeTabBackgroundColor = #f2f2f2
 
 clearfix()
   &:after
@@ -28,8 +29,8 @@ clearfix()
     height .45em
     left 0
     width 100%
-    background #f2f2f2
-    box-shadow 0 -.05em #999899
+    background activeTabBackgroundColor
+    box-shadow 0 -.05em rgba(0, 0, 0, .27)
     z-index 20
 
   &.chrome-tabs-sorting .chrome-tabs:not(.chrome-tabs-clone) .chrome-tab:not(.ui-sortable-draggable-item)
@@ -72,6 +73,7 @@ clearfix()
       width 100%
       height 100%
       overflow hidden
+      pointer-events none
 
       > svg
         width 100%
@@ -79,17 +81,18 @@ clearfix()
 
         .chrome-tab-shadow
           fill none
-          stroke #999899
+          stroke rgba(0, 0, 0, .27)
           stroke-width .5px
 
         .chrome-tab-background
           fill #d0d0d0
+          transform translateX(.25px) translateY(.25px)
 
     &.chrome-tab-current
       z-index 999
 
       .chrome-tab-background > svg .chrome-tab-background
-        fill #f2f2f2
+        fill activeTabBackgroundColor
 
     .chrome-tab-favicon
       position relative

@@ -21,7 +21,7 @@
   left: 0;
   width: 100%;
   background: #f2f2f2;
-  box-shadow: 0 -0.05em #999899;
+  box-shadow: 0 -0.05em rgba(0,0,0,0.27);
   z-index: 20;
 }
 .chrome-tabs-shell.chrome-tabs-sorting .chrome-tabs:not(.chrome-tabs-clone) .chrome-tab:not(.ui-sortable-draggable-item) {
@@ -69,6 +69,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  pointer-events: none;
 }
 .chrome-tabs .chrome-tab .chrome-tab-background > svg {
   width: 100%;
@@ -76,11 +77,12 @@
 }
 .chrome-tabs .chrome-tab .chrome-tab-background > svg .chrome-tab-shadow {
   fill: none;
-  stroke: #999899;
+  stroke: rgba(0,0,0,0.27);
   stroke-width: 0.5px;
 }
 .chrome-tabs .chrome-tab .chrome-tab-background > svg .chrome-tab-background {
   fill: #d0d0d0;
+  transform: translateX(0.25px) translateY(0.25px);
 }
 .chrome-tabs .chrome-tab.chrome-tab-current {
   z-index: 999;
