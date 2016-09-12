@@ -1,71 +1,22 @@
 .chrome-tabs-shell.chrome-tabs-dark-theme {
-  background-color: #414141;
-  background-image: linear-gradient(#525252, #323232);
+  background: #1e1e1e;
 }
 .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-shell-bottom-bar {
-  border-top: 1px solid rgba(0,0,0,0.63);
-  box-shadow: inset 0 1px rgba(255,255,255,0.07);
-  background-color: #717171;
-  background-image: linear-gradient(#717171, #646464);
-  border-bottom: 1px solid rgba(0,0,0,0.63);
+  background: #505050;
+  box-shadow: 0 -0.05em #161819;
 }
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab {
-  box-shadow: inset 0 1px rgba(255,255,255,0.14), 0 -1px rgba(0,0,0,0.2), -1px 0 rgba(0,0,0,0.2), 1px 0 rgba(0,0,0,0.2);
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-background > svg .chrome-tab-shadow {
+  stroke: #161819;
 }
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab,
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-curves-left,
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-curves-right {
-  background-color: #616161;
-  background-image: linear-gradient(#616161, #4d4d4d);
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-background > svg .chrome-tab-background {
+  fill: #373737;
 }
-.cssmasks .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab {
-  box-shadow: inset 0 1px rgba(255,255,255,0.09), 0 -1px rgba(0,0,0,0.24);
-}
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-curves-left-highlight,
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-curves-right-highlight {
-  background-color: #6f6f6f;
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-background > svg .chrome-tab-background {
+  fill: #505050;
 }
 .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-title {
-  color: #cbcbcb;
-}
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-close:before {
-  color: #999;
-  text-shadow: none;
-}
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-close:hover:before,
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-close:active:before {
-  color: #fff;
-  text-shadow: 0 1px #b9554c;
-}
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-close:hover,
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-close:active {
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1), inset 0 1px 2px #b9554c;
-  background: #dd837b;
   color: #fff;
 }
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-close:active:before {
-  box-shadow: inset 0 0 0 1px #b9554c, inset 0 1px 3px #b9554c, inset 0 0 20px rgba(0,0,0,0.1);
-}
-.cssmasks .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current {
-  box-shadow: inset 0 1px rgba(255,255,255,0.14), 0 -1px rgba(0,0,0,0.25);
-}
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current,
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left,
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right {
-  background-color: #7c7c7c;
-  background-image: linear-gradient(#808080, #696969);
-}
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-left-highlight,
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-curves-right-highlight {
-  background-color: #989898;
-}
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-title {
-  color: #fff;
-}
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-close:before {
-  color: #bdbdbd;
-}
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-close:hover:before,
-.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-close:active:before {
-  color: #fff;
+.chrome-tabs-shell.chrome-tabs-dark-theme .chrome-tabs .chrome-tab .chrome-tab-close:not(:hover) {
+  color: #cfcfcf;
 }

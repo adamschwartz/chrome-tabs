@@ -3,13 +3,7 @@
 
   $ = jQuery;
 
-  if (document.body.style['-webkit-mask-repeat'] !== void 0) {
-    $('html').addClass('cssmasks');
-  } else {
-    $('html').addClass('no-cssmasks');
-  }
-
-  tabTemplate = '<div class="chrome-tab">\n  <div class="chrome-tab-favicon"></div>\n  <div class="chrome-tab-title"></div>\n  <div class="chrome-tab-close"></div>\n  <div class="chrome-tab-curves">\n    <div class="chrome-tab-curves-left-shadow"></div>\n    <div class="chrome-tab-curves-left-highlight"></div>\n    <div class="chrome-tab-curves-left"></div>\n    <div class="chrome-tab-curves-right-shadow"></div>\n    <div class="chrome-tab-curves-right-highlight"></div>\n    <div class="chrome-tab-curves-right"></div>\n  </div>\n</div>';
+  tabTemplate = '<div class="chrome-tab">\n  <div class="chrome-tab-background">\n    <svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="topleft" viewBox="0 0 214 29" ><path d="M14.3 0.1L214 0.1 214 29 0 29C0 29 12.2 2.6 13.2 1.1 14.3-0.4 14.3 0.1 14.3 0.1Z"/></symbol><symbol id="topright" viewBox="0 0 214 29"><use xlink:href="#topleft"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%" transfrom="scale(-1, 1)"><use xlink:href="#topleft" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#topleft" width="214" height="29" class="chrome-tab-shadow"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#topright" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#topright" width="214" height="29" class="chrome-tab-shadow"/></svg></g></svg>\n  </div>\n  <div class="chrome-tab-favicon"></div>\n  <div class="chrome-tab-title"></div>\n  <div class="chrome-tab-close"></div>\n</div>';
 
   defaultNewTabData = {
     title: 'New Tab',
