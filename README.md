@@ -6,11 +6,14 @@ Exactly what you think this is. Go wild.
 
 ![](http://adamschwartz.co/chrome-tabs/chrome-tabs.gif)
 
-
-
-
-
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 =========================
 
