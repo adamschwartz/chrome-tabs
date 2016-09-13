@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>app</key>
+	<string>com.bohemiancoding.sketch</string>
+	<key>build</key>
+	<integer>5370</integer>
+	<key>commit</key>
+	<string>38aeabf36c76d40a8ed2d256f8f3b9492c3dac07</string>
+	<key>fonts</key>
+	<array/>
+	<key>length</key>
+	<integer>9582</integer>
+	<key>version</key>
+	<integer>18</integer>
+</dict>
+</plist>
