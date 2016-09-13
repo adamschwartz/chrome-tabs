@@ -75,6 +75,9 @@ button {
   float: left;
   text-align: left;
   text-decoration: none;
+  color: #666;
+  letter-spacing: .025em;
+  line-height: 1.35;
 }
 
 .carbon-poweredby {
@@ -83,6 +86,6 @@ button {
   display: block;
   text-align: left;
   font-size: 10px;
-  margin-top: 2px;
+  margin-top: 5px;
   margin-bottom: 11px;
 }
