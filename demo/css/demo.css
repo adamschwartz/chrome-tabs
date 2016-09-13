@@ -1,7 +1,35 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  margin: 16px;
+}
+
+@media (min-width: 800px) {
+  body {
+    margin: 60px;
+  }
+}
+
+button {
+  font-family: inherit;
+  display: inline-block;
+  background: #e0e0e0;
+  border: 0;
+  border-radius: 3px;
+  padding: .6em 1em .7em;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 .5px rgba(0, 0, 0, .5);
+}
+
+.chrome-tabs-shell.chrome-tabs-dark-theme ~ p button {
+  background: #373737;
+  color: #fff;
+  box-shadow: 0 .5px #000;
+}
+
 .carbonads-wrapper {
   box-sizing: border-box;
   display: inline-block;
-  background: #eee;
   font-family: "Avenir Next", "Helevetica Neue", Helevetica, Arial, sans-serif;
   margin-top: 50px;
 }
@@ -15,8 +43,7 @@
   display: block;
   overflow: hidden;
   line-height: 1.33;
-  width: 162px;
-  padding: 11px 16px 0;
+  width: 130px;
   max-width: 100%;
   font-size: 12px;
   background: #eee;
