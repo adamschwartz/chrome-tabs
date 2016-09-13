@@ -30,7 +30,6 @@ button {
 .carbonads-wrapper {
   box-sizing: border-box;
   display: inline-block;
-  font-family: "Avenir Next", "Helevetica Neue", Helevetica, Arial, sans-serif;
   margin-top: 50px;
 }
 
@@ -46,7 +45,6 @@ button {
   width: 130px;
   max-width: 100%;
   font-size: 12px;
-  background: #eee;
   margin: 0 auto;
 }
 
