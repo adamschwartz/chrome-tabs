@@ -25,8 +25,8 @@ button {
   box-shadow: 0 .5px rgba(0, 0, 0, .5);
 }
 
-.chrome-tabs-shell.chrome-tabs-dark-theme ~ p button {
-  background: #373737;
+.chrome-tabs.chrome-tabs-dark-theme ~ p button {
+  background: #505050;
   color: #fff;
   box-shadow: 0 .5px #000;
 }
