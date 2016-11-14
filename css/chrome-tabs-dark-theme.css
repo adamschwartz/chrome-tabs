@@ -1,5 +1,6 @@
 .chrome-tabs-shell.chrome-tabs-dark-theme {
   background: linear-gradient(#1b1d1f, #1d1f21);
+  box-shadow: 0 0.05em #282828;
 }
 .chrome-tabs-shell.chrome-tabs-dark-theme .chrome-shell-bottom-bar {
   background: #505050;

@@ -1,210 +1,215 @@
-(function() {
-  var $, animationStyle, chromeTabs, defaultNewTabData, tabTemplate;
+(function(){
+  const tabTemplate = `
+    <div class="chrome-tab">
+      <div class="chrome-tab-background">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="topleft" viewBox="0 0 214 29" ><path d="M14.3 0.1L214 0.1 214 29 0 29C0 29 12.2 2.6 13.2 1.1 14.3-0.4 14.3 0.1 14.3 0.1Z"/></symbol><symbol id="topright" viewBox="0 0 214 29"><use xlink:href="#topleft"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%" transfrom="scale(-1, 1)"><use xlink:href="#topleft" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#topleft" width="214" height="29" class="chrome-tab-shadow"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#topright" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#topright" width="214" height="29" class="chrome-tab-shadow"/></svg></g></svg>
+      </div>
+      <div class="chrome-tab-favicon"></div>
+      <div class="chrome-tab-title"></div>
+      <div class="chrome-tab-close"></div>
+    </div>
+  `
 
-  $ = jQuery;
+  defaultTapProperties = {
+    title: '',
+    favicon: ''
+  }
 
-  tabTemplate = '<div class="chrome-tab">\n  <div class="chrome-tab-background">\n    <svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="topleft" viewBox="0 0 214 29" ><path d="M14.3 0.1L214 0.1 214 29 0 29C0 29 12.2 2.6 13.2 1.1 14.3-0.4 14.3 0.1 14.3 0.1Z"/></symbol><symbol id="topright" viewBox="0 0 214 29"><use xlink:href="#topleft"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%" transfrom="scale(-1, 1)"><use xlink:href="#topleft" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#topleft" width="214" height="29" class="chrome-tab-shadow"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#topright" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#topright" width="214" height="29" class="chrome-tab-shadow"/></svg></g></svg>\n  </div>\n  <div class="chrome-tab-favicon"></div>\n  <div class="chrome-tab-title"></div>\n  <div class="chrome-tab-close"></div>\n</div>';
-
-  defaultNewTabData = {
-    title: 'New Tab',
-    favicon: '',
-    data: {}
-  };
-
-  animationStyle = document.createElement('style');
-
-  chromeTabs = {
-    init: function(options) {
-      var render;
-      $.extend(options.$shell.data(), options);
-      options.$shell.prepend(animationStyle);
-      options.$shell.find('.chrome-tab').each(function() {
-        return $(this).data().tabData = {
-          data: {}
-        };
-      });
-      render = function() {
-        return chromeTabs.render(options.$shell);
-      };
-      $(window).resize(render);
-      return render();
-    },
-    render: function($shell) {
-      chromeTabs.fixTabSizes($shell);
-      chromeTabs.fixZIndexes($shell);
-      chromeTabs.setupEvents($shell);
-      chromeTabs.setupSortable($shell);
-      return $shell.trigger('chromeTabRender');
-    },
-    setupSortable: function($shell) {
-      var $tabs;
-      $tabs = $shell.find('.chrome-tabs');
-      return $tabs.sortable({
-        axis: 'x',
-        tolerance: 'pointer',
-        cancel: '.chrome-tab-close',
-        start: function(e, ui) {
-          ui.item.addClass('ui-sortable-draggable-item');
-          $shell.addClass('chrome-tabs-sorting');
-          chromeTabs.setupTabClones($shell, ui.item);
-          chromeTabs.fixZIndexes($shell);
-          if (!$(ui.item).hasClass('chrome-tab-current')) {
-            return $tabs.sortable('option', 'zIndex', $(ui.item).data().zIndex);
-          } else {
-            return $tabs.sortable('option', 'zIndex', $tabs.length + 40);
-          }
-        },
-        stop: function(e, ui) {
-          $('.ui-sortable-draggable-item').removeClass('ui-sortable-draggable-item');
-          $shell.removeClass('chrome-tabs-sorting');
-          chromeTabs.cleanUpTabClones($shell);
-          return chromeTabs.setCurrentTab($shell, $(ui.item));
-        },
-        change: function(e, ui) {
-          var placeholderIndex;
-          placeholderIndex = ui.placeholder.index();
-          if (ui.helper.index() <= placeholderIndex) {
-            placeholderIndex -= 1;
-          }
-          return chromeTabs.animateSort($shell, placeholderIndex);
-        }
-      });
-    },
-    animateSort: function($shell, newPlaceholderIndex) {
-      var $clone, $placeholder, delta, placeholderIndex;
-      $clone = $shell.find('.chrome-tabs.chrome-tabs-clone');
-      $placeholder = $clone.find('.ui-sortable-placeholder');
-      placeholderIndex = $placeholder.index();
-      delta = newPlaceholderIndex - placeholderIndex;
-      if (delta === -1) {
-        if (newPlaceholderIndex - 1 < 0) {
-          return $clone.prepend($placeholder);
-        } else {
-          return $($clone.find('.chrome-tab').get(newPlaceholderIndex - 1)).after($placeholder);
-        }
-      } else if (delta === 1) {
-        return $($clone.find('.chrome-tab').get(newPlaceholderIndex)).after($placeholder);
-      }
-    },
-    setupTabClones: function($shell) {
-      var $clone, $lastClone, $tabsContainer;
-      $lastClone = $shell.find('.chrome-tabs.chrome-tabs-clone');
-      $tabsContainer = $shell.find('.chrome-tabs').first();
-      $clone = $tabsContainer.clone().addClass('chrome-tabs-clone');
-      $clone.find('.ui-sortable-helper, .ui-sortable-draggable-item').remove();
-      $clone.find('.chrome-tab').css('position', '');
-      if ($lastClone.length) {
-        return $lastClone.replaceWith($clone);
-      } else {
-        return $tabsContainer.after($clone);
-      }
-    },
-    cleanUpTabClones: function($shell) {
-      return $shell.find('.chrome-tabs.chrome-tabs-clone').remove();
-    },
-    fixTabSizes: function($shell) {
-      var $tabs, margin, width;
-      $tabs = $shell.find('.chrome-tab');
-      margin = (parseInt($tabs.first().css('marginLeft'), 10) + parseInt($tabs.first().css('marginRight'), 10)) || 0;
-      width = $shell.width() - 50;
-      width = (width / $tabs.length) - margin;
-      width = Math.max($shell.data().minWidth, Math.min($shell.data().maxWidth, width));
-      $tabs.css({
-        width: width
-      });
-      return setTimeout(function() {
-        return chromeTabs.setupAnimationStyles($shell);
-      });
-    },
-    setupAnimationStyles: function($shell) {
-      var $tabs, offsetLeft, styleHTML;
-      styleHTML = '';
-      offsetLeft = $shell.find('.chrome-tabs').offset().left;
-      $tabs = $shell.find('.chrome-tabs:not(.chrome-tabs-clone) .chrome-tab');
-      $tabs.each(function(i) {
-        var $tab, left;
-        $tab = $(this);
-        left = $tab.offset().left - offsetLeft - parseInt($tabs.first().css('marginLeft'), 10);
-        return styleHTML += ".chrome-tabs-clone .chrome-tab:nth-child(" + (i + 1) + ") {\n  left: " + left + "px\n}";
-      });
-      return animationStyle.innerHTML = styleHTML;
-    },
-    fixZIndexes: function($shell) {
-      var $tabs;
-      $tabs = $shell.find('.chrome-tab');
-      return $tabs.each(function(i) {
-        var $tab, zIndex;
-        $tab = $(this);
-        zIndex = $tabs.length - i;
-        if ($tab.hasClass('chrome-tab-current')) {
-          zIndex = $tabs.length + 40;
-        }
-        $tab.css({
-          zIndex: zIndex
-        });
-        return $tab.data({
-          zIndex: zIndex
-        });
-      });
-    },
-    setupEvents: function($shell) {
-      $shell.unbind('dblclick').bind('dblclick', function() {
-        return chromeTabs.addNewTab($shell);
-      });
-      $shell.unbind('mouseup').bind('mouseup', function(e) {
-        if (e.which === 2 && e.target.className !== 'chrome-tab-title') {
-          return chromeTabs.addNewTab($shell);
-        }
-      });
-      return $shell.find('.chrome-tab').each(function() {
-        var $tab;
-        $tab = $(this);
-        $tab.unbind('click').click(function() {
-          return chromeTabs.setCurrentTab($shell, $tab);
-        });
-        $tab.unbind('mouseup').mouseup(function(e) {
-          if (e.which === 2) {
-            return chromeTabs.closeTab($shell, $tab);
-          }
-        });
-        return $tab.find('.chrome-tab-close').unbind('click').click(function() {
-          return chromeTabs.closeTab($shell, $tab);
-        });
-      });
-    },
-    addNewTab: function($shell, newTabData) {
-      var $newTab, tabData;
-      $newTab = $(tabTemplate);
-      $shell.find('.chrome-tabs').append($newTab);
-      tabData = $.extend(true, {}, defaultNewTabData, newTabData);
-      chromeTabs.updateTab($shell, $newTab, tabData);
-      return chromeTabs.setCurrentTab($shell, $newTab);
-    },
-    setCurrentTab: function($shell, $tab) {
-      $shell.find('.chrome-tab-current').removeClass('chrome-tab-current');
-      $tab.addClass('chrome-tab-current');
-      return chromeTabs.render($shell);
-    },
-    closeTab: function($shell, $tab) {
-      if ($tab.hasClass('chrome-tab-current')) {
-        if ($tab.prev().length) {
-          chromeTabs.setCurrentTab($shell, $tab.prev());
-        } else if ($tab.next().length) {
-          chromeTabs.setCurrentTab($shell, $tab.next());
-        }
-      }
-      $tab.remove();
-      return chromeTabs.render($shell);
-    },
-    updateTab: function($shell, $tab, tabData) {
-      $tab.find('.chrome-tab-title').html(tabData.title);
-      $tab.find('.chrome-tab-favicon').css({
-        backgroundImage: "url('" + tabData.favicon + "')"
-      });
-      return $tab.data().tabData = tabData;
+  class ChromeTabs {
+    constructor() {
+      this.draggabillyInstances = []
     }
-  };
 
-  window.chromeTabs = chromeTabs;
+    init(el, options) {
+      this.el = el
+      this.options = options
 
-}).call(this);
+      this.setupStyleEl()
+      this.setupEvents()
+      this.render()
+    }
+
+    setupStyleEl() {
+      this.animationStyleEl = document.createElement('style')
+      this.el.appendChild(this.animationStyleEl)
+    }
+
+    setupEvents() {
+      window.addEventListener('resize', event => this.render())
+
+      this.el.addEventListener('dblclick', event => this.addNewTab())
+
+      this.el.addEventListener('click', ({target}) => {
+        if (target.classList.contains('chrome-tab')) {
+          this.setCurrentTab(target)
+        } else if (target.classList.contains('chrome-tab-close')) {
+          this.closeTab(target.parentNode)
+        } else if (target.classList.contains('chrome-tab-title') || target.classList.contains('chrome-tab-favicon')) {
+          this.setCurrentTab(target.parentNode)
+        }
+      })
+
+      // TODO - close tab on middle mouse click
+      // TODO - add new tab on middle mouse click
+    }
+
+    render() {
+      this.fixTabSizes()
+      this.fixZIndexes()
+      this.setupSortable()
+      this.el.dispatchEvent(new CustomEvent('chrome-tabs-render'))
+    }
+
+    get tabEls() {
+      return Array.prototype.slice.call(this.el.querySelectorAll('.chrome-tab'))
+    }
+
+    get tabContentEl() {
+      return this.el.querySelector('.chrome-tabs-content')
+    }
+
+    get tabRightMargin() {
+      return parseInt(getComputedStyle(this.tabEls[0]).marginRight, 10) || -14 // TODO - make an option
+    }
+
+    get tabWidth() {
+      const marginRight = this.tabRightMargin
+      const tabsContentWidth = this.tabContentEl.clientWidth + marginRight
+      const width = (tabsContentWidth / this.tabEls.length) - marginRight
+      return Math.max(this.options.minWidth, Math.min(this.options.maxWidth, width))
+    }
+
+    get tabDistanceApart() {
+      return this.tabWidth + this.tabRightMargin
+    }
+
+    get tabPositions() {
+      const tabDistanceApart = this.tabDistanceApart
+      let left = 0
+      let positions = []
+      this.tabEls.forEach((tabEl, i) => {
+        positions.push(left)
+        left += tabDistanceApart
+      })
+      return positions
+    }
+
+    fixTabSizes() {
+      const tabWidth = this.tabWidth
+      this.tabEls.forEach((tabEl) => tabEl.style.width = tabWidth + 'px')
+      requestAnimationFrame(() => this.setupAnimationStyles())
+    }
+
+    setupAnimationStyles() {
+      let styleHTML = ''
+      this.tabPositions.forEach((left, i) => {
+        // TODO - restrict styles to specific chrome tabs instance
+        styleHTML += `
+          .chrome-tabs .chrome-tab:nth-child(${ i + 1 }) {
+            transform: translate3d(${ left }px, 0, 0)
+          }
+        `
+      })
+      this.animationStyleEl.innerHTML = styleHTML
+    }
+
+    fixZIndexes() {
+      const bottomBarEl = this.el.querySelector('.chrome-tabs-bottom-bar')
+      const tabEls = this.tabEls
+      tabEls.forEach((tabEl, i) => {
+        let zIndex = tabEls.length - i
+        if (tabEl.classList.contains('chrome-tab-current')) {
+          bottomBarEl.style.zIndex = tabEls.length + 1
+          zIndex = tabEls.length + 2
+        }
+        tabEl.style.zIndex = zIndex
+      })
+    }
+
+    addNewTab(tabProperties) {
+      const div = document.createElement('div')
+      div.innerHTML = tabTemplate
+      const newTabEl = div.firstElementChild
+      this.el.querySelector('.chrome-tabs-content').appendChild(newTabEl)
+      tabProperties = Object.assign({}, defaultTapProperties, tabProperties)
+      this.updateTab(newTabEl, tabProperties)
+      this.setCurrentTab(newTabEl)
+    }
+
+    setCurrentTab(tabEl) {
+      this.el.querySelector('.chrome-tab-current').classList.remove('chrome-tab-current')
+      tabEl.classList.add('chrome-tab-current')
+      this.render()
+    }
+
+    closeTab(tabEl) {
+      if (tabEl.classList.contains('chrome-tab-current')) {
+        if (tabEl.previousElementSibling) {
+          this.setCurrentTab(tabEl.previousElementSibling)
+        } else if (tabEl.nextElementSibling) {
+          this.setCurrentTab(tabEl.nextElementSibling)
+        }
+      }
+      tabEl.parentNode.removeChild(tabEl)
+      this.render()
+    }
+
+    updateTab(tabEl, tabProperties) {
+      tabEl.querySelector('.chrome-tab-title').textContent = tabProperties.title
+      tabEl.querySelector('.chrome-tab-favicon').style.backgroundImage = `url('${tabProperties.favicon}')`
+    }
+
+    setupSortable() {
+      const tabEls = this.tabEls
+      const tabDistanceApart = this.tabDistanceApart
+      const tabPositions = this.tabPositions
+
+      this.draggabillyInstances.forEach(draggabillyInstance => draggabillyInstance.destroy())
+
+      tabEls.forEach((tabEl, originalIndex) => {
+        const originalTabPositionX = tabPositions[originalIndex]
+        const draggabillyInstance = new Draggabilly(tabEl, {
+          axis: 'x',
+          containment: '.chrome-tabs'
+        })
+
+        this.draggabillyInstances.push(draggabillyInstance);
+
+        draggabillyInstance.on('dragStart', () => {
+          tabEl.classList.add('chrome-tab-currently-dragged')
+          this.el.classList.add('chrome-tabs-sorting')
+          this.fixZIndexes()
+        })
+
+        draggabillyInstance.on('dragEnd', () => {
+          this.el.querySelector('.chrome-tab-currently-dragged').classList.remove('chrome-tab-currently-dragged')
+          this.el.classList.remove('chrome-tabs-sorting')
+          this.setCurrentTab(tabEl)
+        })
+
+        draggabillyInstance.on('dragMove', (event, pointer, moveVector) => {
+          // Current index be computed within the event since it can change during the dragMove
+          const tabEls = this.tabEls
+          const currentIndex = tabEls.indexOf(tabEl)
+
+          const currentTabPositionX = originalTabPositionX + moveVector.x
+          const destinationIndex = Math.floor((currentTabPositionX + (tabDistanceApart / 2)) / tabDistanceApart)
+
+          if (currentIndex !== destinationIndex) {
+            this.animateTabMove(tabEl, currentIndex, destinationIndex)
+          }
+        })
+      })
+    }
+
+    animateTabMove(tabEl, originIndex, destinationIndex) {
+      if (destinationIndex < originIndex) {
+        tabEl.parentNode.insertBefore(tabEl, this.tabEls[destinationIndex])
+      } else {
+        tabEl.parentNode.insertBefore(tabEl, this.tabEls[destinationIndex + 1])
+      }
+    }
+  }
+
+  window.ChromeTabs = ChromeTabs
+})()

@@ -1,13 +1,7 @@
 chromeTabSpaceAbove = 1em
 activeTabBackgroundColor = #f2f2f2
 
-clearfix()
-  &:after
-    content ""
-    display table
-    clear both
-
-.chrome-tabs-shell
+.chrome-tabs
   box-sizing border-box
   position relative
   font-size 10px
@@ -23,7 +17,7 @@ clearfix()
     box-sizing inherit
     font-family inherit
 
-  .chrome-shell-bottom-bar
+  .chrome-tabs-bottom-bar
     position absolute
     bottom 0
     height .45em
@@ -33,26 +27,12 @@ clearfix()
     box-shadow 0 -.05em rgba(0, 0, 0, .27)
     z-index 20
 
-  &.chrome-tabs-sorting .chrome-tabs:not(.chrome-tabs-clone) .chrome-tab:not(.ui-sortable-draggable-item)
-    opacity 0
-
-.chrome-tabs
-  clearfix()
-  position relative
-  width 9999em
-
-  &.chrome-tabs-clone
-    position absolute
-    top 1em
-    pointer-events none
-
-    .chrome-tab
-      transition left 120ms ease-in-out
-      position absolute
+  .chrome-tabs-content
+    position relative
 
   .chrome-tab
-    float left
-    position relative
+    position absolute
+    left 0
     height 2.8em
     width 24em
     border 0
@@ -64,7 +44,7 @@ clearfix()
       cursor default
 
     &:not(:last-child)
-      margin-right -1.4em
+      margin-right -1.4em // TODO - move to JS?
 
     .chrome-tab-background
       position absolute
@@ -94,60 +74,65 @@ clearfix()
       .chrome-tab-background > svg .chrome-tab-background
         fill activeTabBackgroundColor
 
-    .chrome-tab-favicon
-      position relative
-      margin-left 1.6em
-      height 1.6em
-      width 1.6em
-      background-size 1.6em
-      margin-top .6em
-      z-index 3
-      display inline-block
-      vertical-align top
+  &.chrome-tabs-sorting .chrome-tab:not(.chrome-tab-currently-dragged)
+    transition transform 120ms ease-in-out
 
-    .chrome-tab-title
-      position relative
-      display inline-block
-      vertical-align top
-      color #222
-      padding 0 .25em
-      overflow hidden
-      text-overflow ellipsis
-      white-space nowrap
-      font-size 1.2em
-      margin-top .5em
-      max-width calc(100% - 5em)
+  .chrome-tab-favicon
+    position relative
+    margin-left 1.6em
+    height 1.6em
+    width 1.6em
+    background-size 1.6em
+    margin-top .6em
+    z-index 3
+    display inline-block
+    vertical-align top
+    pointer-events none
 
-    .chrome-tab-close
+  .chrome-tab-title
+    position relative
+    display inline-block
+    vertical-align top
+    color #222
+    padding 0 .25em
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+    font-size 1.2em
+    margin-top .5em
+    max-width calc(100% - 5em)
+    pointer-events none
+
+  .chrome-tab-close
+    position absolute
+    width 1.4em
+    height 1.4em
+    border-radius 50%
+    z-index 2
+    right 1.4em
+    top .7em
+    color #505050
+
+    &:before
+      font-family "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif
+      content "\00D7"
       position absolute
-      width 1.4em
-      height 1.4em
-      border-radius 50%
-      z-index 2
-      right 1.4em
-      top .7em
-      color #505050
+      display block
+      top .05em
+      bottom 0
+      left 0
+      width 100%
+      text-align center
+      font-size 1.15em
+      line-height 1
 
-      &:before
-        font-family "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif
-        content "\00D7"
-        position absolute
-        display block
-        top .05em
-        bottom 0
-        left 0
-        width 100%
-        text-align center
-        font-size 1.15em
-        line-height 1
+    &:hover
 
-      &:hover
+      &, &:active
+        color #fff
 
-        &, &:active
-          color #fff
+    &:hover
+      background #e25c4b
 
-      &:hover
-        background #e25c4b
-
-        &:active
-          background #b74a3b
+      &:active
+        background #b74a3b

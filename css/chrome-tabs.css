@@ -1,4 +1,4 @@
-.chrome-tabs-shell {
+.chrome-tabs {
   box-sizing: border-box;
   position: relative;
   font-size: 10px;
@@ -10,11 +10,11 @@
   overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
-.chrome-tabs-shell * {
+.chrome-tabs * {
   box-sizing: inherit;
   font-family: inherit;
 }
-.chrome-tabs-shell .chrome-shell-bottom-bar {
+.chrome-tabs .chrome-tabs-bottom-bar {
   position: absolute;
   bottom: 0;
   height: 0.45em;
@@ -24,30 +24,12 @@
   box-shadow: 0 -0.05em rgba(0,0,0,0.27);
   z-index: 20;
 }
-.chrome-tabs-shell.chrome-tabs-sorting .chrome-tabs:not(.chrome-tabs-clone) .chrome-tab:not(.ui-sortable-draggable-item) {
-  opacity: 0;
-}
-.chrome-tabs {
+.chrome-tabs .chrome-tabs-content {
   position: relative;
-  width: 9999em;
-}
-.chrome-tabs:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-.chrome-tabs.chrome-tabs-clone {
-  position: absolute;
-  top: 1em;
-  pointer-events: none;
-}
-.chrome-tabs.chrome-tabs-clone .chrome-tab {
-  transition: left 120ms ease-in-out;
-  position: absolute;
 }
 .chrome-tabs .chrome-tab {
-  float: left;
-  position: relative;
+  position: absolute;
+  left: 0;
   height: 2.8em;
   width: 24em;
   border: 0;
@@ -90,7 +72,10 @@
 .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-background > svg .chrome-tab-background {
   fill: #f2f2f2;
 }
-.chrome-tabs .chrome-tab .chrome-tab-favicon {
+.chrome-tabs.chrome-tabs-sorting .chrome-tab:not(.chrome-tab-currently-dragged) {
+  transition: transform 120ms ease-in-out;
+}
+.chrome-tabs .chrome-tab-favicon {
   position: relative;
   margin-left: 1.6em;
   height: 1.6em;
@@ -100,8 +85,9 @@
   z-index: 3;
   display: inline-block;
   vertical-align: top;
+  pointer-events: none;
 }
-.chrome-tabs .chrome-tab .chrome-tab-title {
+.chrome-tabs .chrome-tab-title {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -113,8 +99,9 @@
   font-size: 1.2em;
   margin-top: 0.5em;
   max-width: calc(100% - 5em);
+  pointer-events: none;
 }
-.chrome-tabs .chrome-tab .chrome-tab-close {
+.chrome-tabs .chrome-tab-close {
   position: absolute;
   width: 1.4em;
   height: 1.4em;
@@ -124,7 +111,7 @@
   top: 0.7em;
   color: #505050;
 }
-.chrome-tabs .chrome-tab .chrome-tab-close:before {
+.chrome-tabs .chrome-tab-close:before {
   font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
   content: "\00D7";
   position: absolute;
@@ -137,13 +124,13 @@
   font-size: 1.15em;
   line-height: 1;
 }
-.chrome-tabs .chrome-tab .chrome-tab-close:hover,
-.chrome-tabs .chrome-tab .chrome-tab-close:hover:active {
+.chrome-tabs .chrome-tab-close:hover,
+.chrome-tabs .chrome-tab-close:hover:active {
   color: #fff;
 }
-.chrome-tabs .chrome-tab .chrome-tab-close:hover {
+.chrome-tabs .chrome-tab-close:hover {
   background: #e25c4b;
 }
-.chrome-tabs .chrome-tab .chrome-tab-close:hover:active {
+.chrome-tabs .chrome-tab-close:hover:active {
   background: #b74a3b;
 }
