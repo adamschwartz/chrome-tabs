@@ -214,7 +214,7 @@
           const currentIndex = tabEls.indexOf(tabEl)
 
           const currentTabPositionX = originalTabPositionX + moveVector.x
-          const destinationIndex = Math.floor((currentTabPositionX + (tabDistanceApart / 2)) / tabDistanceApart)
+          const destinationIndex = Math.max(0, Math.min(tabEls.length, Math.floor((currentTabPositionX + (tabDistanceApart / 2)) / tabDistanceApart)))
 
           if (currentIndex !== destinationIndex) {
             this.animateTabMove(tabEl, currentIndex, destinationIndex)
