@@ -48,9 +48,6 @@
           this.setCurrentTab(target.parentNode)
         }
       })
-
-      // TODO - close tab on middle mouse click
-      // TODO - add new tab on middle mouse click
     }
 
     render() {
