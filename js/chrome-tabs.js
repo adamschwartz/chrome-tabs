@@ -134,12 +134,13 @@
       tabProperties = Object.assign({}, defaultTapProperties, tabProperties)
       this.updateTab(newTabEl, tabProperties)
       this.setCurrentTab(newTabEl)
+      this.render()
     }
 
     setCurrentTab(tabEl) {
       this.el.querySelector('.chrome-tab-current').classList.remove('chrome-tab-current')
       tabEl.classList.add('chrome-tab-current')
-      this.render()
+      this.fixZIndexes()
     }
 
     closeTab(tabEl) {
@@ -173,18 +174,38 @@
           containment: '.chrome-tabs'
         })
 
-        this.draggabillyInstances.push(draggabillyInstance);
+        this.draggabillyInstances.push(draggabillyInstance)
 
         draggabillyInstance.on('dragStart', () => {
+          tabEls.forEach((tabEl) => tabEl.classList.remove('chrome-tab-just-dragged'))
           tabEl.classList.add('chrome-tab-currently-dragged')
           this.el.classList.add('chrome-tabs-sorting')
           this.fixZIndexes()
         })
 
         draggabillyInstance.on('dragEnd', () => {
-          this.el.querySelector('.chrome-tab-currently-dragged').classList.remove('chrome-tab-currently-dragged')
-          this.el.classList.remove('chrome-tabs-sorting')
-          this.setCurrentTab(tabEl)
+          const finalTranslateX = parseFloat(tabEl.style.left, 10)
+          tabEl.style.transform = `translate3d(0, 0, 0)`
+
+          // Animate dragged tab back into its place
+          requestAnimationFrame(() => {
+            tabEl.style.left = '0'
+            tabEl.style.transform = `translate3d(${ finalTranslateX }px, 0, 0)`
+
+            requestAnimationFrame(() => {
+              tabEl.classList.remove('chrome-tab-currently-dragged')
+              this.el.classList.remove('chrome-tabs-sorting')
+
+              this.setCurrentTab(tabEl)
+              tabEl.classList.add('chrome-tab-just-dragged')
+
+              requestAnimationFrame(() => {
+                tabEl.style.transform = ''
+
+                this.setupSortable()
+              })
+            })
+          })
         })
 
         draggabillyInstance.on('dragMove', (event, pointer, moveVector) => {

@@ -74,7 +74,8 @@ activeTabBackgroundColor = #f2f2f2
       .chrome-tab-background > svg .chrome-tab-background
         fill activeTabBackgroundColor
 
-  &.chrome-tabs-sorting .chrome-tab:not(.chrome-tab-currently-dragged)
+  &.chrome-tabs-sorting .chrome-tab:not(.chrome-tab-currently-dragged),
+  &:not(.chrome-tabs-sorting) .chrome-tab.chrome-tab-just-dragged
     transition transform 120ms ease-in-out
 
   .chrome-tab-favicon

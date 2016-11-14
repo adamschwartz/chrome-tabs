@@ -72,7 +72,8 @@
 .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-background > svg .chrome-tab-background {
   fill: #f2f2f2;
 }
-.chrome-tabs.chrome-tabs-sorting .chrome-tab:not(.chrome-tab-currently-dragged) {
+.chrome-tabs.chrome-tabs-sorting .chrome-tab:not(.chrome-tab-currently-dragged),
+.chrome-tabs:not(.chrome-tabs-sorting) .chrome-tab.chrome-tab-just-dragged {
   transition: transform 120ms ease-in-out;
 }
 .chrome-tabs .chrome-tab-favicon {
