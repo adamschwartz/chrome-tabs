@@ -1,33 +1,31 @@
 activeTabBackgroundColor = #505050
 
-.chrome-tabs-shell.chrome-tabs-dark-theme
+.chrome-tabs.chrome-tabs-dark-theme
   background linear-gradient(#1b1d1f, #1d1f21)
   box-shadow 0 .05em #282828
 
-  .chrome-shell-bottom-bar
+  .chrome-tabs-bottom-bar
     background activeTabBackgroundColor
     box-shadow 0 -.05em rgba(0, 0, 0, .5)
 
-  .chrome-tabs
+  .chrome-tab
 
-    .chrome-tab
+    .chrome-tab-background
 
-      .chrome-tab-background
+      > svg
 
-        > svg
+        .chrome-tab-shadow
+          stroke rgba(0, 0, 0, .5)
 
-          .chrome-tab-shadow
-            stroke rgba(0, 0, 0, .5)
+        .chrome-tab-background
+          fill #373737
 
-          .chrome-tab-background
-            fill #373737
+    &.chrome-tab-current .chrome-tab-background > svg .chrome-tab-background
+      fill activeTabBackgroundColor
 
-      &.chrome-tab-current .chrome-tab-background > svg .chrome-tab-background
-        fill activeTabBackgroundColor
+    .chrome-tab-title
+      -webkit-font-smoothing antialiased
+      color #fff
 
-      .chrome-tab-title
-        -webkit-font-smoothing antialiased
-        color #fff
-
-      .chrome-tab-close:not(:hover)
-        color #cfcfcf
+    .chrome-tab-close:not(:hover)
+      color #cfcfcf
