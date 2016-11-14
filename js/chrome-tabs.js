@@ -171,7 +171,7 @@
         const originalTabPositionX = tabPositions[originalIndex]
         const draggabillyInstance = new Draggabilly(tabEl, {
           axis: 'x',
-          containment: '.chrome-tabs'
+          containment: this.el.querySelector('.chrome-tabs-content')
         })
 
         this.draggabillyInstances.push(draggabillyInstance)
