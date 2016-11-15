@@ -59,7 +59,11 @@
 
     <br>
 
-    <p><button data-theme-toggle>Toggle dark theme</button> &nbsp; <button data-new-tab>New tab</button></p>
+    <p>
+      <button data-theme-toggle>Toggle dark theme</button> &nbsp;
+      <button data-add-tab>Add new tab</button> &nbsp;
+      <button data-remove-tab>Remove current tab</button>
+    </p>
 
     <div class="carbonads-wrapper">
       <script async="true" id="_carbonads_js" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=adamschwartzco"></script>
@@ -81,11 +85,15 @@
       el.addEventListener('tabAdd', ({ detail }) => console.log('Tab added', detail.tabEl))
       el.addEventListener('tabRemove', ({ detail }) => console.log('Tab removed', detail.tabEl))
 
-      document.querySelector('button[data-new-tab]').addEventListener('click', function(){
+      document.querySelector('button[data-add-tab]').addEventListener('click', function(){
         chromeTabs.addTab({
           title: 'New Tab',
           favicon: 'demo/images/default-favicon.png'
         })
+      });
+
+      document.querySelector('button[data-remove-tab]').addEventListener('click', function(){
+        chromeTabs.removeTab(el.querySelector('.chrome-tab-current'))
       });
 
       document.querySelector('button[data-theme-toggle]').addEventListener('click', function(){
