@@ -1,4 +1,5 @@
 chromeTabSpaceAbove = 1em
+chromeTabSpaceBelow = .45em
 activeTabBackgroundColor = #f2f2f2
 
 .chrome-tabs
@@ -7,7 +8,7 @@ activeTabBackgroundColor = #f2f2f2
   font-size 10px
   height 4.2em
   background linear-gradient(#dad9da, #d9d8d9)
-  padding chromeTabSpaceAbove 1.2em .6em 1.2em
+  padding chromeTabSpaceAbove 1.2em chromeTabSpaceBelow 1.2em
   border-radius .5em .5em 0 0
   box-shadow 0 .05em #b7b7b7
   overflow hidden
@@ -20,7 +21,7 @@ activeTabBackgroundColor = #f2f2f2
   .chrome-tabs-bottom-bar
     position absolute
     bottom 0
-    height .45em
+    height chromeTabSpaceBelow
     left 0
     width 100%
     background activeTabBackgroundColor
@@ -29,6 +30,9 @@ activeTabBackgroundColor = #f2f2f2
 
   .chrome-tabs-content
     position relative
+    width 100%
+    height 100%
+    overflow hidden
 
   .chrome-tab
     position absolute
@@ -70,6 +74,14 @@ activeTabBackgroundColor = #f2f2f2
 
       .chrome-tab-background > svg .chrome-tab-background
         fill activeTabBackgroundColor
+
+    @keyframes chrome-tab-just-added
+      to
+        top 0
+
+    &.chrome-tab-just-added
+      top 10px
+      animation chrome-tab-just-added 120ms forwards ease-in-out
 
   &.chrome-tabs-sorting .chrome-tab:not(.chrome-tab-currently-dragged),
   &:not(.chrome-tabs-sorting) .chrome-tab.chrome-tab-just-dragged

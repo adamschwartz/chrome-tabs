@@ -4,7 +4,7 @@
   font-size: 10px;
   height: 4.2em;
   background: linear-gradient(#dad9da, #d9d8d9);
-  padding: 1em 1.2em 0.6em 1.2em;
+  padding: 1em 1.2em 0.45em 1.2em;
   border-radius: 0.5em 0.5em 0 0;
   box-shadow: 0 0.05em #b7b7b7;
   overflow: hidden;
@@ -26,6 +26,9 @@
 }
 .chrome-tabs .chrome-tabs-content {
   position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 .chrome-tabs .chrome-tab {
   position: absolute;
@@ -68,6 +71,30 @@
 }
 .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-background > svg .chrome-tab-background {
   fill: #f2f2f2;
+}
+.chrome-tabs .chrome-tab.chrome-tab-just-added {
+  top: 10px;
+  animation: chrome-tab-just-added 120ms forwards ease-in-out;
+}
+@-moz-keyframes chrome-tab-just-added {
+  to {
+    top: 0;
+  }
+}
+@-webkit-keyframes chrome-tab-just-added {
+  to {
+    top: 0;
+  }
+}
+@-o-keyframes chrome-tab-just-added {
+  to {
+    top: 0;
+  }
+}
+@keyframes chrome-tab-just-added {
+  to {
+    top: 0;
+  }
 }
 .chrome-tabs.chrome-tabs-sorting .chrome-tab:not(.chrome-tab-currently-dragged),
 .chrome-tabs:not(.chrome-tabs-sorting) .chrome-tab.chrome-tab-just-dragged {
