@@ -15,6 +15,8 @@
     favicon: ''
   }
 
+  let instanceId = 0
+
   class ChromeTabs {
     constructor() {
       this.draggabillyInstances = []
@@ -23,6 +25,10 @@
     init(el, options) {
       this.el = el
       this.options = options
+
+      this.instanceId = instanceId
+      this.el.setAttribute('data-chrome-tabs-instance-id', this.instanceId)
+      instanceId += 1
 
       this.setupStyleEl()
       this.setupEvents()
@@ -94,9 +100,8 @@
       requestAnimationFrame(() => {
         let styleHTML = ''
         this.tabPositions.forEach((left, i) => {
-          // TODO - restrict styles to specific chrome tabs instance
           styleHTML += `
-            .chrome-tabs .chrome-tab:nth-child(${ i + 1 }) {
+            .chrome-tabs[data-chrome-tabs-instance-id="${ this.instanceId }"] .chrome-tab:nth-child(${ i + 1 }) {
               transform: translate3d(${ left }px, 0, 0)
             }
           `
