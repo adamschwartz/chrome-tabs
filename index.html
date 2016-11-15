@@ -13,8 +13,8 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Chrome Tabs</title>
-    <meta name="description" content="">
+    <title>Chrome Tabs - Chrome-style Tabs in HTML/CSS/ES6</title>
+    <meta name="description" content="Chrome-style tabs in HTML/CSS and JavaScript (ES6).">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="demo/css/demo.css">
     <link rel="stylesheet" href="css/chrome-tabs.css">
@@ -44,7 +44,7 @@
       <!-- Styles to prevent flash after JS initialization -->
       <style>
         .chrome-tabs .chrome-tab {
-          width: 242.5px
+          width: 243px
         }
 
         .chrome-tabs .chrome-tab:nth-child(1) {
@@ -52,7 +52,7 @@
         }
 
         .chrome-tabs .chrome-tab:nth-child(2) {
-          transform: translate3d(228.5px, 0, 0)
+          transform: translate3d(229px, 0, 0)
         }
       </style>
     </div>
@@ -72,17 +72,18 @@
       var chromeTabs = new ChromeTabs()
 
       chromeTabs.init(el, {
+        tabOverlapDistance: 14,
         minWidth: 45,
-        maxWidth: 242.5
+        maxWidth: 243
       })
 
-      el.addEventListener('chrome-tabs-render', function(){
-        console.log('Chrome tabs rendered', + new Date);
-      })
+      el.addEventListener('activeTabChange', ({ detail }) => console.log('Active tab changed', detail.tabEl))
+      el.addEventListener('tabAdd', ({ detail }) => console.log('Tab added', detail.tabEl))
+      el.addEventListener('tabRemove', ({ detail }) => console.log('Tab removed', detail.tabEl))
 
       document.querySelector('button[data-new-tab]').addEventListener('click', function(){
-        chromeTabs.addNewTab({
-          title: 'New tab',
+        chromeTabs.addTab({
+          title: 'New Tab',
           favicon: 'demo/images/default-favicon.png'
         })
       });

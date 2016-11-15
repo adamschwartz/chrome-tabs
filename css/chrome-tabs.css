@@ -41,9 +41,6 @@
   user-select: none;
   cursor: default;
 }
-.chrome-tabs .chrome-tab:not(:last-child) {
-  margin-right: -1.4em;
-}
 .chrome-tabs .chrome-tab .chrome-tab-background {
   position: absolute;
   top: 0;
