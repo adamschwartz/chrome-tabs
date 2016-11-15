@@ -10,7 +10,7 @@
     </div>
   `
 
-  defaultTapProperties = {
+  const defaultTapProperties = {
     title: '',
     favicon: ''
   }
