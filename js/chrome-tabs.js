@@ -136,6 +136,7 @@
 
       tabEl.classList.add('chrome-tab-just-added')
       setTimeout(() => tabEl.classList.remove('chrome-tab-just-added'), 500)
+
       tabProperties = Object.assign({}, defaultTapProperties, tabProperties)
       this.tabContentEl.appendChild(tabEl)
       this.updateTab(tabEl, tabProperties)
