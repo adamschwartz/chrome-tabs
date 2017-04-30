@@ -14,6 +14,13 @@
     title: '',
     favicon: ''
   }
+  
+  const defaultOptions = {
+    tabOverlapDistance: 14,
+    minWidth: 45,
+    maxWidth: 243,
+    dragable: true
+  }
 
   let instanceId = 0
 
@@ -24,7 +31,7 @@
 
     init(el, options) {
       this.el = el
-      this.options = options
+      this.options = extend({}, defaultOptions, options)
 
       this.instanceId = instanceId
       this.el.setAttribute('data-chrome-tabs-instance-id', this.instanceId)
@@ -34,7 +41,9 @@
       this.setupEvents()
       this.layoutTabs()
       this.fixZIndexes()
-      this.setupDraggabilly()
+      if (this.options.dragable) {
+        this.setupDraggabilly()
+      }
     }
 
     emit(eventName, data) {
@@ -144,7 +153,9 @@
       this.setCurrentTab(tabEl)
       this.layoutTabs()
       this.fixZIndexes()
-      this.setupDraggabilly()
+      if (this.options.dragable) {
+        this.setupDraggabilly()
+      }
     }
 
     setCurrentTab(tabEl) {
@@ -167,7 +178,9 @@
       this.emit('tabRemove', { tabEl })
       this.layoutTabs()
       this.fixZIndexes()
-      this.setupDraggabilly()
+      if (this.options.dragable) {
+        this.setupDraggabilly()
+      }
     }
 
     updateTab(tabEl, tabProperties) {
@@ -250,6 +263,25 @@
       }
     }
   }
+  
+  var extend = function() {
+    var extended = {};
+
+    var merge = function(obj) {
+      for (var prop in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+          extended[prop] = obj[prop];
+        }
+      }
+    };
+
+    for (var i = 0; i < arguments.length; i++) {
+      var obj = arguments[i];
+      merge(obj);
+    }
+
+    return extended;
+  };
 
   window.ChromeTabs = ChromeTabs
 })()
