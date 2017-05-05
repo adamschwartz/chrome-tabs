@@ -1,0 +1,22 @@
+{
+  "name": "chrome-tabs",
+  "homepage": "https://github.com/adamschwartz/chrome-tabs",
+  "authors": [
+    "Adam Schwartz"
+  ],
+  "description": "Chrome Tabs in Chrome",
+  "main": "js/chrometabs.js",
+  "keywords": [
+    "chrome",
+    "tabs",
+    "html"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
