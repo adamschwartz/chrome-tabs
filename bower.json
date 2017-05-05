@@ -4,8 +4,8 @@
   "authors": [
     "Adam Schwartz"
   ],
-  "description": "Chrome Tabs in Chrome",
-  "main": "js/chrometabs.js",
+  "description": "Chrome-style tabs in HTML/CSS",
+  "main": "js/chrome-tabs.js",
   "keywords": [
     "chrome",
     "tabs",
