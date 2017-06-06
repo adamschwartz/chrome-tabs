@@ -134,24 +134,19 @@
   z-index: 2;
   right: 1.4em;
   top: 0.7em;
-  color: #505050;
 }
-.chrome-tabs .chrome-tab-close:before {
-  font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
-  content: "\00D7";
+.chrome-tabs .chrome-tab-close::before {
+  content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'><path stroke='#5a5a5a' stroke-linecap='round' stroke-width='1.125' d='M4 4 L10 10 M10 4 L4 10'></path></svg>");
   position: absolute;
   display: block;
-  top: 0.05em;
+  top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 1.15em;
-  line-height: 1;
 }
-.chrome-tabs .chrome-tab-close:hover,
-.chrome-tabs .chrome-tab-close:hover:active {
-  color: #fff;
+.chrome-tabs .chrome-tab-close:hover::before,
+.chrome-tabs .chrome-tab-close:hover:active::before {
+  content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'><path stroke='#fff' stroke-linecap='round' stroke-width='1.2' d='M4 4 L10 10 M10 4 L4 10'></path></svg>");
 }
 .chrome-tabs .chrome-tab-close:hover {
   background: #e25c4b;
