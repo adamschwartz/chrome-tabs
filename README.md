@@ -10,6 +10,6 @@ Drag-and-drop support provided by [Draggabilly](https://github.com/desandro/drag
 
 <br><br><br><br><br><br><br><br>
 
-====================
+<hr>
 
 [Older versions](older-versions.md)
