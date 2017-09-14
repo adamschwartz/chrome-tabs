@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/adamschwartz/chrome-tabs/issues"
   },
-  "homepage": "https://github.com/adamschwartz/chrome-tabs#readme"
+  "homepage": "https://github.com/adamschwartz/chrome-tabs#readme",
+  "dependencies": {
+    "draggabilly": "^2.1.1"
+  }
 }
