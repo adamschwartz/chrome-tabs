@@ -20,6 +20,6 @@
     "tests"
   ],
   "dependencies": {
-    "draggabilly": "^2.1.1"
+    "draggabilly": "2.1.1"
   }
 }
