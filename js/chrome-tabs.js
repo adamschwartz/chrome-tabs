@@ -9,6 +9,15 @@
       <div class="chrome-tab-close"></div>
     </div>
   `
+  const newTabButtonTemplate = `
+    <!--<div class="chrome-new-tab">-->
+    <div class="chrome-tab chrome-new-tab">
+      <div class="chrome-tab-background">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="topleft" viewBox="0 0 214 29" ><path d="M14.3 0.1L214 0.1 214 29 0 29C0 29 12.2 2.6 13.2 1.1 14.3-0.4 14.3 0.1 14.3 0.1Z"/></symbol><symbol id="topright" viewBox="0 0 214 29"><use xlink:href="#topleft"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%" transfrom="scale(-1, 1)"><use xlink:href="#topleft" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#topleft" width="214" height="29" class="chrome-tab-shadow"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#topright" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#topright" width="214" height="29" class="chrome-tab-shadow"/></svg></g></svg>
+      </div>
+      <div class="chrome-tab-favicon"></div>
+    </div>
+  `
 
   const defaultTapProperties = {
     title: '',
@@ -18,8 +27,10 @@
   let instanceId = 0
 
   class ChromeTabs {
-    constructor() {
+    constructor( dragable = true, newButton = false) {
       this.draggabillyInstances = []
+      this.dragable = dragable
+      this.newButton = newButton
     }
 
     init(el, options) {
@@ -34,7 +45,12 @@
       this.setupEvents()
       this.layoutTabs()
       this.fixZIndexes()
-      this.setupDraggabilly()
+      if ( this.dragable) {
+        this.setupDraggabilly()
+      }
+      if ( this.newButton) {
+        this.setupNewButton();
+      }
     }
 
     emit(eventName, data) {
@@ -49,10 +65,14 @@
     setupEvents() {
       window.addEventListener('resize', event => this.layoutTabs())
 
-      this.el.addEventListener('dblclick', event => this.addTab())
+      if ( !this.newButton) {
+        this.el.addEventListener('dblclick', event => this.addTab())
+      }
 
       this.el.addEventListener('click', ({target}) => {
-        if (target.classList.contains('chrome-tab')) {
+        if ( this.newButton && target.classList.contains('chrome-new-tab')) {
+          this.addTab()
+        } else if (target.classList.contains('chrome-tab')) {
           this.setCurrentTab(target)
         } else if (target.classList.contains('chrome-tab-close')) {
           this.removeTab(target.parentNode)
@@ -95,8 +115,13 @@
     layoutTabs() {
       const tabWidth = this.tabWidth
 
-      this.cleanUpPreviouslyDraggedTabs()
+      if ( this.dragable) {
+        this.cleanUpPreviouslyDraggedTabs()
+      }
       this.tabEls.forEach((tabEl) => tabEl.style.width = tabWidth + 'px')
+      if ( this.newButton && this.tabEls.length > 0) {
+        this.tabEls[ this.tabEls.length-1].style.width = '48px'
+      }
       requestAnimationFrame(() => {
         let styleHTML = ''
         this.tabPositions.forEach((left, i) => {
@@ -138,13 +163,19 @@
       setTimeout(() => tabEl.classList.remove('chrome-tab-just-added'), 500)
 
       tabProperties = Object.assign({}, defaultTapProperties, tabProperties)
-      this.tabContentEl.appendChild(tabEl)
+      if ( this.newButton) {
+        this.tabContentEl.insertBefore(tabEl, this.tabContentEl.lastChild)
+      } else {
+        this.tabContentEl.appendChild(tabEl)
+      }
       this.updateTab(tabEl, tabProperties)
       this.emit('tabAdd', { tabEl })
       this.setCurrentTab(tabEl)
       this.layoutTabs()
       this.fixZIndexes()
-      this.setupDraggabilly()
+      if ( this.dragable) {
+        this.setupDraggabilly()
+      }
     }
 
     setCurrentTab(tabEl) {
@@ -167,7 +198,9 @@
       this.emit('tabRemove', { tabEl })
       this.layoutTabs()
       this.fixZIndexes()
-      this.setupDraggabilly()
+      if ( this.dragable) {
+        this.setupDraggabilly()
+      }
     }
 
     updateTab(tabEl, tabProperties) {
@@ -248,6 +281,24 @@
       } else {
         tabEl.parentNode.insertBefore(tabEl, this.tabEls[destinationIndex + 1])
       }
+    }
+
+    setupNewButton() {
+      const div = document.createElement('div')
+      div.innerHTML = newTabButtonTemplate
+      const tabEl = div.firstElementChild
+      tabEl.querySelector('.chrome-tab-favicon').style.backgroundImage = `url('images/add-favicon.png')`
+
+      //tabEl.classList.add('chrome-tab-just-added')
+      //setTimeout(() => tabEl.classList.remove('chrome-tab-just-added'), 500)
+
+      //tabProperties = Object.assign({}, defaultTapProperties, tabProperties)
+      this.tabContentEl.appendChild(tabEl)
+      //this.updateTab(tabEl, tabProperties)
+      //this.emit('tabAdd', { tabEl })
+      //this.setCurrentTab(tabEl)
+      this.layoutTabs()
+      //this.fixZIndexes()
     }
   }
 
