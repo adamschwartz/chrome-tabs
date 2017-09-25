@@ -1,4 +1,9 @@
 (function(){
+  const isNodeContext = typeof module !== 'undefined' && typeof module.exports !== 'undefined'
+  if (isNodeContext) {
+    Draggabilly = require('draggabilly')
+  }
+
   const tabTemplate = `
     <div class="chrome-tab">
       <div class="chrome-tab-background">
@@ -251,5 +256,9 @@
     }
   }
 
-  window.ChromeTabs = ChromeTabs
+  if (isNodeContext) {
+    module.exports = ChromeTabs
+  } else {
+    window.ChromeTabs = ChromeTabs
+  }
 })()
