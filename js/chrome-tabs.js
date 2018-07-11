@@ -54,7 +54,9 @@
     setupEvents() {
       window.addEventListener('resize', event => this.layoutTabs())
 
-      this.el.addEventListener('dblclick', event => this.addTab())
+      this.el.addEventListener('dblclick', event => {
+        if ([this.el, this.tabContentEl].includes(event.target)) this.addTab()
+      })
 
       this.el.addEventListener('click', ({target}) => {
         if (target.classList.contains('chrome-tab')) {
