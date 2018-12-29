@@ -2,11 +2,10 @@
   box-sizing: border-box;
   position: relative;
   font-size: 10px;
-  height: 4.2em;
-  background: linear-gradient(#dad9da, #d9d8d9);
-  padding: 1em 1.2em 0.45em 1.2em;
+  height: 4.6em;
+  background: #dee1e6;
+  padding: 0.8em 1.2em 0.4em 1.2em;
   border-radius: 0.5em 0.5em 0 0;
-  box-shadow: 0 0.05em #b7b7b7;
   overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
@@ -17,12 +16,11 @@
 .chrome-tabs .chrome-tabs-bottom-bar {
   position: absolute;
   bottom: 0;
-  height: 0.45em;
+  height: 0.4em;
   left: 0;
   width: 100%;
-  background: #f2f2f2;
-  box-shadow: 0 -0.05em rgba(0,0,0,0.27);
-  z-index: 20;
+  background: #fff;
+  z-index: 10;
 }
 .chrome-tabs .chrome-tabs-content {
   position: relative;
@@ -33,7 +31,7 @@
 .chrome-tabs .chrome-tab {
   position: absolute;
   left: 0;
-  height: 2.8em;
+  height: 3.4em;
   width: 24em;
   border: 0;
   margin: 0;
@@ -57,20 +55,25 @@
   width: 100%;
   height: 100%;
 }
-.chrome-tabs .chrome-tab .chrome-tab-background > svg .chrome-tab-shadow {
-  fill: none;
-  stroke: rgba(0,0,0,0.27);
-  stroke-width: 0.5px;
-}
 .chrome-tabs .chrome-tab .chrome-tab-background > svg .chrome-tab-background {
-  fill: #d0d0d0;
-  transform: translateX(0.25px) translateY(0.25px);
+  fill: #f4f5f6;
 }
 .chrome-tabs .chrome-tab.chrome-tab-current {
-  z-index: 999;
+  z-index: 5;
 }
 .chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-background > svg .chrome-tab-background {
-  fill: #f2f2f2;
+  fill: #fff;
+}
+.chrome-tabs .chrome-tab:not(.chrome-tab-current) .chrome-tab-background {
+  transition: opacity 0.2s ease;
+  opacity: 0;
+}
+.chrome-tabs .chrome-tab:not(.chrome-tab-current):hover {
+  z-index: 2;
+}
+.chrome-tabs .chrome-tab:not(.chrome-tab-current):hover .chrome-tab-background,
+.chrome-tabs .chrome-tab:not(.chrome-tab-current).chrome-tab-currently-dragged .chrome-tab-background {
+  opacity: 1;
 }
 .chrome-tabs .chrome-tab.chrome-tab-just-added {
   top: 10px;
@@ -100,14 +103,39 @@
 .chrome-tabs:not(.chrome-tabs-sorting) .chrome-tab.chrome-tab-just-dragged {
   transition: transform 120ms ease-in-out;
 }
+.chrome-tabs .chrome-tab-drag-handle {
+  position: absolute;
+  top: 0;
+  left: 0.9em;
+  right: 0.9em;
+  bottom: 0;
+}
+.chrome-tabs .chrome-tab-dividers {
+  position: absolute;
+  top: 0.7em;
+  right: 0.9em;
+  bottom: 0.7em;
+  left: 0.9em;
+  border: 1px solid #a9adb0;
+  border-top: 0;
+  border-bottom: 0;
+  pointer-events: none;
+  transition: border-left-color 0.2s ease, border-right-color 0.2s ease;
+}
+.chrome-tabs .chrome-tab:first-child .chrome-tab-dividers {
+  border-left-color: transparent;
+}
+.chrome-tabs .chrome-tab:last-child .chrome-tab-dividers {
+  border-right-color: transparent;
+}
 .chrome-tabs .chrome-tab-favicon {
   position: relative;
-  margin-left: 1.6em;
+  margin-left: 1.9em;
   height: 1.6em;
   width: 1.6em;
   background-size: 1.6em;
-  margin-top: 0.6em;
-  z-index: 3;
+  margin-top: 0.9em;
+  z-index: 2;
   display: inline-block;
   vertical-align: top;
   pointer-events: none;
@@ -116,41 +144,40 @@
   position: relative;
   display: inline-block;
   vertical-align: top;
-  color: #222;
-  padding: 0 0.25em;
+  margin-top: 0.75em;
+  margin-left: 1.6em;
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 1.2em;
-  margin-top: 0.5em;
-  max-width: calc(100% - 5em);
+  width: calc(100% - 5em);
+  color: #5f6368;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 calc(100% - 2em), transparent);
+  mask-image: linear-gradient(90deg, #000 0%, #000 calc(100% - 2em), transparent);
   pointer-events: none;
+}
+.chrome-tabs .chrome-tab-favicon + .chrome-tab-title {
+  margin-left: 0.5em;
+  width: calc(100% - 7em);
+}
+.chrome-tabs.chrome-tab-current .chrome-tab-title {
+  color: #222;
 }
 .chrome-tabs .chrome-tab-close {
   position: absolute;
-  width: 1.4em;
-  height: 1.4em;
+  width: 1.6em;
+  height: 1.6em;
   border-radius: 50%;
-  z-index: 2;
-  right: 1.4em;
-  top: 0.7em;
-}
-.chrome-tabs .chrome-tab-close::before {
-  content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'><path stroke='#5a5a5a' stroke-linecap='round' stroke-width='1.125' d='M4 4 L10 10 M10 4 L4 10'></path></svg>");
-  position: absolute;
-  display: block;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-.chrome-tabs .chrome-tab-close:hover::before,
-.chrome-tabs .chrome-tab-close:hover:active::before {
-  content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'><path stroke='#fff' stroke-linecap='round' stroke-width='1.2' d='M4 4 L10 10 M10 4 L4 10'></path></svg>");
+  z-index: 1;
+  right: 1.7em;
+  top: 0.9em;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path stroke='rgba(0, 0, 0, .7)' stroke-linecap='square' stroke-width='1.5' d='M0 0 L8 8 M8 0 L0 8'></path></svg>");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 0.8em 0.8em;
 }
 .chrome-tabs .chrome-tab-close:hover {
-  background: #e25c4b;
+  background-color: #e8eaed;
 }
 .chrome-tabs .chrome-tab-close:hover:active {
-  background: #b74a3b;
+  background-color: #dadce0;
 }

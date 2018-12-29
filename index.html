@@ -24,17 +24,21 @@
     <div class="chrome-tabs">
       <div class="chrome-tabs-content">
         <div class="chrome-tab">
+          <div class="chrome-tab-dividers"></div>
           <div class="chrome-tab-background">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="chrome-tab-geometry-left" viewBox="0 0 214 29" ><path d="M14.3 0.1L214 0.1 214 29 0 29C0 29 12.2 2.6 13.2 1.1 14.3-0.4 14.3 0.1 14.3 0.1Z"/></symbol><symbol id="chrome-tab-geometry-right" viewBox="0 0 214 29"><use xlink:href="#chrome-tab-geometry-left"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%"><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-shadow"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-shadow"/></svg></g></svg>
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"> <defs> <symbol id="chrome-tab-geometry-left" viewBox="0 0 214 34" > <path d="M17 0h197v34H0c5 0 9-3 9-8V8c0-5 3-8 8-8z"/> </symbol> <symbol id="chrome-tab-geometry-right" viewBox="0 0 214 34"> <use xlink:href="#chrome-tab-geometry-left"/> </symbol> <clipPath id="crop"> <rect class="mask" width="100%" height="100%" x="0"/> </clipPath> </defs> <svg width="50%" height="100%"> <use xlink:href="#chrome-tab-geometry-left" width="214" height="34" class="chrome-tab-background"/> </svg> <g transform="scale(-1, 1)"> <svg width="50%" height="100%" x="-100%" y="0"> <use xlink:href="#chrome-tab-geometry-right" width="214" height="34" class="chrome-tab-background"/> </svg> </g> </svg>
           </div>
-          <div class="chrome-tab-favicon" style="background-image: url('demo/images/google-favicon.png')"></div>
+          <div class="chrome-tab-drag-handle"></div>
+          <div class="chrome-tab-favicon" style="background-image: url('demo/images/google-favicon.ico')"></div>
           <div class="chrome-tab-title">Google</div>
           <div class="chrome-tab-close"></div>
         </div>
         <div class="chrome-tab chrome-tab-current">
+          <div class="chrome-tab-dividers"></div>
           <div class="chrome-tab-background">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="chrome-tab-geometry-left" viewBox="0 0 214 29" ><path d="M14.3 0.1L214 0.1 214 29 0 29C0 29 12.2 2.6 13.2 1.1 14.3-0.4 14.3 0.1 14.3 0.1Z"/></symbol><symbol id="chrome-tab-geometry-right" viewBox="0 0 214 29"><use xlink:href="#chrome-tab-geometry-left"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%"><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-shadow"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-shadow"/></svg></g></svg>
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"> <defs> <symbol id="chrome-tab-geometry-left" viewBox="0 0 214 34" > <path d="M17 0h197v34H0c5 0 9-3 9-8V8c0-5 3-8 8-8z"/> </symbol> <symbol id="chrome-tab-geometry-right" viewBox="0 0 214 34"> <use xlink:href="#chrome-tab-geometry-left"/> </symbol> <clipPath id="crop"> <rect class="mask" width="100%" height="100%" x="0"/> </clipPath> </defs> <svg width="50%" height="100%"> <use xlink:href="#chrome-tab-geometry-left" width="214" height="34" class="chrome-tab-background"/> </svg> <g transform="scale(-1, 1)"> <svg width="50%" height="100%" x="-100%" y="0"> <use xlink:href="#chrome-tab-geometry-right" width="214" height="34" class="chrome-tab-background"/> </svg> </g> </svg>
           </div>
+          <div class="chrome-tab-drag-handle"></div>
           <div class="chrome-tab-favicon" style="background-image: url('demo/images/facebook-favicon.ico')"></div>
           <div class="chrome-tab-title">Facebook</div>
           <div class="chrome-tab-close"></div>
@@ -44,7 +48,7 @@
       <!-- Styles to prevent flash after JS initialization -->
       <style>
         .chrome-tabs .chrome-tab {
-          width: 243px
+          width: 258px
         }
 
         .chrome-tabs .chrome-tab:nth-child(1) {
@@ -52,7 +56,7 @@
         }
 
         .chrome-tabs .chrome-tab:nth-child(2) {
-          transform: translate3d(229px, 0, 0)
+          transform: translate3d(239px, 0, 0)
         }
       </style>
     </div>
@@ -76,9 +80,8 @@
       var chromeTabs = new ChromeTabs()
 
       chromeTabs.init(el, {
-        tabOverlapDistance: 14,
-        minWidth: 45,
-        maxWidth: 243
+        minWidth: 70, // TODO
+        maxWidth: 258 // TODO
       })
 
       el.addEventListener('activeTabChange', ({ detail }) => console.log('Active tab changed', detail.tabEl))
@@ -88,7 +91,7 @@
       document.querySelector('button[data-add-tab]').addEventListener('click', function(){
         chromeTabs.addTab({
           title: 'New Tab',
-          favicon: 'demo/images/default-favicon.png'
+          favicon: false
         })
       });
 

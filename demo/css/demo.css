@@ -1,5 +1,5 @@
 html.dark-theme {
-  background: #2b2b2b;
+  background: #262626;
 }
 
 body {
@@ -16,19 +16,23 @@ body {
 button {
   font-family: inherit;
   display: inline-block;
-  background: #e0e0e0;
-  border: 0;
+  background: transparent;
+  border: 1px solid rgba(139, 141, 157, .4);
   border-radius: 3px;
   padding: .6em 1em .7em;
   font-size: 13px;
   cursor: pointer;
-  box-shadow: 0 .5px rgba(0, 0, 0, .5);
+}
+
+button:focus {
+  border-color: rgba(139, 141, 157, .8);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 141, 157, .3);
 }
 
 .chrome-tabs.chrome-tabs-dark-theme ~ p button {
-  background: #505050;
+  border-color: rgba(139, 141, 157, .2);
   color: #fff;
-  box-shadow: 0 .5px #000;
 }
 
 .carbonads-wrapper {
@@ -42,6 +46,7 @@ button {
 }
 
 #carbonads {
+  -webkit-font-smoothing: antialiased;
   width: 162px;
   display: block;
   overflow: hidden;
@@ -80,7 +85,6 @@ button {
   text-align: left;
   text-decoration: none;
   color: #666;
-  letter-spacing: .025em;
   line-height: 1.35;
 }
 
