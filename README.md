@@ -8,8 +8,6 @@ Drag-and-drop support provided by [Draggabilly](https://github.com/desandro/drag
 
 <img width=714 src=http://adamschwartz.co/chrome-tabs/chrome-tabs.gif>
 
-<br><br><br><br><br><br><br><br>
-
-<hr>
+<br>
 
 [Older versions](older-versions.md)
