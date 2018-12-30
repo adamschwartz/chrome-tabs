@@ -159,8 +159,8 @@
   margin-left: 0.5em;
   width: calc(100% - 7em);
 }
-.chrome-tabs.chrome-tab-current .chrome-tab-title {
-  color: #222;
+.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-title {
+  color: #45474a;
 }
 .chrome-tabs .chrome-tab-close {
   position: absolute;
