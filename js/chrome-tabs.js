@@ -66,6 +66,7 @@
       })
 
       this.el.addEventListener('mousedown', ({target}) => {
+        if (target.classList.contains('chrome-tab-close')) return
         if (target.classList.contains('chrome-tab')) {
           this.setCurrentTab(target)
         } else if (target.parentNode.classList.contains('chrome-tab')) {
@@ -152,10 +153,10 @@
 
     removeTab(tabEl) {
       if (tabEl.classList.contains('chrome-tab-current')) {
-        if (tabEl.previousElementSibling) {
-          this.setCurrentTab(tabEl.previousElementSibling)
-        } else if (tabEl.nextElementSibling) {
+        if (tabEl.nextElementSibling) {
           this.setCurrentTab(tabEl.nextElementSibling)
+        } else if (tabEl.previousElementSibling) {
+          this.setCurrentTab(tabEl.previousElementSibling)
         }
       }
       tabEl.parentNode.removeChild(tabEl)
