@@ -6,7 +6,7 @@ Drag-and-drop support provided by [Draggabilly](https://github.com/desandro/drag
 
 ### [Demo](http://adamschwartz.co/chrome-tabs/)
 
-<img width=868 src=http://adamschwartz.co/chrome-tabs/chrome-tabs.gif>
+<img width=824 src=http://adamschwartz.co/chrome-tabs/chrome-tabs.gif>
 
 <br><br><br><br><br><br><br><br>
 
