@@ -1,23 +1,33 @@
 (function(){
   const isNodeContext = typeof module !== 'undefined' && typeof module.exports !== 'undefined'
   if (isNodeContext) {
-    Draggabilly = require('draggabilly')
+    const Draggabilly = require('draggabilly')
   }
 
+  const TAB_EFFECTIVE_ADJACENT_SPACE = 9
+  const TAB_OVERLAP_DISTANCE = (TAB_EFFECTIVE_ADJACENT_SPACE * 2) + 1
+
+  const TAB_MIN_WIDTH = 24 + (TAB_EFFECTIVE_ADJACENT_SPACE * 2)
+  const TAB_MAX_WIDTH = 240 + (TAB_EFFECTIVE_ADJACENT_SPACE * 2)
+
+  const TAB_SIZE_SMALL = 84
+  const TAB_SIZE_SMALLER = 60
+  const TAB_SIZE_MINI = 48
+
   const tabTemplate = `
-    <div class="chrome-tab">
+    <div class="chrome-tab" style="--effective-adjacent-space: ${ TAB_EFFECTIVE_ADJACENT_SPACE }px">
       <div class="chrome-tab-dividers"></div>
       <div class="chrome-tab-background">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"> <defs> <symbol id="chrome-tab-geometry-left" viewBox="0 0 214 34" > <path d="M17 0h197v34H0c5 0 9-3 9-8V8c0-5 3-8 8-8z"/> </symbol> <symbol id="chrome-tab-geometry-right" viewBox="0 0 214 34"> <use xlink:href="#chrome-tab-geometry-left"/> </symbol> <clipPath id="crop"> <rect class="mask" width="100%" height="100%" x="0"/> </clipPath> </defs> <svg width="50%" height="100%"> <use xlink:href="#chrome-tab-geometry-left" width="214" height="34" class="chrome-tab-background"/> </svg> <g transform="scale(-1, 1)"> <svg width="50%" height="100%" x="-100%" y="0"> <use xlink:href="#chrome-tab-geometry-right" width="214" height="34" class="chrome-tab-background"/> </svg> </g> </svg>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="chrome-tab-geometry-left" viewBox="0 0 214 34" ><path d="M17 0h197v34H0c5 0 9-3 9-8V8c0-5 3-8 8-8z"/></symbol><symbol id="chrome-tab-geometry-right" viewBox="0 0 214 34"><use xlink:href="#chrome-tab-geometry-left"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%"><use xlink:href="#chrome-tab-geometry-left" width="214" height="34" class="chrome-tab-geometry"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#chrome-tab-geometry-right" width="214" height="34" class="chrome-tab-geometry"/></svg></g></svg>
       </div>
-      <div class="chrome-tab-drag-handle"></div>
-      <div class="chrome-tab-favicon"></div>
-      <div class="chrome-tab-title"></div>
-      <div class="chrome-tab-close"></div>
+      <div class="chrome-tab-content">
+        <div class="chrome-tab-favicon"></div>
+        <div class="chrome-tab-title"></div>
+        <div class="chrome-tab-drag-handle"></div>
+        <div class="chrome-tab-close"></div>
+      </div>
     </div>
   `
-
-  const TAB_OVERLAP_DISTANCE = 19
 
   const defaultTapProperties = {
     title: 'New tab',
@@ -31,9 +41,8 @@
       this.draggabillyInstances = []
     }
 
-    init(el, options) {
+    init(el) {
       this.el = el
-      this.options = options
 
       this.instanceId = instanceId
       this.el.setAttribute('data-chrome-tabs-instance-id', this.instanceId)
@@ -50,29 +59,18 @@
     }
 
     setupStyleEl() {
-      this.animationStyleEl = document.createElement('style')
-      this.el.appendChild(this.animationStyleEl)
+      this.styleEl = document.createElement('style')
+      this.el.appendChild(this.styleEl)
     }
 
     setupEvents() {
-      window.addEventListener('resize', event => this.layoutTabs())
+      window.addEventListener('resize', _ => this.layoutTabs())
 
       this.el.addEventListener('dblclick', event => {
         if ([this.el, this.tabContentEl].includes(event.target)) this.addTab()
       })
 
-      this.el.addEventListener('click', ({target}) => {
-        if (target.classList.contains('chrome-tab-close')) this.removeTab(target.parentNode)
-      })
-
-      this.el.addEventListener('mousedown', ({target}) => {
-        if (target.classList.contains('chrome-tab-close')) return
-        if (target.classList.contains('chrome-tab')) {
-          this.setCurrentTab(target)
-        } else if (target.parentNode.classList.contains('chrome-tab')) {
-          this.setCurrentTab(target.parentNode)
-        }
-      })
+      this.tabEls.forEach((tabEl) => this.setTabCloseEventListener(tabEl))
     }
 
     get tabEls() {
@@ -86,7 +84,12 @@
     get tabWidth() {
       const tabsContentWidth = this.tabContentEl.clientWidth - TAB_OVERLAP_DISTANCE
       const width = (tabsContentWidth / this.tabEls.length) + TAB_OVERLAP_DISTANCE
-      return Math.max(this.options.minWidth, Math.min(this.options.maxWidth, width))
+      const clampedWidth = Math.max(TAB_MIN_WIDTH, Math.min(TAB_MAX_WIDTH, width))
+
+      // TODO
+      // We round here to fix issue with tab dividers poking out from underneath
+      // the tab background / Would be better to find an alternative solution
+      return Math.round(clampedWidth)
     }
 
     get tabEffectiveWidth() {
@@ -107,20 +110,30 @@
 
     layoutTabs() {
       const tabWidth = this.tabWidth
+      const tabEffectiveWidth = this.tabEffectiveWidth
 
       this.cleanUpPreviouslyDraggedTabs()
-      this.tabEls.forEach((tabEl) => tabEl.style.width = tabWidth + 'px')
-      requestAnimationFrame(() => {
-        let styleHTML = ''
-        this.tabPositions.forEach((left, i) => {
-          styleHTML += `
-            .chrome-tabs[data-chrome-tabs-instance-id="${ this.instanceId }"] .chrome-tab:nth-child(${ i + 1 }) {
-              transform: translate3d(${ left }px, 0, 0)
-            }
-          `
-        })
-        this.animationStyleEl.innerHTML = styleHTML
+      this.tabEls.forEach((tabEl) => {
+        // TODO - Support tabs with different widths / e.g. "pinned" tabs
+        tabEl.style.width = tabWidth + 'px'
+
+        tabEl.removeAttribute('is-small')
+        tabEl.removeAttribute('is-smaller')
+        tabEl.removeAttribute('is-mini')
+        if (tabEffectiveWidth < TAB_SIZE_SMALL) tabEl.setAttribute('is-small', '')
+        if (tabEffectiveWidth < TAB_SIZE_SMALLER) tabEl.setAttribute('is-smaller', '')
+        if (tabEffectiveWidth < TAB_SIZE_MINI) tabEl.setAttribute('is-mini', '')
       })
+
+      let styleHTML = ''
+      this.tabPositions.forEach((left, i) => {
+        styleHTML += `
+          .chrome-tabs[data-chrome-tabs-instance-id="${ this.instanceId }"] .chrome-tab:nth-child(${ i + 1 }) {
+            transform: translate3d(${ left }px, 0, 0)
+          }
+        `
+      })
+      this.styleEl.innerHTML = styleHTML
     }
 
     createNewTabEl() {
@@ -137,6 +150,7 @@
 
       tabProperties = Object.assign({}, defaultTapProperties, tabProperties)
       this.tabContentEl.appendChild(tabEl)
+      this.setTabCloseEventListener(tabEl)
       this.updateTab(tabEl, tabProperties)
       this.emit('tabAdd', { tabEl })
       this.setCurrentTab(tabEl)
@@ -144,8 +158,13 @@
       this.setupDraggabilly()
     }
 
+    setTabCloseEventListener(tabEl) {
+      tabEl.querySelector('.chrome-tab-close').addEventListener('click', _ => this.removeTab(tabEl))
+    }
+
     setCurrentTab(tabEl) {
       const currentTab = this.el.querySelector('.chrome-tab-current')
+      if (currentTab === tabEl) return
       if (currentTab) currentTab.classList.remove('chrome-tab-current')
       tabEl.classList.add('chrome-tab-current')
       this.emit('activeTabChange', { tabEl })
@@ -170,7 +189,7 @@
 
       const faviconEl = tabEl.querySelector('.chrome-tab-favicon')
       if (tabProperties.favicon) {
-        faviconEl.style.backgroundImage = `url('${tabProperties.favicon}')`
+        faviconEl.style.backgroundImage = `url('${ tabProperties.favicon }')`
       } else {
         faviconEl.remove()
       }
@@ -196,6 +215,10 @@
         })
 
         this.draggabillyInstances.push(draggabillyInstance)
+
+        draggabillyInstance.on('pointerDown', () => {
+          this.setCurrentTab(tabEl)
+        })
 
         draggabillyInstance.on('dragStart', () => {
           this.cleanUpPreviouslyDraggedTabs()

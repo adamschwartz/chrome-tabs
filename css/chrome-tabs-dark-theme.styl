@@ -4,25 +4,17 @@ activeTabBackgroundColor = #323639
 .chrome-tabs.chrome-tabs-dark-theme
   background #202124
 
-  .chrome-tabs-bottom-bar
-    background activeTabBackgroundColor
-
   .chrome-tab
 
-    &:not(:first-child) .chrome-tab-dividers
-      border-left-color dividersBackgroundColor
+    .chrome-tab-dividers
 
-    &:not(:last-child) .chrome-tab-dividers
-      border-right-color dividersBackgroundColor
+      &::before, &::after
+        background #4a4d51
 
-    .chrome-tab-background
+    .chrome-tab-background > svg .chrome-tab-geometry
+      fill #292b2e
 
-      > svg
-
-        .chrome-tab-background
-          fill #292b2e
-
-    &.chrome-tab-current .chrome-tab-background > svg .chrome-tab-background
+    &.chrome-tab-current .chrome-tab-background > svg .chrome-tab-geometry
       fill activeTabBackgroundColor
 
     .chrome-tab-title
@@ -41,3 +33,6 @@ activeTabBackgroundColor = #323639
         &:active
           background-color #80868b
           background-image url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path stroke='rgba(255, 255, 255, .9)' stroke-linecap='square' stroke-width='1.5' d='M0 0 L8 8 M8 0 L0 8'></path></svg>")
+
+  .chrome-tabs-bottom-bar
+    background activeTabBackgroundColor

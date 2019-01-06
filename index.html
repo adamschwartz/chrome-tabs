@@ -15,91 +15,94 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Chrome Tabs - Chrome-style Tabs in HTML/CSS/ES6</title>
     <meta name="description" content="Chrome-style tabs in HTML/CSS/JS.">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="demo/css/demo.css">
-    <link rel="stylesheet" href="css/chrome-tabs.css">
-    <link rel="stylesheet" href="css/chrome-tabs-dark-theme.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="demo/css/demo.css" rel="stylesheet">
+    <link href="css/chrome-tabs.css" rel="stylesheet">
+    <link href="css/chrome-tabs-dark-theme.css" rel="stylesheet">
   </head>
   <body>
-    <div class="chrome-tabs">
-      <div class="chrome-tabs-content">
-        <div class="chrome-tab">
-          <div class="chrome-tab-dividers"></div>
-          <div class="chrome-tab-background">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"> <defs> <symbol id="chrome-tab-geometry-left" viewBox="0 0 214 34" > <path d="M17 0h197v34H0c5 0 9-3 9-8V8c0-5 3-8 8-8z"/> </symbol> <symbol id="chrome-tab-geometry-right" viewBox="0 0 214 34"> <use xlink:href="#chrome-tab-geometry-left"/> </symbol> <clipPath id="crop"> <rect class="mask" width="100%" height="100%" x="0"/> </clipPath> </defs> <svg width="50%" height="100%"> <use xlink:href="#chrome-tab-geometry-left" width="214" height="34" class="chrome-tab-background"/> </svg> <g transform="scale(-1, 1)"> <svg width="50%" height="100%" x="-100%" y="0"> <use xlink:href="#chrome-tab-geometry-right" width="214" height="34" class="chrome-tab-background"/> </svg> </g> </svg>
+    <div class="mock-browser">
+      <div class="chrome-tabs">
+        <div class="chrome-tabs-content">
+          <div class="chrome-tab" style="--effective-adjacent-space: 9px">
+            <div class="chrome-tab-dividers"></div>
+            <div class="chrome-tab-background">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="chrome-tab-geometry-left" viewBox="0 0 214 34" ><path d="M17 0h197v34H0c5 0 9-3 9-8V8c0-5 3-8 8-8z"/></symbol><symbol id="chrome-tab-geometry-right" viewBox="0 0 214 34"><use xlink:href="#chrome-tab-geometry-left"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%"><use xlink:href="#chrome-tab-geometry-left" width="214" height="34" class="chrome-tab-geometry"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#chrome-tab-geometry-right" width="214" height="34" class="chrome-tab-geometry"/></svg></g></svg>
+            </div>
+            <div class="chrome-tab-content">
+              <div class="chrome-tab-favicon" style="background-image: url('demo/images/google-favicon.ico')"></div>
+              <div class="chrome-tab-title">Google</div>
+              <div class="chrome-tab-drag-handle"></div>
+              <div class="chrome-tab-close"></div>
+            </div>
           </div>
-          <div class="chrome-tab-drag-handle"></div>
-          <div class="chrome-tab-favicon" style="background-image: url('demo/images/google-favicon.ico')"></div>
-          <div class="chrome-tab-title">Google</div>
-          <div class="chrome-tab-close"></div>
+          <div class="chrome-tab chrome-tab-current" style="--effective-adjacent-space: 9px">
+            <div class="chrome-tab-dividers"></div>
+            <div class="chrome-tab-background">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="chrome-tab-geometry-left" viewBox="0 0 214 34" ><path d="M17 0h197v34H0c5 0 9-3 9-8V8c0-5 3-8 8-8z"/></symbol><symbol id="chrome-tab-geometry-right" viewBox="0 0 214 34"><use xlink:href="#chrome-tab-geometry-left"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%"><use xlink:href="#chrome-tab-geometry-left" width="214" height="34" class="chrome-tab-geometry"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#chrome-tab-geometry-right" width="214" height="34" class="chrome-tab-geometry"/></svg></g></svg>
+            </div>
+            <div class="chrome-tab-content">
+              <div class="chrome-tab-favicon" style="background-image: url('demo/images/facebook-favicon.ico')"></div>
+              <div class="chrome-tab-title">Facebook</div>
+              <div class="chrome-tab-drag-handle"></div>
+              <div class="chrome-tab-close"></div>
+            </div>
+          </div>
         </div>
-        <div class="chrome-tab chrome-tab-current">
-          <div class="chrome-tab-dividers"></div>
-          <div class="chrome-tab-background">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"> <defs> <symbol id="chrome-tab-geometry-left" viewBox="0 0 214 34" > <path d="M17 0h197v34H0c5 0 9-3 9-8V8c0-5 3-8 8-8z"/> </symbol> <symbol id="chrome-tab-geometry-right" viewBox="0 0 214 34"> <use xlink:href="#chrome-tab-geometry-left"/> </symbol> <clipPath id="crop"> <rect class="mask" width="100%" height="100%" x="0"/> </clipPath> </defs> <svg width="50%" height="100%"> <use xlink:href="#chrome-tab-geometry-left" width="214" height="34" class="chrome-tab-background"/> </svg> <g transform="scale(-1, 1)"> <svg width="50%" height="100%" x="-100%" y="0"> <use xlink:href="#chrome-tab-geometry-right" width="214" height="34" class="chrome-tab-background"/> </svg> </g> </svg>
-          </div>
-          <div class="chrome-tab-drag-handle"></div>
-          <div class="chrome-tab-favicon" style="background-image: url('demo/images/facebook-favicon.ico')"></div>
-          <div class="chrome-tab-title">Facebook</div>
-          <div class="chrome-tab-close"></div>
+        <div class="chrome-tabs-bottom-bar"></div>
+        <!-- Styles to prevent flash after JS initialization -->
+        <style>
+          .chrome-tabs .chrome-tab {
+            width: 258px
+          }
+
+          .chrome-tabs .chrome-tab:nth-child(1) {
+            transform: translate3d(0px, 0, 0)
+          }
+
+          .chrome-tabs .chrome-tab:nth-child(2) {
+            transform: translate3d(239px, 0, 0)
+          }
+        </style>
+      </div>
+      <div class="chrome-tabs-optional-shadow-below-bottom-bar"></div>
+      <div class="mock-browser-content">
+        <div class="buttons">
+          <button data-theme-toggle>Toggle dark theme</button>
+          <button data-add-tab>Add new tab</button>
+          <button data-remove-tab>Remove current tab</button>
         </div>
       </div>
-      <div class="chrome-tabs-bottom-bar"></div>
-      <!-- Styles to prevent flash after JS initialization -->
-      <style>
-        .chrome-tabs .chrome-tab {
-          width: 258px
-        }
-
-        .chrome-tabs .chrome-tab:nth-child(1) {
-          transform: translate3d(0px, 0, 0)
-        }
-
-        .chrome-tabs .chrome-tab:nth-child(2) {
-          transform: translate3d(239px, 0, 0)
-        }
-      </style>
     </div>
-
-    <br>
-
-    <p>
-      <button data-theme-toggle>Toggle dark theme</button> &nbsp;
-      <button data-add-tab>Add new tab</button> &nbsp;
-      <button data-remove-tab>Remove current tab</button>
-    </p>
 
     <div class="carbonads-wrapper">
       <script async="true" id="_carbonads_js" src="//cdn.carbonads.com/carbon.js?serve=CKYILKQE&placement=adamschwartzco"></script>
     </div>
 
-    <script src="https://unpkg.com/draggabilly@2.1.1/dist/draggabilly.pkgd.min.js"></script>
+    <script src="https://unpkg.com/draggabilly@2.2.0/dist/draggabilly.pkgd.min.js"></script>
     <script src="js/chrome-tabs.js"></script>
     <script>
       var el = document.querySelector('.chrome-tabs')
       var chromeTabs = new ChromeTabs()
 
-      chromeTabs.init(el, {
-        minWidth: 70, // TODO
-        maxWidth: 258 // TODO
-      })
+      chromeTabs.init(el)
 
       el.addEventListener('activeTabChange', ({ detail }) => console.log('Active tab changed', detail.tabEl))
       el.addEventListener('tabAdd', ({ detail }) => console.log('Tab added', detail.tabEl))
       el.addEventListener('tabRemove', ({ detail }) => console.log('Tab removed', detail.tabEl))
 
-      document.querySelector('button[data-add-tab]').addEventListener('click', function(){
+      document.querySelector('button[data-add-tab]').addEventListener('click', _ => {
         chromeTabs.addTab({
           title: 'New Tab',
           favicon: false
         })
-      });
+      })
 
-      document.querySelector('button[data-remove-tab]').addEventListener('click', function(){
+      document.querySelector('button[data-remove-tab]').addEventListener('click', _ => {
         chromeTabs.removeTab(el.querySelector('.chrome-tab-current'))
-      });
+      })
 
-      document.querySelector('button[data-theme-toggle]').addEventListener('click', function(){
+      document.querySelector('button[data-theme-toggle]').addEventListener('click', _ => {
         if (el.classList.contains('chrome-tabs-dark-theme')) {
           document.documentElement.classList.remove('dark-theme')
           el.classList.remove('chrome-tabs-dark-theme')
