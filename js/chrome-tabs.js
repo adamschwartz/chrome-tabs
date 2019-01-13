@@ -1,8 +1,6 @@
 (function(){
   const isNodeContext = typeof module !== 'undefined' && typeof module.exports !== 'undefined'
-  if (isNodeContext) {
-    const Draggabilly = require('draggabilly')
-  }
+  const Draggabilly = isNodeContext ? require('draggabilly') : window.Draggabilly
 
   const TAB_EFFECTIVE_ADJACENT_SPACE = 9
   const TAB_OVERLAP_DISTANCE = (TAB_EFFECTIVE_ADJACENT_SPACE * 2) + 1
