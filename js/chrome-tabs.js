@@ -2,18 +2,34 @@
   const isNodeContext = typeof module !== 'undefined' && typeof module.exports !== 'undefined'
   const Draggabilly = isNodeContext ? require('draggabilly') : window.Draggabilly
 
-  const TAB_EFFECTIVE_ADJACENT_SPACE = 9
-  const TAB_OVERLAP_DISTANCE = (TAB_EFFECTIVE_ADJACENT_SPACE * 2) + 1
+  const TAB_CONTENT_MARGIN = 9
+  const TAB_CONTENT_OVERLAP_DISTANCE = 1
 
-  const TAB_MIN_WIDTH = 24 + (TAB_EFFECTIVE_ADJACENT_SPACE * 2)
-  const TAB_MAX_WIDTH = 240 + (TAB_EFFECTIVE_ADJACENT_SPACE * 2)
+  const TAB_OVERLAP_DISTANCE = (TAB_CONTENT_MARGIN * 2) + TAB_CONTENT_OVERLAP_DISTANCE
+
+  const TAB_CONTENT_MIN_WIDTH = 24
+  const TAB_CONTENT_MAX_WIDTH = 240
 
   const TAB_SIZE_SMALL = 84
   const TAB_SIZE_SMALLER = 60
   const TAB_SIZE_MINI = 48
 
+  const closest = (value, array) => {
+    let closest = Infinity
+    let closestIndex = -1
+
+    array.forEach((v, i) => {
+      if (Math.abs(value - v) < closest) {
+        closest = Math.abs(value - v)
+        closestIndex = i
+      }
+    })
+
+    return closestIndex
+  }
+
   const tabTemplate = `
-    <div class="chrome-tab" style="--effective-adjacent-space: ${ TAB_EFFECTIVE_ADJACENT_SPACE }px">
+    <div class="chrome-tab">
       <div class="chrome-tab-dividers"></div>
       <div class="chrome-tab-background">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="chrome-tab-geometry-left" viewBox="0 0 214 34" ><path d="M17 0h197v34H0c5 0 9-3 9-8V8c0-5 3-8 8-8z"/></symbol><symbol id="chrome-tab-geometry-right" viewBox="0 0 214 34"><use xlink:href="#chrome-tab-geometry-left"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%"><use xlink:href="#chrome-tab-geometry-left" width="214" height="34" class="chrome-tab-geometry"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#chrome-tab-geometry-right" width="214" height="34" class="chrome-tab-geometry"/></svg></g></svg>
@@ -46,6 +62,7 @@
       this.el.setAttribute('data-chrome-tabs-instance-id', this.instanceId)
       instanceId += 1
 
+      this.setupCustomProperties()
       this.setupStyleEl()
       this.setupEvents()
       this.layoutTabs()
@@ -54,6 +71,10 @@
 
     emit(eventName, data) {
       this.el.dispatchEvent(new CustomEvent(eventName, { detail: data }))
+    }
+
+    setupCustomProperties() {
+      this.el.style.setProperty('--tab-content-margin', `${ TAB_CONTENT_MARGIN }px`)
     }
 
     setupStyleEl() {
@@ -79,55 +100,75 @@
       return this.el.querySelector('.chrome-tabs-content')
     }
 
-    get tabWidth() {
-      const tabsContentWidth = this.tabContentEl.clientWidth - TAB_OVERLAP_DISTANCE
-      const width = (tabsContentWidth / this.tabEls.length) + TAB_OVERLAP_DISTANCE
-      const clampedWidth = Math.max(TAB_MIN_WIDTH, Math.min(TAB_MAX_WIDTH, width))
+    get tabContentWidths() {
+      const numberOfTabs = this.tabEls.length
+      const tabsContentWidth = this.tabContentEl.clientWidth
+      const tabsCumulativeOverlappedWidth = (numberOfTabs - 1) * TAB_CONTENT_OVERLAP_DISTANCE
+      const targetWidth = (tabsContentWidth - (2 * TAB_CONTENT_MARGIN) + tabsCumulativeOverlappedWidth) / numberOfTabs
+      const clampedTargetWidth = Math.max(TAB_CONTENT_MIN_WIDTH, Math.min(TAB_CONTENT_MAX_WIDTH, targetWidth))
+      const flooredClampedTargetWidth = Math.floor(clampedTargetWidth)
+      const totalTabsWidthUsingTarget = (flooredClampedTargetWidth * numberOfTabs) + (2 * TAB_CONTENT_MARGIN) - tabsCumulativeOverlappedWidth
+      const totalExtraWidthDueToFlooring = tabsContentWidth - totalTabsWidthUsingTarget
 
-      // TODO
-      // We round here to fix issue with tab dividers poking out from underneath
-      // the tab background / Would be better to find an alternative solution
-      return Math.round(clampedWidth)
+      // TODO - Support tabs with different widths / e.g. "pinned" tabs
+      const widths = []
+      let extraWidthRemaining = totalExtraWidthDueToFlooring
+      for (let i = 0; i < numberOfTabs; i += 1) {
+        const extraWidth = flooredClampedTargetWidth < TAB_CONTENT_MAX_WIDTH && extraWidthRemaining > 0 ? 1 : 0
+        widths.push(flooredClampedTargetWidth + extraWidth)
+        if (extraWidthRemaining > 0) extraWidthRemaining -= 1
+      }
+
+      return widths
     }
 
-    get tabEffectiveWidth() {
-      return this.tabWidth - TAB_OVERLAP_DISTANCE
+    get tabContentPositions() {
+      const positions = []
+      const tabContentWidths = this.tabContentWidths
+
+      let position = TAB_CONTENT_MARGIN
+      tabContentWidths.forEach((width, i) => {
+        const offset = i * TAB_CONTENT_OVERLAP_DISTANCE
+        positions.push(position - offset)
+        position += width
+      })
+
+      return positions
     }
 
     get tabPositions() {
-      const tabEffectiveWidth = this.tabEffectiveWidth
-      let left = 0
-      let positions = []
+      const positions = []
 
-      this.tabEls.forEach((tabEl, i) => {
-        positions.push(left)
-        left += tabEffectiveWidth
+      this.tabContentPositions.forEach((contentPosition) => {
+        positions.push(contentPosition - TAB_CONTENT_MARGIN)
       })
+
       return positions
     }
 
     layoutTabs() {
-      const tabWidth = this.tabWidth
-      const tabEffectiveWidth = this.tabEffectiveWidth
+      const tabContentWidths = this.tabContentWidths
 
       this.cleanUpPreviouslyDraggedTabs()
-      this.tabEls.forEach((tabEl) => {
-        // TODO - Support tabs with different widths / e.g. "pinned" tabs
-        tabEl.style.width = tabWidth + 'px'
+      this.tabEls.forEach((tabEl, i) => {
+        const contentWidth = tabContentWidths[i]
+        const width = contentWidth + (2 * TAB_CONTENT_MARGIN)
 
+        tabEl.style.width = width + 'px'
         tabEl.removeAttribute('is-small')
         tabEl.removeAttribute('is-smaller')
         tabEl.removeAttribute('is-mini')
-        if (tabEffectiveWidth < TAB_SIZE_SMALL) tabEl.setAttribute('is-small', '')
-        if (tabEffectiveWidth < TAB_SIZE_SMALLER) tabEl.setAttribute('is-smaller', '')
-        if (tabEffectiveWidth < TAB_SIZE_MINI) tabEl.setAttribute('is-mini', '')
+
+        if (contentWidth < TAB_SIZE_SMALL) tabEl.setAttribute('is-small', '')
+        if (contentWidth < TAB_SIZE_SMALLER) tabEl.setAttribute('is-smaller', '')
+        if (contentWidth < TAB_SIZE_MINI) tabEl.setAttribute('is-mini', '')
       })
 
       let styleHTML = ''
-      this.tabPositions.forEach((left, i) => {
+      this.tabPositions.forEach((position, i) => {
         styleHTML += `
           .chrome-tabs[data-chrome-tabs-instance-id="${ this.instanceId }"] .chrome-tab:nth-child(${ i + 1 }) {
-            transform: translate3d(${ left }px, 0, 0)
+            transform: translate3d(${ position }px, 0, 0)
           }
         `
       })
@@ -199,7 +240,6 @@
 
     setupDraggabilly() {
       const tabEls = this.tabEls
-      const tabEffectiveWidth = this.tabEffectiveWidth
       const tabPositions = this.tabPositions
 
       this.draggabillyInstances.forEach(draggabillyInstance => draggabillyInstance.destroy())
@@ -242,6 +282,7 @@
               requestAnimationFrame(() => {
                 tabEl.style.transform = ''
 
+                this.layoutTabs()
                 this.setupDraggabilly()
               })
             })
@@ -254,7 +295,8 @@
           const currentIndex = tabEls.indexOf(tabEl)
 
           const currentTabPositionX = originalTabPositionX + moveVector.x
-          const destinationIndex = Math.max(0, Math.min(tabEls.length, Math.floor((currentTabPositionX + (tabEffectiveWidth / 2)) / tabEffectiveWidth)))
+          const destinationIndexTarget = closest(currentTabPositionX, tabPositions)
+          const destinationIndex = Math.max(0, Math.min(tabEls.length, destinationIndexTarget))
 
           if (currentIndex !== destinationIndex) {
             this.animateTabMove(tabEl, currentIndex, destinationIndex)
@@ -269,6 +311,7 @@
       } else {
         tabEl.parentNode.insertBefore(tabEl, this.tabEls[destinationIndex + 1])
       }
+      this.layoutTabs()
     }
   }
 
