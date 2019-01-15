@@ -1,6 +1,6 @@
 {
   "name": "chrome-tabs",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "Chrome-style tabs in HTML/CSS/JS",
   "main": "js/chrome-tabs.js",
   "files": [
