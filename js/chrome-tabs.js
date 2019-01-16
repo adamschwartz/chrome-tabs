@@ -311,6 +311,7 @@
       } else {
         tabEl.parentNode.insertBefore(tabEl, this.tabEls[destinationIndex + 1])
       }
+      this.emit('tabReorder', { tabEl, originIndex, destinationIndex })
       this.layoutTabs()
     }
   }
