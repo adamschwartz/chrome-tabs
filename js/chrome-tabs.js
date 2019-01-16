@@ -181,18 +181,20 @@
       return div.firstElementChild
     }
 
-    addTab(tabProperties) {
+    addTab(tabProperties, { animate = true, background = false } = {}) {
       const tabEl = this.createNewTabEl()
 
-      tabEl.classList.add('chrome-tab-just-added')
-      setTimeout(() => tabEl.classList.remove('chrome-tab-just-added'), 500)
+      if (animate) {
+        tabEl.classList.add('chrome-tab-was-just-added')
+        setTimeout(() => tabEl.classList.remove('chrome-tab-was-just-added'), 500)
+      }
 
       tabProperties = Object.assign({}, defaultTapProperties, tabProperties)
       this.tabContentEl.appendChild(tabEl)
       this.setTabCloseEventListener(tabEl)
       this.updateTab(tabEl, tabProperties)
       this.emit('tabAdd', { tabEl })
-      this.setCurrentTab(tabEl)
+      if (!background) this.setCurrentTab(tabEl)
       this.layoutTabs()
       this.setupDraggabilly()
     }

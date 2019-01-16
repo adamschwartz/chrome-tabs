@@ -71,6 +71,7 @@
           <button data-theme-toggle>Toggle dark theme</button>
           <button data-add-tab>Add new tab</button>
           <button data-remove-tab>Remove current tab</button>
+          <button data-add-background-tab>Add tab in the background</button>
         </div>
       </div>
     </div>
@@ -95,6 +96,15 @@
         chromeTabs.addTab({
           title: 'New Tab',
           favicon: false
+        })
+      })
+
+      document.querySelector('button[data-add-background-tab]').addEventListener('click', _ => {
+        chromeTabs.addTab({
+          title: 'New Tab',
+          favicon: false
+        }, {
+          background: true
         })
       })
 
