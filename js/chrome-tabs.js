@@ -244,6 +244,9 @@
         faviconEl.setAttribute('hidden', '')
         faviconEl.removeAttribute('style')
       }
+
+      if (tabProperties.id) {
+        tabEl.setAttribute('data-tab-id', tabProperties.id)
       }
     }
 
