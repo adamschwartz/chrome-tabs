@@ -8,13 +8,13 @@
 .chrome-tabs.chrome-tabs-dark-theme .chrome-tab .chrome-tab-background > svg .chrome-tab-geometry {
   fill: #292b2e;
 }
-.chrome-tabs.chrome-tabs-dark-theme .chrome-tab.chrome-tab-current .chrome-tab-background > svg .chrome-tab-geometry {
+.chrome-tabs.chrome-tabs-dark-theme .chrome-tab[active] .chrome-tab-background > svg .chrome-tab-geometry {
   fill: #323639;
 }
 .chrome-tabs.chrome-tabs-dark-theme .chrome-tab .chrome-tab-title {
   color: #9ca1a7;
 }
-.chrome-tabs.chrome-tabs-dark-theme .chrome-tab.chrome-tab-current .chrome-tab-title {
+.chrome-tabs.chrome-tabs-dark-theme .chrome-tab[active] .chrome-tab-title {
   color: #f1f3f4;
 }
 .chrome-tabs.chrome-tabs-dark-theme .chrome-tab .chrome-tab-close {

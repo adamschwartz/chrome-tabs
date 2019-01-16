@@ -203,16 +203,24 @@
       tabEl.querySelector('.chrome-tab-close').addEventListener('click', _ => this.removeTab(tabEl))
     }
 
+    get activeTabEl() {
+      return this.el.querySelector('.chrome-tab[active]')
+    }
+
+    hasActiveTab() {
+      return !!this.activeTabEl
+    }
+
     setCurrentTab(tabEl) {
-      const currentTab = this.el.querySelector('.chrome-tab-current')
-      if (currentTab === tabEl) return
-      if (currentTab) currentTab.classList.remove('chrome-tab-current')
-      tabEl.classList.add('chrome-tab-current')
+      const activeTabEl = this.activeTabEl
+      if (activeTabEl === tabEl) return
+      if (activeTabEl) activeTabEl.removeAttribute('active')
+      tabEl.setAttribute('active', '')
       this.emit('activeTabChange', { tabEl })
     }
 
     removeTab(tabEl) {
-      if (tabEl.classList.contains('chrome-tab-current')) {
+      if (tabEl === this.activeTabEl) {
         if (tabEl.nextElementSibling) {
           this.setCurrentTab(tabEl.nextElementSibling)
         } else if (tabEl.previousElementSibling) {
@@ -237,7 +245,7 @@
     }
 
     cleanUpPreviouslyDraggedTabs() {
-      this.tabEls.forEach((tabEl) => tabEl.classList.remove('chrome-tab-just-dragged'))
+      this.tabEls.forEach((tabEl) => tabEl.classList.remove('chrome-tab-was-just-dragged'))
     }
 
     setupDraggabilly() {
@@ -262,8 +270,8 @@
 
         draggabillyInstance.on('dragStart', () => {
           this.cleanUpPreviouslyDraggedTabs()
-          tabEl.classList.add('chrome-tab-currently-dragged')
-          this.el.classList.add('chrome-tabs-sorting')
+          tabEl.classList.add('chrome-tab-is-dragging')
+          this.el.classList.add('chrome-tabs-is-sorting')
         })
 
         draggabillyInstance.on('dragEnd', () => {
@@ -276,10 +284,10 @@
             tabEl.style.transform = `translate3d(${ finalTranslateX }px, 0, 0)`
 
             requestAnimationFrame(() => {
-              tabEl.classList.remove('chrome-tab-currently-dragged')
-              this.el.classList.remove('chrome-tabs-sorting')
+              tabEl.classList.remove('chrome-tab-is-dragging')
+              this.el.classList.remove('chrome-tabs-is-sorting')
 
-              tabEl.classList.add('chrome-tab-just-dragged')
+              tabEl.classList.add('chrome-tab-was-just-dragged')
 
               requestAnimationFrame(() => {
                 tabEl.style.transform = ''

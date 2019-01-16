@@ -90,26 +90,26 @@
 .chrome-tabs .chrome-tab .chrome-tab-background > svg .chrome-tab-geometry {
   fill: #f4f5f6;
 }
-.chrome-tabs .chrome-tab.chrome-tab-current {
+.chrome-tabs .chrome-tab[active] {
   z-index: 5;
 }
-.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-background > svg .chrome-tab-geometry {
+.chrome-tabs .chrome-tab[active] .chrome-tab-background > svg .chrome-tab-geometry {
   fill: #fff;
 }
-.chrome-tabs .chrome-tab:not(.chrome-tab-current) .chrome-tab-background {
+.chrome-tabs .chrome-tab:not([active]) .chrome-tab-background {
   transition: opacity 0.2s ease;
   opacity: 0;
 }
-.chrome-tabs .chrome-tab:not(.chrome-tab-current):hover {
+.chrome-tabs .chrome-tab:not([active]):hover {
   z-index: 2;
 }
-.chrome-tabs .chrome-tab:not(.chrome-tab-current):hover .chrome-tab-background,
-.chrome-tabs .chrome-tab:not(.chrome-tab-current).chrome-tab-currently-dragged .chrome-tab-background {
+.chrome-tabs .chrome-tab:not([active]):hover .chrome-tab-background,
+.chrome-tabs .chrome-tab:not([active]).chrome-tab-is-dragging .chrome-tab-background {
   opacity: 1;
 }
-.chrome-tabs .chrome-tab.chrome-tab-just-added {
+.chrome-tabs .chrome-tab.chrome-tab-was-just-added {
   top: 10px;
-  animation: chrome-tab-just-added 120ms forwards ease-in-out;
+  animation: chrome-tab-was-just-added 120ms forwards ease-in-out;
 }
 .chrome-tabs .chrome-tab .chrome-tab-content {
   position: absolute;
@@ -140,11 +140,11 @@
 .chrome-tabs .chrome-tab[is-small] .chrome-tab-favicon {
   margin-left: 0;
 }
-.chrome-tabs .chrome-tab[is-mini]:not(.chrome-tab-current) .chrome-tab-favicon {
+.chrome-tabs .chrome-tab[is-mini]:not([active]) .chrome-tab-favicon {
   margin-left: auto;
   margin-right: auto;
 }
-.chrome-tabs .chrome-tab[is-mini].chrome-tab-current .chrome-tab-favicon {
+.chrome-tabs .chrome-tab[is-mini][active] .chrome-tab-favicon {
   display: none;
 }
 .chrome-tabs .chrome-tab .chrome-tab-title {
@@ -168,7 +168,7 @@
 .chrome-tabs .chrome-tab[is-mini] .chrome-tab-title {
   display: none;
 }
-.chrome-tabs .chrome-tab.chrome-tab-current .chrome-tab-title {
+.chrome-tabs .chrome-tab[active] .chrome-tab-title {
   color: #45474a;
 }
 .chrome-tabs .chrome-tab .chrome-tab-drag-handle {
@@ -198,46 +198,46 @@
 .chrome-tabs .chrome-tab .chrome-tab-close:hover:active {
   background-color: #dadce0;
 }
-.chrome-tabs .chrome-tab:not(.chrome-tab-current) .chrome-tab-close:not(:hover):not(:active) {
+.chrome-tabs .chrome-tab:not([active]) .chrome-tab-close:not(:hover):not(:active) {
   opacity: 0.8;
 }
 .chrome-tabs .chrome-tab[is-smaller] .chrome-tab-close {
   margin-left: auto;
 }
-.chrome-tabs .chrome-tab[is-mini]:not(.chrome-tab-current) .chrome-tab-close {
+.chrome-tabs .chrome-tab[is-mini]:not([active]) .chrome-tab-close {
   display: none;
 }
-.chrome-tabs .chrome-tab[is-mini].chrome-tab-current .chrome-tab-close {
+.chrome-tabs .chrome-tab[is-mini][active] .chrome-tab-close {
   margin-left: auto;
   margin-right: auto;
 }
-@-moz-keyframes chrome-tab-just-added {
+@-moz-keyframes chrome-tab-was-just-added {
   to {
     top: 0;
   }
 }
-@-webkit-keyframes chrome-tab-just-added {
+@-webkit-keyframes chrome-tab-was-just-added {
   to {
     top: 0;
   }
 }
-@-o-keyframes chrome-tab-just-added {
+@-o-keyframes chrome-tab-was-just-added {
   to {
     top: 0;
   }
 }
-@keyframes chrome-tab-just-added {
+@keyframes chrome-tab-was-just-added {
   to {
     top: 0;
   }
 }
-.chrome-tabs.chrome-tabs-sorting .chrome-tab:not(.chrome-tab-currently-dragged),
-.chrome-tabs:not(.chrome-tabs-sorting) .chrome-tab.chrome-tab-just-dragged {
+.chrome-tabs.chrome-tabs-sorting .chrome-tab:not(.chrome-tab-is-dragging),
+.chrome-tabs:not(.chrome-tabs-sorting) .chrome-tab.chrome-tab-was-just-dragged {
   transition: transform 120ms ease-in-out;
 }
 @supports (-webkit-overflow-scrolling: touch) {
-  .chrome-tabs.chrome-tabs-sorting .chrome-tab:not(.chrome-tab-currently-dragged),
-  .chrome-tabs:not(.chrome-tabs-sorting) .chrome-tab.chrome-tab-just-dragged {
+  .chrome-tabs.chrome-tabs-sorting .chrome-tab:not(.chrome-tab-is-dragging),
+  .chrome-tabs:not(.chrome-tabs-sorting) .chrome-tab.chrome-tab-was-just-dragged {
     transition: none;
   }
 }

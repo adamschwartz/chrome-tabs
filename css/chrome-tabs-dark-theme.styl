@@ -14,13 +14,13 @@ activeTabBackgroundColor = #323639
     .chrome-tab-background > svg .chrome-tab-geometry
       fill #292b2e
 
-    &.chrome-tab-current .chrome-tab-background > svg .chrome-tab-geometry
+    &[active] .chrome-tab-background > svg .chrome-tab-geometry
       fill activeTabBackgroundColor
 
     .chrome-tab-title
       color #9ca1a7
 
-    &.chrome-tab-current .chrome-tab-title
+    &[active] .chrome-tab-title
       color #f1f3f4
 
     .chrome-tab-close
