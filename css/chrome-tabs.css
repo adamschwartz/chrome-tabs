@@ -17,12 +17,11 @@
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 .chrome-tabs .chrome-tab {
   position: absolute;
   left: 0;
-  height: 34px;
+  height: 36px;
   width: 240px;
   border: 0;
   margin: 0;
