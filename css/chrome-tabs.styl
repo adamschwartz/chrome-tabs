@@ -99,13 +99,12 @@ activeTabBackgroundColor = #fff
         transition opacity .2s ease
         opacity 0
 
-      &:hover
-        z-index 2
+      @media (hover: hover)
+        &:hover
+          z-index 2
 
-      &:hover, &.chrome-tab-is-dragging
-
-        .chrome-tab-background
-          opacity 1
+          .chrome-tab-background
+            opacity 1
 
     @keyframes chrome-tab-was-just-added
       to
@@ -196,14 +195,20 @@ activeTabBackgroundColor = #fff
       background-repeat no-repeat
       background-size 8px 8px
 
-      &:hover
-        background-color #e8eaed
+      @media (hover: hover)
+        &:hover
+          background-color #e8eaed
 
+          &:active
+            background-color #dadce0
+
+      @media not all and (hover: hover)
         &:active
           background-color #dadce0
 
-    &:not([active]) .chrome-tab-close:not(:hover):not(:active)
-      opacity .8
+    @media (hover: hover)
+      &:not([active]) .chrome-tab-close:not(:hover):not(:active)
+        opacity .8
 
     &[is-smaller] .chrome-tab-close
       margin-left auto
