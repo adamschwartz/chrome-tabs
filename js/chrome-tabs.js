@@ -14,6 +14,8 @@
   const TAB_SIZE_SMALLER = 60
   const TAB_SIZE_MINI = 48
 
+  const noop = _ => {}
+
   const closest = (value, array) => {
     let closest = Infinity
     let closestIndex = -1
@@ -52,7 +54,7 @@
 
   class ChromeTabs {
     constructor() {
-      this.draggabillyInstances = []
+      this.draggabillies = []
     }
 
     init(el) {
@@ -83,7 +85,10 @@
     }
 
     setupEvents() {
-      window.addEventListener('resize', _ => this.layoutTabs())
+      window.addEventListener('resize', _ => {
+        this.cleanUpPreviouslyDraggedTabs()
+        this.layoutTabs()
+      })
 
       this.el.addEventListener('dblclick', event => {
         if ([this.el, this.tabContentEl].includes(event.target)) this.addTab()
@@ -149,7 +154,6 @@
     layoutTabs() {
       const tabContentWidths = this.tabContentWidths
 
-      this.cleanUpPreviouslyDraggedTabs()
       this.tabEls.forEach((tabEl, i) => {
         const contentWidth = tabContentWidths[i]
         const width = contentWidth + (2 * TAB_CONTENT_MARGIN)
@@ -195,6 +199,7 @@
       this.updateTab(tabEl, tabProperties)
       this.emit('tabAdd', { tabEl })
       if (!background) this.setCurrentTab(tabEl)
+      this.cleanUpPreviouslyDraggedTabs()
       this.layoutTabs()
       this.setupDraggabilly()
     }
@@ -229,6 +234,7 @@
       }
       tabEl.parentNode.removeChild(tabEl)
       this.emit('tabRemove', { tabEl })
+      this.cleanUpPreviouslyDraggedTabs()
       this.layoutTabs()
       this.setupDraggabilly()
     }
@@ -258,44 +264,58 @@
       const tabEls = this.tabEls
       const tabPositions = this.tabPositions
 
-      this.draggabillyInstances.forEach(draggabillyInstance => draggabillyInstance.destroy())
+      if (this.isDragging) {
+        this.isDragging = false
+        this.el.classList.remove('chrome-tabs-is-sorting')
+        this.draggabillyDragging.element.classList.remove('chrome-tab-is-dragging')
+        this.draggabillyDragging.element.style.transform = ''
+        this.draggabillyDragging.dragEnd()
+        this.draggabillyDragging.isDragging = false
+        this.draggabillyDragging.positionDrag = noop // Prevent Draggabilly from updating tabEl.style.transform in later frames
+        this.draggabillyDragging.destroy()
+        this.draggabillyDragging = null
+      }
+
+      this.draggabillies.forEach(d => d.destroy())
 
       tabEls.forEach((tabEl, originalIndex) => {
         const originalTabPositionX = tabPositions[originalIndex]
-        const draggabillyInstance = new Draggabilly(tabEl, {
+        const draggabilly = new Draggabilly(tabEl, {
           axis: 'x',
           handle: '.chrome-tab-drag-handle',
           containment: this.tabContentEl
         })
 
-        this.draggabillyInstances.push(draggabillyInstance)
+        this.draggabillies.push(draggabilly)
 
-        draggabillyInstance.on('pointerDown', () => {
+        draggabilly.on('pointerDown', _ => {
           this.setCurrentTab(tabEl)
         })
 
-        draggabillyInstance.on('dragStart', () => {
-          this.cleanUpPreviouslyDraggedTabs()
+        draggabilly.on('dragStart', _ => {
+          this.isDragging = true
+          this.draggabillyDragging = draggabilly
           tabEl.classList.add('chrome-tab-is-dragging')
           this.el.classList.add('chrome-tabs-is-sorting')
         })
 
-        draggabillyInstance.on('dragEnd', () => {
+        draggabilly.on('dragEnd', _ => {
+          this.isDragging = false
           const finalTranslateX = parseFloat(tabEl.style.left, 10)
           tabEl.style.transform = `translate3d(0, 0, 0)`
 
           // Animate dragged tab back into its place
-          requestAnimationFrame(() => {
+          requestAnimationFrame(_ => {
             tabEl.style.left = '0'
             tabEl.style.transform = `translate3d(${ finalTranslateX }px, 0, 0)`
 
-            requestAnimationFrame(() => {
+            requestAnimationFrame(_ => {
               tabEl.classList.remove('chrome-tab-is-dragging')
               this.el.classList.remove('chrome-tabs-is-sorting')
 
               tabEl.classList.add('chrome-tab-was-just-dragged')
 
-              requestAnimationFrame(() => {
+              requestAnimationFrame(_ => {
                 tabEl.style.transform = ''
 
                 this.layoutTabs()
@@ -305,7 +325,7 @@
           })
         })
 
-        draggabillyInstance.on('dragMove', (event, pointer, moveVector) => {
+        draggabilly.on('dragMove', (event, pointer, moveVector) => {
           // Current index be computed within the event since it can change during the dragMove
           const tabEls = this.tabEls
           const currentIndex = tabEls.indexOf(tabEl)
