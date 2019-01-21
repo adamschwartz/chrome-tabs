@@ -57,12 +57,6 @@
   opacity: 1;
   transition: opacity 0.2s ease;
 }
-@supports (-webkit-overflow-scrolling: touch) {
-  .chrome-tabs .chrome-tab .chrome-tab-dividers::before,
-  .chrome-tabs .chrome-tab .chrome-tab-dividers::after {
-    transition: none;
-  }
-}
 .chrome-tabs .chrome-tab .chrome-tab-dividers::before {
   left: 0;
 }
@@ -243,12 +237,6 @@
 .chrome-tabs.chrome-tabs-is-sorting .chrome-tab:not(.chrome-tab-is-dragging),
 .chrome-tabs:not(.chrome-tabs-is-sorting) .chrome-tab.chrome-tab-was-just-dragged {
   transition: transform 120ms ease-in-out;
-}
-@supports (-webkit-overflow-scrolling: touch) {
-  .chrome-tabs.chrome-tabs-is-sorting .chrome-tab:not(.chrome-tab-is-dragging),
-  .chrome-tabs:not(.chrome-tabs-is-sorting) .chrome-tab.chrome-tab-was-just-dragged {
-    transition: none;
-  }
 }
 .chrome-tabs .chrome-tabs-bottom-bar {
   position: absolute;
