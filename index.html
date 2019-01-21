@@ -121,6 +121,15 @@
           el.classList.add('chrome-tabs-dark-theme')
         }
       })
+
+      window.addEventListener('keydown', (event) => {
+        if (event.ctrlKey && event.key === 't') {
+          chromeTabs.addTab({
+            title: 'New Tab',
+            favicon: false
+          })
+        }
+      })
     </script>
   </body>
 </html>
