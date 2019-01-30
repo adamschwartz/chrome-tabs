@@ -40,7 +40,6 @@
         <div class="chrome-tab-favicon"></div>
         <div class="chrome-tab-title"></div>
         <div class="chrome-tab-drag-handle"></div>
-        <div class="chrome-tab-close"></div>
       </div>
     </div>
   `
@@ -179,14 +178,19 @@
       this.styleEl.innerHTML = styleHTML
     }
 
-    createNewTabEl() {
+    createNewTabEl(closeable) {
       const div = document.createElement('div')
       div.innerHTML = tabTemplate
+      if(closeable){
+        const closeDiv = document.createElement('div')
+        closeDiv.classList.add('chrome-tab-close')
+        div.querySelector('.chrome-tab-content').appendChild(closeDiv)
+      }
       return div.firstElementChild
     }
 
-    addTab(tabProperties, { animate = true, background = false } = {}) {
-      const tabEl = this.createNewTabEl()
+    addTab(tabProperties, { animate = true, background = false, closeable = true } = {}) {
+      const tabEl = this.createNewTabEl(closeable)
 
       if (animate) {
         tabEl.classList.add('chrome-tab-was-just-added')
@@ -202,10 +206,14 @@
       this.cleanUpPreviouslyDraggedTabs()
       this.layoutTabs()
       this.setupDraggabilly()
+      return tabEl
     }
 
     setTabCloseEventListener(tabEl) {
-      tabEl.querySelector('.chrome-tab-close').addEventListener('click', _ => this.removeTab(tabEl))
+      const tab = tabEl.querySelector('.chrome-tab-close')
+      if(tab !== null){
+        tab.addEventListener('click', _ => this.removeTab(tabEl))
+      }
     }
 
     get activeTabEl() {
