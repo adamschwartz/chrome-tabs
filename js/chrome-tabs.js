@@ -1,7 +1,24 @@
-(function(){
-  const isNodeContext = typeof module !== 'undefined' && typeof module.exports !== 'undefined'
-  const Draggabilly = isNodeContext ? require('draggabilly') : window.Draggabilly
-
+(function(window, factory) {
+  if (typeof define == 'function' && define.amd) {
+    // AMD
+    define(['draggabilly'],
+      function(Draggabilly) {
+        return factory(window, Draggabilly);
+      });
+  } else if (typeof module == 'object' && module.exports) {
+    // CommonJS
+    module.exports = factory(
+      window,
+      require('draggabilly')
+    );
+  } else {
+    // browser global
+    window.ChromeTabs = factory(
+      window,
+      window.Draggabilly
+    );
+  }
+}(window, function factory(window, Draggabilly) {
   const TAB_CONTENT_MARGIN = 9
   const TAB_CONTENT_OVERLAP_DISTANCE = 1
 
@@ -351,10 +368,5 @@
       this.layoutTabs()
     }
   }
-
-  if (isNodeContext) {
-    module.exports = ChromeTabs
-  } else {
-    window.ChromeTabs = ChromeTabs
-  }
-})()
+  return ChromeTabs
+}))
