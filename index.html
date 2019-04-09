@@ -85,10 +85,36 @@
     <script>
       var el = document.querySelector('.chrome-tabs')
       var chromeTabs = new ChromeTabs()
-
       chromeTabs.init(el)
+      var actMockBrowser = el.nextElementSibling.nextElementSibling;
+      var actMockBroContent = document.createElement('div');
+      actMockBroContent.width = "1210px";
+      actMockBroContent.height = "450px";
+      actMockBroContent.frameBorder = "0";
+      actMockBroContent.src = "";
+      actMockBrowser.appendChild(actMockBroContent);
+      
 
-      el.addEventListener('activeTabChange', ({ detail }) => console.log('Active tab changed', detail.tabEl))
+      el.addEventListener('activeTabChange', ({ detail }) => {
+        console.log('Active tab changed', detail.tabEl)
+        var actTabText = detail.tabEl.children[2].innerText;
+        if(actTabText == "Google") {          
+          if(actMockBroContent.src == "") {
+            actMockBroContent.src = "https://www.google.com/webhp?igu=1";  
+          } else {
+            actMockBroContent.src = "";
+            actMockBroContent.src = "https://www.google.com/webhp?igu=1";
+          }
+        } 
+        if(actTabText == "Mozilla") {
+          if(actMockBroContent.src == "") {
+            actMockBroContent.src = "https://developer.mozilla.org/";
+          } else {
+            actMockBroContent.src = "";
+            actMockBroContent.src = "https://developer.mozilla.org/";
+          }          
+        }
+      })
       el.addEventListener('tabAdd', ({ detail }) => console.log('Tab added', detail.tabEl))
       el.addEventListener('tabRemove', ({ detail }) => console.log('Tab removed', detail.tabEl))
 
