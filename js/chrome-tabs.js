@@ -40,6 +40,7 @@
         <div class="chrome-tab-favicon"></div>
         <div class="chrome-tab-title"></div>
         <div class="chrome-tab-drag-handle"></div>
+        <div class="chrome-tab-close"></div>
       </div>
     </div>
   `
@@ -181,10 +182,8 @@
     createNewTabEl(closeable) {
       const div = document.createElement('div')
       div.innerHTML = tabTemplate
-      if(closeable){
-        const closeDiv = document.createElement('div')
-        closeDiv.classList.add('chrome-tab-close')
-        div.querySelector('.chrome-tab-content').appendChild(closeDiv)
+      if(!closeable) {
+        div.querySelector('.chrome-tab-content').removeChild(div.querySelector('.chrome-tab-close'))
       }
       return div.firstElementChild
     }
