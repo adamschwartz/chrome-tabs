@@ -70,8 +70,10 @@
         <div class="buttons">
           <button data-theme-toggle>Toggle dark theme</button>
           <button data-add-tab>Add new tab</button>
+          <button data-add-not-closeable-tab>Add new not closeable tab</button>
           <button data-add-background-tab>Add tab in the background</button>
           <button data-remove-tab>Remove active tab</button>
+          <button data-remove-all>Remove all tabs</button>
         </div>
       </div>
     </div>
@@ -108,8 +110,24 @@
         })
       })
 
+      document.querySelector('button[data-add-not-closeable-tab]').addEventListener('click', _ => {
+        chromeTabs.addTab({
+          title: 'New Tab',
+          favicon: false
+        }, {
+          closeable: false
+        })
+      })
+
       document.querySelector('button[data-remove-tab]').addEventListener('click', _ => {
         chromeTabs.removeTab(chromeTabs.activeTabEl)
+      })
+      
+
+      document.querySelector('button[data-remove-all]').addEventListener('click', _ => {
+        chromeTabs.tabEls.forEach(element => {
+          chromeTabs.removeTab(element)
+        });
       })
 
       document.querySelector('button[data-theme-toggle]').addEventListener('click', _ => {
