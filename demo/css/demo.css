@@ -3,23 +3,35 @@ html {
   background: #f1f3f4;
 }
 
-html.dark-theme {
-  background: #1c1c1c;
-}
-
-body {
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
+html.dark-theme {
+  background: #1c1c1c;
+}
+
+.surface {
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
 @media (min-width: 800px) {
-  body {
+  .surface {
+    box-sizing: border-box;
     padding: 60px;
   }
 
   .mock-browser {
+    width: 100%;
     background: #dee1e6;
     border-radius: 8px;
+    flex-shrink: 0;
     overflow: hidden;
   }
 
@@ -110,12 +122,15 @@ html.dark-theme button:focus {
 }
 
 
+
+
 /* Carbon Ads */
 
 .carbonads-wrapper {
   box-sizing: border-box;
   display: inline-block;
   margin-top: 60px;
+  margin-bottom: 60px;
 }
 
 @media (max-width: 799px) {
