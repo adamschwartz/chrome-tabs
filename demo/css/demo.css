@@ -1,0 +1,199 @@
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background: #f1f3f4;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html.dark-theme {
+  background: #1c1c1c;
+}
+
+.surface {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  padding-bottom: 3em;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 800px) {
+  .surface {
+    padding: 60px;
+  }
+
+  .mock-browser {
+    width: 100%;
+    background: #dee1e6;
+    border-radius: 8px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  html.dark-theme .mock-browser {
+    background: #202123;
+  }
+
+  .mock-browser-content {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    padding: 3em .5em;
+    margin-top: -1px;
+  }
+
+  .chrome-tabs-optional-shadow-below-bottom-bar {
+    z-index: 2;
+  }
+
+  html.dark-theme .mock-browser-content {
+    background: #252729;
+  }
+}
+
+
+@media (max-width: 799px) {
+  html {
+    background: #fff;
+  }
+
+  html.dark-theme {
+    background: #252729;
+  }
+
+  .mock-browser-content {
+    padding: 1em .5em;
+  }
+
+  .mock-browser .chrome-tabs {
+    border-radius: 0;
+  }
+}
+
+button {
+  font-family: inherit;
+  display: inline-block;
+  cursor: pointer;
+  background: #fff;
+  font-size: 12px;
+  border: 1px solid rgba(139, 141, 157, .4);
+  border-radius: 3px;
+  padding: .6em 1.5em .7em;
+  border-radius: 9999px;
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+  /* Prevent double tap to zoom on iOS https://stackoverflow.com/a/47131647 */
+  button {
+    touch-action: manipulation;
+  }
+}
+
+button:focus {
+  border-color: #a9adb0;
+  outline: none;
+  box-shadow: 0 0 0 3px #dee1e6;
+}
+
+.buttons {
+  margin-left: -.5em;
+  text-align: center;
+}
+
+.buttons button {
+  margin: .5em;
+}
+
+html.dark-theme button {
+  -webkit-font-smoothing: antialiased;
+  background: transparent;
+  color: #fff;
+  border-color: #4a4d51;
+}
+
+html.dark-theme button:focus {
+  border-color: #858b90;
+  box-shadow: 0 0 0 3px #4a4d51;
+}
+
+
+
+
+/* Carbon Ads */
+
+.carbonads-wrapper {
+  box-sizing: border-box;
+  display: inline-block;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+@media (max-width: 799px) {
+  .carbonads-wrapper {
+    margin-top: 20px;
+    display: block;
+  }
+}
+
+.carbonads-wrapper * {
+  box-sizing: inherit;
+}
+
+#carbonads {
+  -webkit-font-smoothing: antialiased;
+  width: 162px;
+  display: block;
+  overflow: hidden;
+  line-height: 1.33;
+  width: 130px;
+  max-width: 100%;
+  font-size: 12px;
+  margin: 0 auto;
+}
+
+#carbonads span {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.carbon-img, .carbon-img img {
+  display: block;
+  width: 130px;
+  height: 100px;
+}
+
+.carbon-img {
+  margin-bottom: 7px;
+  background: #ccc;
+}
+
+.carbon-img img {
+  background: #fff;
+}
+
+.carbon-text {
+  color: inherit;
+  display: block;
+  float: left;
+  text-align: left;
+  text-decoration: none;
+  color: #666;
+  line-height: 1.35;
+}
+
+.carbon-poweredby {
+  color: #b9b9b9;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  font-size: 10px;
+  margin-top: 5px;
+  margin-bottom: 11px;
+}

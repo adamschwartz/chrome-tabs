@@ -1,0 +1,29 @@
+{
+  "name": "chrome-tabs",
+  "version": "5.4.0",
+  "description": "Chrome-style tabs in HTML/CSS/JS",
+  "main": "js/chrome-tabs.js",
+  "files": [
+    "README.md",
+    "js/chrome-tabs.js",
+    "css/*.css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamschwartz/chrome-tabs.git"
+  },
+  "keywords": [
+    "chrome",
+    "tabs",
+    "html"
+  ],
+  "author": "Adam Schwartz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adamschwartz/chrome-tabs/issues"
+  },
+  "homepage": "https://github.com/adamschwartz/chrome-tabs#readme",
+  "dependencies": {
+    "draggabilly": "2.2.0"
+  }
+}

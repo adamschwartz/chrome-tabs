@@ -1,0 +1,25 @@
+{
+  "name": "chrome-tabs",
+  "homepage": "https://github.com/adamschwartz/chrome-tabs",
+  "authors": [
+    "Adam Schwartz"
+  ],
+  "description": "Chrome-style tabs in HTML/CSS/JS",
+  "main": "js/chrome-tabs.js",
+  "keywords": [
+    "chrome",
+    "tabs",
+    "html"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "draggabilly": "2.1.1"
+  }
+}
