@@ -18,7 +18,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: 5px;
+  margin-left: 0;
 }
 .chrome-tabs .new-tab-button-wrapper .new-tab-button {
   height: 30px;
@@ -31,17 +31,18 @@
   border: none;
   background: none;
   color: #555;
+  box-shadow: none;
   transition: background 0.35s;
-  cursor: pointer;
+  cursor: default;
 }
 .chrome-tabs .new-tab-button-wrapper .new-tab-button:hover {
-  background: rgba(150,150,150,0.3);
+  background: rgba(150,150,150,0.25);
 }
 .chrome-tabs .chrome-tabs-content {
   position: relative;
   width: 100%;
-  max-width: calc(100% - 40px);
   height: 100%;
+  transition: width 0.1s;
 }
 .chrome-tabs .chrome-tab {
   position: absolute;

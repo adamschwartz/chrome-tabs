@@ -19,6 +19,7 @@
   const TAB_SIZE_SMALL = 84;
   const TAB_SIZE_SMALLER = 60;
   const TAB_SIZE_MINI = 48;
+  const NEW_TAB_BUTTON_AREA = 50;
 
   const noop = _ => {};
 
@@ -112,7 +113,9 @@
         if ([this.el, this.tabContentEl].includes(event.target)) this.addTab();
       });
 
-      this.el.addEventListener("click", ({ target }) => {
+      this.el.addEventListener("click", ({
+        target
+      }) => {
         console.log(target.classList.contains("new-tab-button"));
         if (target.classList.contains("new-tab-button")) {
           console.log("Omo, clicked");
@@ -134,7 +137,7 @@
 
     get tabContentWidths() {
       const numberOfTabs = this.tabEls.length;
-      const tabsContentWidth = this.tabContentEl.clientWidth;
+      const tabsContentWidth = this.tabContentEl.parentNode.clientWidth - NEW_TAB_BUTTON_AREA;
       const tabsCumulativeOverlappedWidth =
         (numberOfTabs - 1) * TAB_CONTENT_OVERLAP_DISTANCE;
       const targetWidth =
@@ -196,6 +199,7 @@
 
     layoutTabs() {
       const tabContentWidths = this.tabContentWidths;
+      let tabsLen = this.tabEls.length;
 
       this.tabEls.forEach((tabEl, i) => {
         const contentWidth = tabContentWidths[i];
@@ -223,6 +227,10 @@
         `;
       });
       this.styleEl.innerHTML = styleHTML;
+
+      if (this.tabContentEl.parentNode.offsetWidth - this.tabContentEl.offsetWidth > NEW_TAB_BUTTON_AREA || tabsLen < 6)
+        this.tabContentEl.style.width =
+        `${(this.tabEls[0] ? this.tabEls[0].offsetWidth * tabsLen : 0) - (tabsLen > 1 ? ((tabsLen * 20) - 22) : 0)}px`;
     }
 
     createNewTabEl() {
@@ -247,11 +255,13 @@
 
       tabProperties = Object.assign({}, defaultTapProperties, tabProperties);
       this.tabContentEl.insertBefore(tabEl, this.tabContentEl.lastChild);
+
       this.setTabCloseEventListener(tabEl);
       this.updateTab(tabEl, tabProperties);
       this.emit("tabAdd", {
         tabEl
       });
+
       if (!background) this.setCurrentTab(tabEl);
       this.cleanUpPreviouslyDraggedTabs();
       this.layoutTabs();

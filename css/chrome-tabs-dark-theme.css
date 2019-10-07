@@ -1,6 +1,12 @@
 .chrome-tabs.chrome-tabs-dark-theme {
   background: #202124;
 }
+.chrome-tabs.chrome-tabs-dark-theme .new-tab-button-wrapper .new-tab-button {
+  color: rgba(200,200,200,0.5);
+}
+.chrome-tabs.chrome-tabs-dark-theme .new-tab-button-wrapper .new-tab-button:hover {
+  background: rgba(154,160,166,0.25);
+}
 .chrome-tabs.chrome-tabs-dark-theme .chrome-tab .chrome-tab-dividers::before,
 .chrome-tabs.chrome-tabs-dark-theme .chrome-tab .chrome-tab-dividers::after {
   background: #4a4d51;
