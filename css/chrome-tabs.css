@@ -8,14 +8,39 @@
   background: #dee1e6;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
+  display: flex;
 }
 .chrome-tabs * {
   box-sizing: inherit;
   font: inherit;
 }
+.chrome-tabs .new-tab-button-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+}
+.chrome-tabs .new-tab-button-wrapper .new-tab-button {
+  height: 30px;
+  width: 30px;
+  line-height: 0;
+  border-radius: 50%;
+  font-weight: 100;
+  font-size: 16px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #555;
+  transition: background 0.35s;
+  cursor: pointer;
+}
+.chrome-tabs .new-tab-button-wrapper .new-tab-button:hover {
+  background: rgba(150,150,150,0.3);
+}
 .chrome-tabs .chrome-tabs-content {
   position: relative;
   width: 100%;
+  max-width: calc(100% - 40px);
   height: 100%;
 }
 .chrome-tabs .chrome-tab {
@@ -261,27 +286,3 @@
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='2' height='2' viewBox='0 0 2 2'><rect x='0' y='0' width='2' height='1' fill='rgba(0, 0, 0, .27)'></rect></svg>");
   }
 }
-
-.chrome-tab.chrome-new-tab .chrome-open-image {
-  background-color: rgb(222, 225, 230);
-  border-radius: 14%;
-  flex-shrink: 0;
-  flex-grow: 0;
-  height: 16px;
-  width: 16px;
-  background-size: 16px;
-  margin-left: 4px;
-}
-
-.chrome-open-image:hover {
-  background-color: rgba(255, 255, 255, 0.74);
-}
-
-
-@media (max-width:961px) {
-  .chrome-open-image {
-    left: 34%;
-  }
-}
-
-

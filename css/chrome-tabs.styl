@@ -12,14 +12,39 @@ activeTabBackgroundColor = #fff
   background #dee1e6
   border-radius 5px 5px 0 0
   overflow hidden
+  display flex
 
   *
     box-sizing inherit
     font inherit
+  
+  .new-tab-button-wrapper
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    margin-left: 5px
+    
+    .new-tab-button
+      height: 30px
+      width: 30px
+      line-height: 0
+      border-radius: 50%
+      font-weight: 100
+      font-size: 16px
+      padding: 0
+      border: none 
+      background: none
+      color: #555
+      transition: background 0.35s
+      cursor pointer
+
+      &:hover
+        background: rgba(150, 150, 150, 0.3)
 
   .chrome-tabs-content
     position relative
     width 100%
+    max-width calc(100% - 40px)
     height 100%
 
   .chrome-tab
