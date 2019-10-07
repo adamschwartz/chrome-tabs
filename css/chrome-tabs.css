@@ -261,3 +261,27 @@
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='2' height='2' viewBox='0 0 2 2'><rect x='0' y='0' width='2' height='1' fill='rgba(0, 0, 0, .27)'></rect></svg>");
   }
 }
+
+.chrome-tab.chrome-new-tab .chrome-open-image {
+  background-color: rgb(222, 225, 230);
+  border-radius: 14%;
+  flex-shrink: 0;
+  flex-grow: 0;
+  height: 16px;
+  width: 16px;
+  background-size: 16px;
+  margin-left: 4px;
+}
+
+.chrome-open-image:hover {
+  background-color: rgba(255, 255, 255, 0.74);
+}
+
+
+@media (max-width:961px) {
+  .chrome-open-image {
+    left: 34%;
+  }
+}
+
+

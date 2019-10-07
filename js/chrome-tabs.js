@@ -49,7 +49,13 @@
       </div>
     </div>
   `
-
+  const newTabButtonTemplate = `
+    <div class="chrome-tab chrome-new-tab" style="pointer-events: auto;">
+      <div class="chrome-tab-background">
+      </div>
+      <div class="chrome-open-image"></div>
+    </div>
+  `
   const defaultTapProperties = {
     title: 'New tab',
     favicon: false
@@ -74,6 +80,7 @@
       this.setupEvents()
       this.layoutTabs()
       this.setupDraggabilly()
+      this.setupNewButton()
     }
 
     emit(eventName, data) {
@@ -99,6 +106,13 @@
         if ([this.el, this.tabContentEl].includes(event.target)) this.addTab()
       })
 
+      this.el.addEventListener('click', event => {
+        console.log(event.target.classList.contains('chrome-open-image'))
+        if (event.target.classList.contains('chrome-open-image')) {
+          console.log('Omo, clicked')
+          this.addTab()
+        }
+      })
       this.tabEls.forEach((tabEl) => this.setTabCloseEventListener(tabEl))
     }
 
@@ -199,7 +213,7 @@
       }
 
       tabProperties = Object.assign({}, defaultTapProperties, tabProperties)
-      this.tabContentEl.appendChild(tabEl)
+      this.tabContentEl.insertBefore(tabEl, this.tabContentEl.lastChild)
       this.setTabCloseEventListener(tabEl)
       this.updateTab(tabEl, tabProperties)
       this.emit('tabAdd', { tabEl })
@@ -243,6 +257,8 @@
       this.layoutTabs()
       this.setupDraggabilly()
     }
+
+    
 
     updateTab(tabEl, tabProperties) {
       tabEl.querySelector('.chrome-tab-title').textContent = tabProperties.title
@@ -353,6 +369,26 @@
         tabEl.parentNode.insertBefore(tabEl, this.tabEls[destinationIndex + 1])
       }
       this.emit('tabReorder', { tabEl, originIndex, destinationIndex })
+      this.layoutTabs()
+    }
+
+    
+
+    setupNewButton() {
+      const div = document.createElement('div')
+      div.innerHTML = newTabButtonTemplate
+      const tabEl = div.firstElementChild
+      let favicon = tabEl.querySelector('.chrome-open-image');
+      Object.assign(favicon.style,{
+                      'background-image':`url('images/add-favicon.png')`,
+                      'top': '25%',
+                      'left': '10%',
+                      'position': 'absolute',
+                      'background-position': 'center center',
+                      'background-repeat': 'no-repeat',
+                      'background-size': '21px',
+      });
+      this.tabContentEl.appendChild(tabEl)
       this.layoutTabs()
     }
   }
