@@ -22,11 +22,10 @@ activeTabBackgroundColor = #fff
     display inline-flex
     align-items center
     justify-content center
-    margin-left 0
     
     .new-tab-button
-      height 30px
-      width 30px
+      height 28px
+      width 28px
       line-height 0
       border-radius 50%
       font-weight 100
@@ -47,6 +46,12 @@ activeTabBackgroundColor = #fff
     width 100%
     height 100%
     transition width .1s
+    overflow hidden
+    margin-right 5px
+
+    &::-webkit-scrollbar
+      width 10px;
+
 
   .chrome-tab
     position absolute
