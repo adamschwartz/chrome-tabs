@@ -245,7 +245,7 @@
       //set and use this.tabsLimitReached immediately
       if (this.tabEls && (this.tabsLimitReached = TAB_CONTENT_MIN_WIDTH * this.tabEls.length > this.tabContentEl.offsetWidth))
         return alert("You have too many tabs open. Consider closing unused tab.");
-        
+
       const tabEl = this.createNewTabEl();
 
       if (animate) {
