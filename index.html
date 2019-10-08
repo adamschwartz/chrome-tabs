@@ -112,18 +112,14 @@
       </div>
     </div>
 
-    <!-- <script src="https://unpkg.com/draggabilly@2.2.0/dist/draggabilly.pkgd.min.js"></script> -->
-    <script src="js/draggabilly.min.js"></script>
+    <script src="https://unpkg.com/draggabilly@2.2.0/dist/draggabilly.pkgd.min.js"></script>
+    <!-- <script src="js/draggabilly.min.js"></script> -->
     <script src="js/chrome-tabs.js"></script>
     <script>
       var el = document.querySelector('.chrome-tabs')
       var chromeTabs = new ChromeTabs()
 
       chromeTabs.init(el)
-
-      el.addEventListener('activeTabChange', ({ detail }) => console.log('Active tab changed', detail.tabEl))
-      el.addEventListener('tabAdd', ({ detail }) => console.log('Tab added', detail.tabEl))
-      el.addEventListener('tabRemove', ({ detail }) => console.log('Tab removed', detail.tabEl))
 
       document.querySelector('button[data-add-tab]').addEventListener('click', _ => {
         chromeTabs.addTab({
