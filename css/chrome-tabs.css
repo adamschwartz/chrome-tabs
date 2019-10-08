@@ -45,9 +45,6 @@
   overflow: hidden;
   margin-right: 5px;
 }
-.chrome-tabs .chrome-tabs-content::-webkit-scrollbar {
-  width: 10px;
-}
 .chrome-tabs .chrome-tab {
   position: absolute;
   left: 0;
