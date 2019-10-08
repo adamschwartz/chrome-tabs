@@ -52,7 +52,7 @@
     </div>
   `;
   const newTabButtonTemplate = `
-    <div class="new-tab-button-wrapper" style="pointer-events: auto;">
+    <div class="new-tab-button-wrapper">
       <button class="new-tab-button">✚</button>
     </div>
   `;
@@ -79,8 +79,8 @@
       this.setupStyleEl();
       this.setupEvents();
       this.layoutTabs();
+      this.setupNewTabButton();
       this.setupDraggabilly();
-      this.setupNewButton();
     }
 
     emit(eventName, data) {
@@ -226,10 +226,13 @@
       });
       this.styleEl.innerHTML = styleHTML;
 
-      if (this.tabContentEl.parentNode.offsetWidth - this.tabContentEl.offsetWidth > NEW_TAB_BUTTON_AREA + (TAB_CONTENT_MARGIN / 2) || tabsLen < 5)
+      if (this.tabContentEl.parentNode.offsetWidth - this.tabContentEl.offsetWidth > NEW_TAB_BUTTON_AREA + (TAB_CONTENT_MARGIN / 2) || tabsLen < 5) {
         this.tabContentEl.style.width = `${(this.tabEls[0] ?
           this.tabEls[0].offsetWidth * tabsLen : 0) - (tabsLen > 1 ?
           ((tabsLen * TAB_CONTENT_MARGIN * 2) - TAB_CONTENT_MIN_WIDTH + TAB_CONTENT_MARGIN) : 0)}px`;
+        this.tabContentEl.nextElementSibling.classList.remove('overflow-shadow');
+      } else this.tabContentEl.nextElementSibling.classList.add('overflow-shadow');
+
     }
 
     createNewTabEl() {
@@ -435,7 +438,7 @@
       this.layoutTabs();
     }
 
-    setupNewButton() {
+    setupNewTabButton() {
       this.tabContentEl.insertAdjacentHTML('afterend', newTabButtonTemplate);
       this.layoutTabs();
     }

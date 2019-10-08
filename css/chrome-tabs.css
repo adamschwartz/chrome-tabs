@@ -17,7 +17,19 @@
 .chrome-tabs .new-tab-button-wrapper {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  background: inherit;
+  pointer-events: auto;
+  height: 100%;
+  width: 80px;
+  position: relative;
+  z-index: 5;
+  border-radius: 17px;
+  pointer-events: auto;
+  transition: padding 0.35s;
+}
+.chrome-tabs .new-tab-button-wrapper.overflow-shadow {
+  box-shadow: -5px 1px 5px #ccc, 20px 0 0 #dee1e6;
+  padding-left: 4px;
 }
 .chrome-tabs .new-tab-button-wrapper .new-tab-button {
   height: 28px;
@@ -39,10 +51,9 @@
 }
 .chrome-tabs .chrome-tabs-content {
   position: relative;
-  width: 100%;
+  width: auto;
   height: 100%;
   transition: width 0.1s;
-  overflow: hidden;
   margin-right: 5px;
 }
 .chrome-tabs .chrome-tab {
