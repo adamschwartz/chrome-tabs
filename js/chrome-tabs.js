@@ -1,41 +1,41 @@
 ((window, factory) => {
   if (typeof define == "function" && define.amd) {
-    define(["draggabilly"], Draggabilly => factory(window, Draggabilly));
+    define(["draggabilly"], Draggabilly => factory(window, Draggabilly))
   } else if (typeof module == "object" && module.exports) {
-    module.exports = factory(window, require("draggabilly"));
+    module.exports = factory(window, require("draggabilly"))
   } else {
-    window.ChromeTabs = factory(window, window.Draggabilly);
+    window.ChromeTabs = factory(window, window.Draggabilly)
   }
 })(window, (window, Draggabilly) => {
-  const TAB_CONTENT_MARGIN = 10;
-  const TAB_CONTENT_OVERLAP_DISTANCE = 1;
+  const TAB_CONTENT_MARGIN = 10
+  const TAB_CONTENT_OVERLAP_DISTANCE = 1
 
   const TAB_OVERLAP_DISTANCE =
-    TAB_CONTENT_MARGIN * 2 + TAB_CONTENT_OVERLAP_DISTANCE;
+    TAB_CONTENT_MARGIN * 2 + TAB_CONTENT_OVERLAP_DISTANCE
 
-  const TAB_CONTENT_MIN_WIDTH = 24;
-  const TAB_CONTENT_MAX_WIDTH = 240;
+  const TAB_CONTENT_MIN_WIDTH = 24
+  const TAB_CONTENT_MAX_WIDTH = 240
 
-  const TAB_SIZE_SMALL = 84;
-  const TAB_SIZE_SMALLER = 60;
-  const TAB_SIZE_MINI = 48;
-  const NEW_TAB_BUTTON_AREA = 90;
+  const TAB_SIZE_SMALL = 84
+  const TAB_SIZE_SMALLER = 60
+  const TAB_SIZE_MINI = 48
+  const NEW_TAB_BUTTON_AREA = 90
 
-  const noop = _ => {};
+  const noop = _ => {}
 
   const closest = (value, array) => {
-    let closest = Infinity;
-    let closestIndex = -1;
+    let closest = Infinity
+    let closestIndex = -1
 
     array.forEach((v, i) => {
       if (Math.abs(value - v) < closest) {
-        closest = Math.abs(value - v);
-        closestIndex = i;
+        closest = Math.abs(value - v)
+        closestIndex = i
       }
-    });
+    })
 
-    return closestIndex;
-  };
+    return closestIndex
+  }
 
   const tabTemplate = `
     <div class="chrome-tab">
@@ -50,37 +50,37 @@
         <div class="chrome-tab-close"></div>
       </div>
     </div>
-  `;
+  `
   const newTabButtonTemplate = `
     <div class="new-tab-button-wrapper">
       <button class="new-tab-button">✚</button>
     </div>
-  `;
+  `
   const defaultTapProperties = {
     title: "New tab",
     favicon: false
-  };
+  }
 
-  let instanceId = 0;
+  let instanceId = 0
 
   class ChromeTabs {
     constructor() {
-      this.draggabillies = [];
+      this.draggabillies = []
     }
 
     init(el) {
-      this.el = el;
+      this.el = el
 
-      this.instanceId = instanceId;
-      this.el.setAttribute("data-chrome-tabs-instance-id", this.instanceId);
-      instanceId += 1;
+      this.instanceId = instanceId
+      this.el.setAttribute("data-chrome-tabs-instance-id", this.instanceId)
+      instanceId += 1
 
-      this.setupCustomProperties();
-      this.setupStyleEl();
-      this.setupEvents();
-      this.layoutTabs();
-      this.setupNewTabButton();
-      this.setupDraggabilly();
+      this.setupCustomProperties()
+      this.setupStyleEl()
+      this.setupEvents()
+      this.layoutTabs()
+      this.setupNewTabButton()
+      this.setupDraggabilly()
     }
 
     emit(eventName, data) {
@@ -88,133 +88,133 @@
         new CustomEvent(eventName, {
           detail: data
         })
-      );
+      )
     }
 
     setupCustomProperties() {
       this.el.style.setProperty(
         "--tab-content-margin",
         `${TAB_CONTENT_MARGIN}px`
-      );
+      )
     }
 
     setupStyleEl() {
-      this.styleEl = document.createElement("style");
-      this.el.appendChild(this.styleEl);
+      this.styleEl = document.createElement("style")
+      this.el.appendChild(this.styleEl)
     }
 
     setupEvents() {
       window.addEventListener("resize", _ => {
-        this.cleanUpPreviouslyDraggedTabs();
-        this.layoutTabs();
-      });
+        this.cleanUpPreviouslyDraggedTabs()
+        this.layoutTabs()
+      })
 
       this.el.addEventListener("dblclick", event => {
-        if ([this.el, this.tabContentEl].includes(event.target)) this.addTab();
-      });
+        if ([this.el, this.tabContentEl].includes(event.target)) this.addTab()
+      })
 
       this.el.addEventListener("click", ({
         target
       }) => {
         if (target.classList.contains("new-tab-button")) {
-          this.addTab();
+          this.addTab()
         }
-      });
-      this.tabEls.forEach(tabEl => this.setTabCloseEventListener(tabEl));
+      })
+      this.tabEls.forEach(tabEl => this.setTabCloseEventListener(tabEl))
     }
 
     get tabEls() {
       return Array.prototype.slice.call(
         this.el.querySelectorAll(".chrome-tab")
-      );
+      )
     }
 
     get tabContentEl() {
-      return this.el.querySelector(".chrome-tabs-content");
+      return this.el.querySelector(".chrome-tabs-content")
     }
 
     get tabContentWidths() {
-      const numberOfTabs = this.tabEls.length;
-      const tabsContentWidth = this.tabContentEl.parentNode.clientWidth - NEW_TAB_BUTTON_AREA;
+      const numberOfTabs = this.tabEls.length
+      const tabsContentWidth = this.tabContentEl.parentNode.clientWidth - NEW_TAB_BUTTON_AREA
       const tabsCumulativeOverlappedWidth =
-        (numberOfTabs - 1) * TAB_CONTENT_OVERLAP_DISTANCE;
+        (numberOfTabs - 1) * TAB_CONTENT_OVERLAP_DISTANCE
       const targetWidth =
         (tabsContentWidth -
           2 * TAB_CONTENT_MARGIN +
           tabsCumulativeOverlappedWidth) /
-        numberOfTabs;
+        numberOfTabs
       const clampedTargetWidth = Math.max(
         TAB_CONTENT_MIN_WIDTH,
         Math.min(TAB_CONTENT_MAX_WIDTH, targetWidth)
-      );
-      const flooredClampedTargetWidth = Math.floor(clampedTargetWidth);
+      )
+      const flooredClampedTargetWidth = Math.floor(clampedTargetWidth)
       const totalTabsWidthUsingTarget =
         flooredClampedTargetWidth * numberOfTabs +
         2 * TAB_CONTENT_MARGIN -
-        tabsCumulativeOverlappedWidth;
+        tabsCumulativeOverlappedWidth
       const totalExtraWidthDueToFlooring =
-        tabsContentWidth - totalTabsWidthUsingTarget;
+        tabsContentWidth - totalTabsWidthUsingTarget
 
       // TODO - Support tabs with different widths / e.g. "pinned" tabs
-      const widths = [];
-      let extraWidthRemaining = totalExtraWidthDueToFlooring;
+      const widths = []
+      let extraWidthRemaining = totalExtraWidthDueToFlooring
       for (let i = 0; i < numberOfTabs; i += 1) {
         const extraWidth =
           flooredClampedTargetWidth < TAB_CONTENT_MAX_WIDTH &&
           extraWidthRemaining > 0 ?
           1 :
-          0;
-        widths.push(flooredClampedTargetWidth + extraWidth);
-        if (extraWidthRemaining > 0) extraWidthRemaining -= 1;
+          0
+        widths.push(flooredClampedTargetWidth + extraWidth)
+        if (extraWidthRemaining > 0) extraWidthRemaining -= 1
       }
 
-      return widths;
+      return widths
     }
 
     get tabContentPositions() {
-      const positions = [];
-      const tabContentWidths = this.tabContentWidths;
+      const positions = []
+      const tabContentWidths = this.tabContentWidths
 
-      let position = TAB_CONTENT_MARGIN;
+      let position = TAB_CONTENT_MARGIN
       tabContentWidths.forEach((width, i) => {
-        const offset = i * TAB_CONTENT_OVERLAP_DISTANCE;
-        positions.push(position - offset);
-        position += width;
-      });
+        const offset = i * TAB_CONTENT_OVERLAP_DISTANCE
+        positions.push(position - offset)
+        position += width
+      })
 
-      return positions;
+      return positions
     }
 
     get tabPositions() {
-      const positions = [];
+      const positions = []
 
       this.tabContentPositions.forEach(contentPosition => {
-        positions.push(contentPosition - TAB_CONTENT_MARGIN);
-      });
+        positions.push(contentPosition - TAB_CONTENT_MARGIN)
+      })
 
-      return positions;
+      return positions
     }
 
     layoutTabs() {
-      const tabContentWidths = this.tabContentWidths;
-      let tabsLen = this.tabEls.length;
+      const tabContentWidths = this.tabContentWidths
+      let tabsLen = this.tabEls.length
 
       this.tabEls.forEach((tabEl, i) => {
-        const contentWidth = tabContentWidths[i];
-        const width = contentWidth + 2 * TAB_CONTENT_MARGIN;
+        const contentWidth = tabContentWidths[i]
+        const width = contentWidth + 2 * TAB_CONTENT_MARGIN
 
-        tabEl.style.width = width + "px";
-        tabEl.removeAttribute("is-small");
-        tabEl.removeAttribute("is-smaller");
-        tabEl.removeAttribute("is-mini");
+        tabEl.style.width = width + "px"
+        tabEl.removeAttribute("is-small")
+        tabEl.removeAttribute("is-smaller")
+        tabEl.removeAttribute("is-mini")
 
-        if (contentWidth < TAB_SIZE_SMALL) tabEl.setAttribute("is-small", "");
+        if (contentWidth < TAB_SIZE_SMALL) tabEl.setAttribute("is-small", "")
         if (contentWidth < TAB_SIZE_SMALLER)
-          tabEl.setAttribute("is-smaller", "");
-        if (contentWidth < TAB_SIZE_MINI) tabEl.setAttribute("is-mini", "");
-      });
+          tabEl.setAttribute("is-smaller", "")
+        if (contentWidth < TAB_SIZE_MINI) tabEl.setAttribute("is-mini", "")
+      })
 
-      let styleHTML = "";
+      let styleHTML = ""
       this.tabPositions.forEach((position, i) => {
         styleHTML += `
           .chrome-tabs[data-chrome-tabs-instance-id="${
@@ -222,228 +222,225 @@
           }"] .chrome-tab:nth-child(${i + 1}) {
             transform: translate3d(${position}px, 0, 0)
           }
-        `;
-      });
-      this.styleEl.innerHTML = styleHTML;
+        `
+      })
+      this.styleEl.innerHTML = styleHTML
 
       if (this.el.offsetWidth - this.tabContentEl.offsetWidth > NEW_TAB_BUTTON_AREA + (TAB_CONTENT_MARGIN / 2) || tabsLen < 5) {
-        this.tabContentEl.style.width = `${(this.tabEls[0] ?
-          this.tabEls[0].offsetWidth * tabsLen : 0) - (tabsLen > 1 ?
-          ((tabsLen * TAB_CONTENT_MARGIN * 2) - TAB_CONTENT_MIN_WIDTH + TAB_CONTENT_MARGIN) : 0)}px`;
-        this.tabContentEl.nextElementSibling.classList.remove('overflow-shadow');
+        this.tabContentEl.style.width = `${(this.tabEls[0] ? this.tabEls[0].offsetWidth * tabsLen : 0) - (tabsLen > 1 ? ((tabsLen * TAB_CONTENT_MARGIN * 2) - TAB_CONTENT_MIN_WIDTH + TAB_CONTENT_MARGIN) : 0)}px`
+        this.tabContentEl.nextElementSibling.classList.remove('overflow-shadow')
       } else
-        this.tabContentEl.nextElementSibling.classList.add('overflow-shadow');
-
+        this.tabContentEl.nextElementSibling.classList.add('overflow-shadow')
     }
 
     createNewTabEl() {
-      const div = document.createElement("div");
-      div.innerHTML = tabTemplate;
-      return div.firstElementChild;
+      const div = document.createElement("div")
+      div.innerHTML = tabTemplate
+      return div.firstElementChild
     }
 
     addTab(tabProperties, {
       animate = true,
       background = false
     } = {}) {
-      const tabEl = this.createNewTabEl();
+      const tabEl = this.createNewTabEl()
 
       if (animate) {
-        tabEl.classList.add("chrome-tab-was-just-added");
+        tabEl.classList.add("chrome-tab-was-just-added")
         setTimeout(
           () => tabEl.classList.remove("chrome-tab-was-just-added"),
           500
-        );
+        )
       }
 
-      tabProperties = Object.assign({}, defaultTapProperties, tabProperties);
-      this.tabContentEl.insertBefore(tabEl, this.tabContentEl.lastChild);
+      tabProperties = Object.assign({}, defaultTapProperties, tabProperties)
+      this.tabContentEl.insertBefore(tabEl, this.tabContentEl.lastChild)
 
-      this.setTabCloseEventListener(tabEl);
-      this.updateTab(tabEl, tabProperties);
+      this.setTabCloseEventListener(tabEl)
+      this.updateTab(tabEl, tabProperties)
       this.emit("tabAdd", {
         tabEl
-      });
+      })
 
-      if (!background) this.setCurrentTab(tabEl);
-      this.cleanUpPreviouslyDraggedTabs();
-      this.layoutTabs();
-      this.setupDraggabilly();
+      if (!background) this.setCurrentTab(tabEl)
+      this.cleanUpPreviouslyDraggedTabs()
+      this.layoutTabs()
+      this.setupDraggabilly()
     }
 
     setTabCloseEventListener(tabEl) {
       tabEl
         .querySelector(".chrome-tab-close")
-        .addEventListener("click", _ => this.removeTab(tabEl));
+        .addEventListener("click", _ => this.removeTab(tabEl))
     }
 
     get activeTabEl() {
-      return this.el.querySelector(".chrome-tab[active]");
+      return this.el.querySelector(".chrome-tab[active]")
     }
 
     hasActiveTab() {
-      return !!this.activeTabEl;
+      return !!this.activeTabEl
     }
 
     setCurrentTab(tabEl) {
-      const activeTabEl = this.activeTabEl;
-      if (activeTabEl === tabEl) return;
-      if (activeTabEl) activeTabEl.removeAttribute("active");
-      tabEl.setAttribute("active", "");
+      const activeTabEl = this.activeTabEl
+      if (activeTabEl === tabEl) return
+      if (activeTabEl) activeTabEl.removeAttribute("active")
+      tabEl.setAttribute("active", "")
       this.emit("activeTabChange", {
         tabEl
-      });
+      })
     }
 
     removeTab(tabEl) {
       if (tabEl === this.activeTabEl) {
         if (tabEl.nextElementSibling) {
-          this.setCurrentTab(tabEl.nextElementSibling);
+          this.setCurrentTab(tabEl.nextElementSibling)
         } else if (tabEl.previousElementSibling) {
-          this.setCurrentTab(tabEl.previousElementSibling);
+          this.setCurrentTab(tabEl.previousElementSibling)
         }
       }
-      tabEl.parentNode.removeChild(tabEl);
+      tabEl.parentNode.removeChild(tabEl)
       this.emit("tabRemove", {
         tabEl
-      });
-      this.cleanUpPreviouslyDraggedTabs();
-      this.layoutTabs();
-      this.setupDraggabilly();
+      })
+      this.cleanUpPreviouslyDraggedTabs()
+      this.layoutTabs()
+      this.setupDraggabilly()
     }
 
     updateTab(tabEl, tabProperties) {
       tabEl.querySelector(".chrome-tab-title").textContent =
-        tabProperties.title;
+        tabProperties.title
 
-      const faviconEl = tabEl.querySelector(".chrome-tab-favicon");
+      const faviconEl = tabEl.querySelector(".chrome-tab-favicon")
       if (tabProperties.favicon) {
-        faviconEl.style.backgroundImage = `url('${tabProperties.favicon}')`;
-        faviconEl.removeAttribute("hidden", "");
+        faviconEl.style.backgroundImage = `url('${tabProperties.favicon}')`
+        faviconEl.removeAttribute("hidden", "")
       } else {
-        faviconEl.setAttribute("hidden", "");
-        faviconEl.removeAttribute("style");
+        faviconEl.setAttribute("hidden", "")
+        faviconEl.removeAttribute("style")
       }
 
       if (tabProperties.id) {
-        tabEl.setAttribute("data-tab-id", tabProperties.id);
+        tabEl.setAttribute("data-tab-id", tabProperties.id)
       }
     }
 
     cleanUpPreviouslyDraggedTabs() {
       this.tabEls.forEach(tabEl =>
         tabEl.classList.remove("chrome-tab-was-just-dragged")
-      );
+      )
     }
 
     setupDraggabilly() {
-      const tabEls = this.tabEls;
-      const tabPositions = this.tabPositions;
+      const tabEls = this.tabEls
+      const tabPositions = this.tabPositions
 
       if (this.isDragging) {
-        this.isDragging = false;
-        this.el.classList.remove("chrome-tabs-is-sorting");
+        this.isDragging = false
+        this.el.classList.remove("chrome-tabs-is-sorting")
         this.draggabillyDragging.element.classList.remove(
           "chrome-tab-is-dragging"
-        );
-        this.draggabillyDragging.element.style.transform = "";
-        this.draggabillyDragging.dragEnd();
-        this.draggabillyDragging.isDragging = false;
+        )
+        this.draggabillyDragging.element.style.transform = ""
+        this.draggabillyDragging.dragEnd()
+        this.draggabillyDragging.isDragging = false
         this.draggabillyDragging.positionDrag = noop; // Prevent Draggabilly from updating tabEl.style.transform in later frames
-        this.draggabillyDragging.destroy();
-        this.draggabillyDragging = null;
+        this.draggabillyDragging.destroy()
+        this.draggabillyDragging = null
       }
 
-      this.draggabillies.forEach(d => d.destroy());
+      this.draggabillies.forEach(d => d.destroy())
 
       tabEls.forEach((tabEl, originalIndex) => {
-        const originalTabPositionX = tabPositions[originalIndex];
+        const originalTabPositionX = tabPositions[originalIndex]
         const draggabilly = new Draggabilly(tabEl, {
           axis: "x",
           handle: ".chrome-tab-drag-handle",
           containment: this.tabContentEl
-        });
+        })
 
-        this.draggabillies.push(draggabilly);
+        this.draggabillies.push(draggabilly)
 
         draggabilly.on("pointerDown", _ => {
-          this.setCurrentTab(tabEl);
-        });
+          this.setCurrentTab(tabEl)
+        })
 
         draggabilly.on("dragStart", _ => {
-          this.isDragging = true;
-          this.draggabillyDragging = draggabilly;
-          tabEl.classList.add("chrome-tab-is-dragging");
-          this.el.classList.add("chrome-tabs-is-sorting");
-        });
+          this.isDragging = true
+          this.draggabillyDragging = draggabilly
+          tabEl.classList.add("chrome-tab-is-dragging")
+          this.el.classList.add("chrome-tabs-is-sorting")
+        })
 
         draggabilly.on("dragEnd", _ => {
-          this.isDragging = false;
-          const finalTranslateX = parseFloat(tabEl.style.left, 10);
-          tabEl.style.transform = `translate3d(0, 0, 0)`;
+          this.isDragging = false
+          const finalTranslateX = parseFloat(tabEl.style.left, 10)
+          tabEl.style.transform = `translate3d(0, 0, 0)`
 
           // Animate dragged tab back into its place
           requestAnimationFrame(_ => {
-            tabEl.style.left = "0";
-            tabEl.style.transform = `translate3d(${finalTranslateX}px, 0, 0)`;
+            tabEl.style.left = "0"
+            tabEl.style.transform = `translate3d(${finalTranslateX}px, 0, 0)`
 
             requestAnimationFrame(_ => {
-              tabEl.classList.remove("chrome-tab-is-dragging");
-              this.el.classList.remove("chrome-tabs-is-sorting");
+              tabEl.classList.remove("chrome-tab-is-dragging")
+              this.el.classList.remove("chrome-tabs-is-sorting")
 
-              tabEl.classList.add("chrome-tab-was-just-dragged");
+              tabEl.classList.add("chrome-tab-was-just-dragged")
 
               requestAnimationFrame(_ => {
-                tabEl.style.transform = "";
+                tabEl.style.transform = ""
 
-                this.layoutTabs();
-                this.setupDraggabilly();
-              });
-            });
-          });
-        });
+                this.layoutTabs()
+                this.setupDraggabilly()
+              })
+            })
+          })
+        })
 
         draggabilly.on("dragMove", (event, pointer, moveVector) => {
           // Current index be computed within the event since it can change during the dragMove
-          const tabEls = this.tabEls;
-          const currentIndex = tabEls.indexOf(tabEl);
+          const tabEls = this.tabEls
+          const currentIndex = tabEls.indexOf(tabEl)
 
-          const currentTabPositionX = originalTabPositionX + moveVector.x;
+          const currentTabPositionX = originalTabPositionX + moveVector.x
           const destinationIndexTarget = closest(
             currentTabPositionX,
             tabPositions
-          );
+          )
           const destinationIndex = Math.max(
             0,
             Math.min(tabEls.length, destinationIndexTarget)
-          );
+          )
 
           if (currentIndex !== destinationIndex) {
-            this.animateTabMove(tabEl, currentIndex, destinationIndex);
+            this.animateTabMove(tabEl, currentIndex, destinationIndex)
           }
-        });
-      });
+        })
+      })
     }
 
     animateTabMove(tabEl, originIndex, destinationIndex) {
       if (destinationIndex < originIndex) {
-        tabEl.parentNode.insertBefore(tabEl, this.tabEls[destinationIndex]);
+        tabEl.parentNode.insertBefore(tabEl, this.tabEls[destinationIndex])
       } else {
-        tabEl.parentNode.insertBefore(tabEl, this.tabEls[destinationIndex + 1]);
+        tabEl.parentNode.insertBefore(tabEl, this.tabEls[destinationIndex + 1])
       }
       this.emit("tabReorder", {
         tabEl,
         originIndex,
         destinationIndex
-      });
-      this.layoutTabs();
+      })
+      this.layoutTabs()
     }
 
     setupNewTabButton() {
-      this.tabContentEl.insertAdjacentHTML('afterend', newTabButtonTemplate);
-      this.layoutTabs();
+      this.tabContentEl.insertAdjacentHTML('afterend', newTabButtonTemplate)
+      this.layoutTabs()
     }
   }
 
-  return ChromeTabs;
-});
+  return ChromeTabs
+})
