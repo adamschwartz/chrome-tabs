@@ -211,6 +211,7 @@
 
     setTabCloseEventListener(tabEl) {
       tabEl.querySelector('.chrome-tab-close').addEventListener('click', _ => this.removeTab(tabEl))
+      tabEl.addEventListener('auxclick', _ => this.removeTab(tabEl))
     }
 
     get activeTabEl() {
