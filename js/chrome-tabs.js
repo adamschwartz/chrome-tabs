@@ -7,10 +7,11 @@
     window.ChromeTabs = factory(window, window.Draggabilly)
   }
 })(window, (window, Draggabilly) => {
-  const TAB_CONTENT_MARGIN = 9
+  const TAB_CONTENT_MARGIN = 10
   const TAB_CONTENT_OVERLAP_DISTANCE = 1
 
-  const TAB_OVERLAP_DISTANCE = (TAB_CONTENT_MARGIN * 2) + TAB_CONTENT_OVERLAP_DISTANCE
+  const TAB_OVERLAP_DISTANCE =
+    TAB_CONTENT_MARGIN * 2 + TAB_CONTENT_OVERLAP_DISTANCE
 
   const TAB_CONTENT_MIN_WIDTH = 24
   const TAB_CONTENT_MAX_WIDTH = 240
@@ -18,6 +19,7 @@
   const TAB_SIZE_SMALL = 84
   const TAB_SIZE_SMALLER = 60
   const TAB_SIZE_MINI = 48
+  const NEW_TAB_BUTTON_AREA = 90
 
   const noop = _ => {}
 
@@ -50,6 +52,12 @@
     </div>
   `
 
+  const newTabButtonTemplate = `
+    <div class="new-tab-button-wrapper">
+      <button class="new-tab-button">✚</button>
+    </div>
+  `
+
   const defaultTapProperties = {
     title: 'New tab',
     favicon: false
@@ -73,6 +81,7 @@
       this.setupStyleEl()
       this.setupEvents()
       this.layoutTabs()
+      this.setupNewTabButton()
       this.setupDraggabilly()
     }
 
@@ -99,6 +108,11 @@
         if ([this.el, this.tabContentEl].includes(event.target)) this.addTab()
       })
 
+      this.el.addEventListener("click", ({ target }) => {
+        if (target.classList.contains("new-tab-button"))
+          this.addTab()
+      })
+
       this.tabEls.forEach((tabEl) => this.setTabCloseEventListener(tabEl))
     }
 
@@ -112,7 +126,7 @@
 
     get tabContentWidths() {
       const numberOfTabs = this.tabEls.length
-      const tabsContentWidth = this.tabContentEl.clientWidth
+      const tabsContentWidth = this.el.clientWidth - NEW_TAB_BUTTON_AREA
       const tabsCumulativeOverlappedWidth = (numberOfTabs - 1) * TAB_CONTENT_OVERLAP_DISTANCE
       const targetWidth = (tabsContentWidth - (2 * TAB_CONTENT_MARGIN) + tabsCumulativeOverlappedWidth) / numberOfTabs
       const clampedTargetWidth = Math.max(TAB_CONTENT_MIN_WIDTH, Math.min(TAB_CONTENT_MAX_WIDTH, targetWidth))
@@ -158,6 +172,7 @@
 
     layoutTabs() {
       const tabContentWidths = this.tabContentWidths
+      let tabsLen = this.tabEls.length
 
       this.tabEls.forEach((tabEl, i) => {
         const contentWidth = tabContentWidths[i]
@@ -182,6 +197,11 @@
         `
       })
       this.styleEl.innerHTML = styleHTML
+
+      if (this.el.offsetWidth - this.tabContentEl.offsetWidth > NEW_TAB_BUTTON_AREA + (TAB_CONTENT_MARGIN / 2) || tabsLen < 5) {
+        this.tabContentEl.style.width = `${ (this.tabEls[0] ? this.tabEls[0].offsetWidth * tabsLen : 0) - (tabsLen > 0 ? ((tabsLen * TAB_CONTENT_MARGIN * 2) - TAB_CONTENT_MIN_WIDTH + TAB_CONTENT_MARGIN) : 0) }px`
+        this.tabContentEl.nextElementSibling.classList.remove('overflow-shadow')
+      } else this.tabContentEl.nextElementSibling.classList.add('overflow-shadow')
     }
 
     createNewTabEl() {
@@ -353,6 +373,11 @@
         tabEl.parentNode.insertBefore(tabEl, this.tabEls[destinationIndex + 1])
       }
       this.emit('tabReorder', { tabEl, originIndex, destinationIndex })
+      this.layoutTabs()
+    }
+
+    setupNewTabButton() {
+      this.tabContentEl.insertAdjacentHTML('afterend', newTabButtonTemplate)
       this.layoutTabs()
     }
   }

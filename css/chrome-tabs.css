@@ -8,15 +8,53 @@
   background: #dee1e6;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
+  display: flex;
 }
 .chrome-tabs * {
   box-sizing: inherit;
   font: inherit;
 }
+.chrome-tabs .new-tab-button-wrapper {
+  display: inline-flex;
+  align-items: center;
+  background: inherit;
+  pointer-events: auto;
+  height: 100%;
+  width: 80px;
+  position: relative;
+  z-index: 5;
+  border-radius: 17px;
+  pointer-events: auto;
+  transition: padding 0.35s;
+}
+.chrome-tabs .new-tab-button-wrapper.overflow-shadow {
+  box-shadow: -5px 1px 5px #ccc, 20px 0 0 #dee1e6;
+  padding-left: 4px;
+}
+.chrome-tabs .new-tab-button-wrapper .new-tab-button {
+  height: 28px;
+  width: 28px;
+  line-height: 0;
+  border-radius: 50%;
+  font-weight: 100;
+  font-size: 16px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #555;
+  box-shadow: none;
+  transition: background 0.35s;
+  cursor: default;
+}
+.chrome-tabs .new-tab-button-wrapper .new-tab-button:hover {
+  background: rgba(150,150,150,0.25);
+}
 .chrome-tabs .chrome-tabs-content {
   position: relative;
-  width: 100%;
+  width: auto;
   height: 100%;
+  transition: width 0.1s;
+  margin-right: 5px;
 }
 .chrome-tabs .chrome-tab {
   position: absolute;
